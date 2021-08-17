@@ -1,0 +1,46 @@
+.e-input-wrapper {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	line-height: normal;
+}
+
+.e-input-wrapper .icon-clear {
+	width: 38px;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	color: #808695;
+	position: absolute;
+	right: 0;
+	z-index: 3;
+}
+
+.e-input-wrapper .e-input {
+	height: 38px;
+	line-height: 1.3;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #fff;
+	color: rgba(0, 0, 0, .85);
+	border-radius: 2px;
+	display: block;
+	padding-left: 10px;
+	border-color: #d2d2d2;
+}
+
+.e-input-wrapper .e-input:hover {
+	border-color: #bec8d2
+}
+
+.e-input-wrapper .e-input:focus {
+	border-color: #b4b4b4;
+	box-shadow: 0 0 0 2px rgba(180, 180, 180, 0.2);
+	outline: none;
+}
+
+.e-input-wrapper .e-input.e-theme-primary:focus {
+	border-color: #57a3f3 !important;
+	box-shadow: 0 0 0 2px rgba(45, 140, 240, .2) !important;
+	;
+}

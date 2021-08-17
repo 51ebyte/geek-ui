@@ -1,0 +1,45 @@
+.e-panel {
+	border: 1px solid #eee;
+	position: relative;
+	transition: all .2s ease-in-out;
+}
+
+.e-panel+.e-panel {
+	margin-top: 10px;
+}
+
+.e-panel:hover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+	border-color: transparent;
+	position: relative
+}
+
+.e-panel-header {
+	padding: 12px 15px;
+	border-bottom: 1px solid #eee;
+}
+
+.e-panel-body {
+	padding: 10px 15px;
+}
+
+.e-panel-footer {
+	padding: 10px 15px;
+	border-top: 1px solid #eee;
+}
+
+.e-panel-folded {
+	border-radius: 0px;
+}
+
+.e-panel-folded-title {
+	padding: 12px;
+}
+
+.e-panel-folded-title.border {
+	border-bottom: 1px solid #eee;
+}
+
+.e-panel-folded-body {
+	padding: 10px;
+}

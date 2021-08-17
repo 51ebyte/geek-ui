@@ -1,0 +1,130 @@
+.e-btn-container .e-button {
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.e-button {
+	height: 38px;
+	border: 1px solid #d2d2d2;
+	padding: 0 18px;
+	white-space: nowrap;
+	text-align: center;
+	font-size: 14px;
+	border-radius: 2px;
+	cursor: pointer;
+	background: 0 0;
+	color: #666;
+}
+
+.e-button-type--primary {
+	background-color: #2d8cf0;
+	color: #FFFFFF;
+	border-color: #2d8cf0;
+}
+
+.e-button-type--success {
+	background-color: #19be6b;
+	border: none;
+	color: #FFFFFF;
+}
+
+.e-button-type--warning {
+	background-color: #ff9900;
+	color: #FFFFFF;
+	border: none;
+}
+
+.e-button-type--error {
+	background-color: #ed4014;
+	color: #FFFFFF;
+	border: none;
+}
+
+.e-button-type--info {
+	background-color: #909399;
+	border: none;
+	color: #FFFFFF;
+}
+
+.e-button-type--primary.e-button-plain {
+	background: 0 0;
+	border-color: #1E9FFF;
+	color: #1E9FFF;
+}
+
+.e-button-type--success.e-button-plain {
+	background: 0 0;
+	border: 1px solid #009688;
+	color: #009688;
+}
+
+
+.e-button-type--warning.e-button-plain {
+	background: 0 0;
+	border: 1px solid #FFB800;
+	color: #FFB800;
+}
+
+.e-button-type--error.e-button-plain {
+	background: 0 0;
+	border: 1px solid #FF5722;
+	color: #FF5722;
+}
+
+.e-button-type--info.e-button-plain {
+	background: 0 0;
+	border: 1px solid #909399;
+	color: #909399;
+}
+
+.e-button-long {
+	width: 100%;
+}
+
+.e-button-circle {
+	border-radius: 50%;
+	padding: 12px;
+	height: auto;
+	line-height: unset;
+}
+
+.e-button-disabled,
+.e-button-disabled:active,
+.e-button-disabled:hover {
+	border-color: #eee !important;
+	background-color: #FBFBFB !important;
+	color: #d2d2d2 !important;
+	cursor: not-allowed !important;
+	opacity: 1;
+}
+
+.e-button-size--lg {
+	height: 44px;
+	line-height: 44px;
+	padding: 0 25px;
+	font-size: 16px;
+}
+
+.e-button-size--sm {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	font-size: 12px;
+}
+
+.e-button-size--xs {
+	height: 22px;
+	line-height: 22px;
+	padding: 0 5px;
+	font-size: 12px;
+}
+
+.e-button>.e-icon+span,
+.e-button>span+.e-icon {
+	margin-left: 4px;
+}
+
+.e-button>i,
+.e-button>span {
+	display: inline-block;
+}
