@@ -30,7 +30,7 @@ export default defineComponent({
 		},
 		wrap: {
 			type: Boolean,
-			default: false
+			default: true
 		}
 	},
 	setup(props, ctx) {

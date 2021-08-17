@@ -1,4 +1,6 @@
-.e-row {}
+.e-row-col {
+	box-sizing: border-box;
+}
 
 .e-row-col-span-1 {
 	width: calc(100% / 24);

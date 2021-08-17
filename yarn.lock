@@ -20,6 +20,11 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
+"@icon-park/vue-next@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@icon-park/vue-next/-/vue-next-1.3.3.tgz#18f60a527651f4527a01056344ece2db7c65b309"
+  integrity sha512-0Aykt/2eqrJcPTc79wdBPMO2JVBV46vfuiJVUcVzmhx/a/IRQN45p9+Hyhj2TSW0NP/obl+CCsThj+STBEkQjA==
+
 "@types/estree@^0.0.48":
   version "0.0.48"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.48.tgz#18dc8091b285df90db2f25aa7d906cfc394b7f74"

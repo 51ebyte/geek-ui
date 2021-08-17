@@ -10,10 +10,10 @@ export default defineComponent({
 	name: 'Col',
 	props: {
 		span: {
-			type: Number
+			type: [String, Number]
 		},
 		offset: {
-			type: Number
+			type: [String, Number]
 		},
 		color: {
 			type: String
@@ -22,7 +22,7 @@ export default defineComponent({
 			type: String
 		},
 		padding: {
-			type: Number
+			type: [String, Number]
 		}
 	},
 	setup(props, ctx) {
@@ -43,7 +43,7 @@ export default defineComponent({
 			}
 			option.childnre['color'] = color || '';
 			option.childnre['background'] = background || '';
-			option.childnre['padding'] = padding ? padding + 'px' : '';
+			option.childnre['padding'] = padding ? (typeof padding == 'string' ? padding : padding + 'px') : '';
 			return option;
 		});
 		const classs = computed(() => {

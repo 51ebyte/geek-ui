@@ -1,0 +1,190 @@
+.e-check.e-flex .e-check-item {
+	margin-right: 8px;
+}
+
+.e-check.e-flex .e-check-item:last-child {
+	margin-right: 0px;
+}
+
+.e-check-item {
+	height: 30px;
+	cursor: pointer;
+	position: relative;
+}
+
+.e-check-item.e-check-disabled {
+	cursor: no-drop;
+	color: #CCCCCC;
+}
+
+.e-check-item.e-check-disabled .e-check-input-span {
+	cursor: no-drop;
+	background-color: #f3f3f3;
+	border-color: #dcdee2;
+}
+
+.e-check-item .e-check-input {
+	position: absolute;
+	opacity: 0;
+}
+
+.e-check-item .e-check-input-span {
+	width: 16px;
+	height: 16px;
+	border: 1px solid #dcdee2;
+	border-radius: 2px;
+	background-color: #fff;
+	position: relative;
+	cursor: pointer;
+	transition: border-color .2s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+.e-check-item .e-check-input-span::after {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	left: 4px;
+	border-style: solid;
+	border-color: #FFFFFF;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	transform: rotate(45deg) scale(1.2);
+	transition: all .3s ease-in-out;
+}
+
+.e-check-item.e-check-checked .e-check-input-span {
+	border-color: #2d8cf0;
+	background-color: #2d8cf0;
+}
+
+.e-check-item.e-check-checked .e-check-input-span::after {
+	transform: rotate(45deg) scale(1);
+	width: 4px;
+	height: 8px;
+}
+
+.e-check-item .e-check-label {
+	margin-left: 4px;
+	font-size: 14px;
+}
+
+
+.e-check-style-select .e-check-item {
+	height: 30px;
+	border: 1px solid #d2d2d2;
+	border-radius: 4px;
+	line-height: 28px;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.e-check-style-select .e-check-input-span {
+	background: transparent;
+	border: none;
+	width: 30px;
+	height: 28px;
+}
+
+.e-check-style-select .e-check-input-span::after {
+	width: 8px;
+	height: 14px;
+	left: 10px;
+	top: 2px;
+	border-color: #d2d2d2;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	transform: rotate(45deg) scale(1);
+}
+
+.e-check-style-select .e-check-label {
+	background: #d2d2d2;
+	height: 100%;
+	padding: 0 10px;
+	color: #FFFFFF;
+	margin-left: 0px;
+}
+
+.e-check-style-select .e-check-checked.e-check-item {
+	border: 1px solid #2d8cf0;
+}
+
+.e-check-style-select .e-check-item.e-check-checked .e-check-input-span {
+	background-color: transparent;
+}
+
+.e-check-style-select .e-check-checked.e-check-item .e-check-input-span::after {
+	width: 8px;
+	height: 14px;
+	border-color: #2d8cf0;
+	transform: rotate(45deg) scale(1.2);
+}
+
+.e-check-style-select .e-check-checked.e-check-item .e-check-label {
+	background: #2d8cf0;
+}
+
+.e-check-style-select .e-check-disabled.e-check-item {
+	cursor: no-drop;
+	border-color: #eee !important;
+}
+
+.e-check-style-select .e-check-disabled .e-check-input-span {
+	background-color: transparent;
+}
+
+.e-check-style-select .e-check-disabled .e-check-input-span::after {
+	opacity: 0;
+}
+
+.e-check-style-select .e-check-disabled .e-check-label {
+	background-color: #eee !important;
+}
+
+.e-check-style-button .e-check-item {
+	margin-right: 0px !important;
+}
+
+.e-check-style-button .e-check-item:last-child {
+	border-right-width: 0px;
+}
+
+.e-check-style-button .e-check-item .e-check-input-span {
+	display: none;
+}
+
+.e-check-style-button .e-check-item .e-check-label {
+	padding: 8px 20px;
+	margin-left: 0px;
+	border-color: #dcdfe6;
+	border-style: solid;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 0px;
+}
+
+.e-check-style-button .e-check-item:first-child .e-check-label {
+	border-left-width: 1px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.e-check-style-button .e-check-item:last-child .e-check-label {
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.e-check-style-button .e-check-item.e-check-checked {
+	border-right: 1px solid white;
+}
+
+.e-check-style-button .e-check-item.e-check-checked .e-check-label {
+	border-color: #2d8cf0;
+	background-color: #2d8cf0;
+	color: white;
+}

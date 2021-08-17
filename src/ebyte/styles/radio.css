@@ -1,0 +1,32 @@
+.e-radio.e-flex .e-radio-item {
+	margin-right: 8px;
+}
+
+.e-radio.e-flex .e-radio-item:last-child {
+	margin-right: 0px;
+}
+
+.e-radio-item {
+	height: 30px;
+	cursor: pointer;
+	position: relative;
+}
+
+.e-radio-item.e-radio-disabled {
+	cursor: no-drop;
+}
+
+.e-radio-item.e-radio-disabled .e-radio-input {
+	cursor: no-drop;
+}
+
+.e-radio-item .e-radio-input {
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.e-radio-item .e-radio-label {
+	margin-left: 4px;
+	font-size: 14px;
+}

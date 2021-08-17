@@ -19,7 +19,7 @@
 .e-button-type--primary {
 	background-color: #2d8cf0;
 	color: #FFFFFF;
-	border-color: #2d8cf0;
+	border: none;
 }
 
 .e-button-type--success {
@@ -48,7 +48,7 @@
 
 .e-button-type--primary.e-button-plain {
 	background: 0 0;
-	border-color: #1E9FFF;
+	border: 1px solid #1E9FFF;
 	color: #1E9FFF;
 }
 
@@ -84,39 +84,46 @@
 .e-button-circle {
 	border-radius: 50%;
 	padding: 12px;
-	height: auto;
+	height: fit-content;
 	line-height: unset;
 }
 
 .e-button-disabled,
 .e-button-disabled:active,
 .e-button-disabled:hover {
-	border-color: #eee !important;
+	border:1px solid #eee !important;
 	background-color: #FBFBFB !important;
 	color: #d2d2d2 !important;
 	cursor: not-allowed !important;
 	opacity: 1;
 }
 
-.e-button-size--lg {
+.e-button-size--xl {
 	height: 44px;
 	line-height: 44px;
-	padding: 0 25px;
+	padding: 0 24px;
+	font-size: 18px;
+}
+
+.e-button-size--lg {
+	height: 40px;
+	line-height: 40px;
+	padding: 0 21px;
 	font-size: 16px;
 }
 
-.e-button-size--sm {
-	height: 30px;
-	line-height: 30px;
-	padding: 0 10px;
+.e-button-size--md {
+	height: 36px;
+	line-height: 36px;
+	padding: 0 15px;
 	font-size: 12px;
 }
 
-.e-button-size--xs {
-	height: 22px;
-	line-height: 22px;
-	padding: 0 5px;
-	font-size: 12px;
+.e-button-size--sm {
+	height: 32px;
+	line-height: 32px;
+	padding: 0 12px;
+	font-size: 10px;
 }
 
 .e-button>.e-icon+span,

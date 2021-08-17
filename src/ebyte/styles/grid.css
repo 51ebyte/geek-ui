@@ -1,0 +1,25 @@
+.e-grid {
+	width: 100%;
+}
+
+.e-grid-item {
+	cursor: pointer;
+	box-shadow: 1px 0 0 0 #e8eaec, 0 1px 0 0 #e8eaec, 1px 1px 0 0 #e8eaec, inset 1px 0 0 0 #e8eaec, inset 0 1px 0 0 #e8eaec;
+}
+
+.e-grid-item.e-grid-item-hover:hover {
+	z-index: 1;
+	box-shadow: 0 1px 8px rgba(0, 0, 0, .2)
+}
+
+.e-grid-item-left {
+	text-align: left;
+}
+
+.e-grid-item-center {
+	text-align: center;
+}
+
+.e-grid-item-right {
+	text-align: right;
+}

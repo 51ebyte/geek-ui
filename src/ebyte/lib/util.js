@@ -1,20 +1,7 @@
 import * as vue from 'vue'
-/**
- * 判断是否是16进制颜色
- */
-const isColor = (val) => {
-	return /^#[0-9A-F]{6}$/i.test(val);
-}
-/**
- * 判断是否百分比
- */
-const isPercentage = (val) => {
-	return new RegExp(/^\d+%$/).test(val);
-}
-
-
+import ebyte from './byte.js'
 /* istanbul ignore next */
-const addClass = (el, cls) => {
+ebyte.addClass = (el, cls) => {
 	if (!el) return;
 	let curClass = el.className;
 	const classes = (cls || '').split(' ');
@@ -34,11 +21,10 @@ const addClass = (el, cls) => {
 	if (!el.classList) {
 		el.className = curClass;
 	}
-	console.log(el.className)
 }
 
 /* istanbul ignore next */
-const removeClass = (el, cls) => {
+ebyte.removeClass = (el, cls) => {
 	if (!el || !cls) return;
 	const classes = cls.split(' ');
 	let curClass = ' ' + el.className + ' ';
@@ -59,10 +45,4 @@ const removeClass = (el, cls) => {
 		el.className = trim(curClass);
 	}
 }
-
-export default {
-	isColor,
-	isPercentage,
-	addClass,
-	removeClass
-}
+export default ebyte

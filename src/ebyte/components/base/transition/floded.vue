@@ -79,5 +79,5 @@ export default defineComponent({
 });
 </script>
 <style>
-	@import url("../../../styles/transition.css");
+	@import url("../../../styles/transition/folded.css");
 </style>

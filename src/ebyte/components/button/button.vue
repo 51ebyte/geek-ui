@@ -1,12 +1,14 @@
 <template>
-	<button :class="classs" :style="styles" :disabled="disabled" @click="$emit('click')">
-		<icon :option="icon" v-if="icon"></icon>
-		<span><slot></slot></span>
+	<button :class="classs" :style="styles" :disabled="disabled" @click="handleClick">
+		<div class="e-flex">
+			<Icon :option="icon" v-if="icon"></Icon>
+			<slot></slot>
+		</div>
 	</button>
 </template>
 
 <script lang="ts">
-import { h, toRef } from 'vue';
+import { h, toRef, computed, inject } from 'vue';
 import { config, util } from '../../lib/index.js';
 
 type ButtonType = PropType<'primary' | 'success' | 'warning' | 'error' | 'info'>;
@@ -58,46 +60,72 @@ export default {
 			type: [Object, String]
 		}
 	},
-	setup(props: ButtonProps, context) {
-		let propsType = toRef(props, 'type').value;
-		let propsPlain = toRef(props, 'plain').value;
-		let propsLong = toRef(props, 'long').value;
-		let propsCircle = toRef(props, 'circle').value;
-		let propsDisabled = toRef(props, 'disabled').value;
-		let propsSize = toRef(props, 'size').value;
+	
+	emits:['click'],
+	
+	setup(props: ButtonProps, ctx) {
+		const type = toRef(props, 'type').value;
+		const plain = toRef(props, 'plain').value;
+		const long = toRef(props, 'long').value;
+		const circle = toRef(props, 'circle').value;
+		const disabled = toRef(props, 'disabled').value;
+		const size = computed(() => {
+			return props.size || inject('btnGroupSize', props.size) || '';
+		});
 
-		const theme = config.getter('theme');
-		const classs = ['ebyte','e-button'];
-		classs.push(theme ? 'e-button-theme--' + theme : '');
-		classs.push(propsType ? 'e-button-type--' + propsType : '');
-		classs.push(propsPlain ? 'e-button-plain' : '');
-		classs.push(propsLong ? 'e-button-long' : '');
-		classs.push(propsCircle ? 'e-button-circle' : '');
-		classs.push(propsDisabled ? 'e-button-disabled' : '');
-		classs.push(propsSize ? 'e-button-size--' + propsSize : '');
-		const styles = {};
+		const classs = computed(() => {
+			const theme = config.getter('theme');
+			const classs = ['ebyte', 'e-button'];
+			classs.push(theme ? 'e-button-theme--' + theme : '');
+			classs.push(type ? 'e-button-type--' + type : '');
+			classs.push(plain ? 'e-button-plain' : '');
+			classs.push(long ? 'e-button-long' : '');
+			classs.push(circle ? 'e-button-circle' : '');
+			classs.push(disabled ? 'e-button-disabled' : '');
+			classs.push(size.value ? 'e-button-size--' + size.value : '');
+			return classs;
+		});
 
-		let radius = toRef(props, 'radius').value;
-		if (typeof radius == 'boolean' && radius === true) {
-			styles['border-radius'] = '100px';
-		} else if (typeof radius == 'number') {
-			styles['border-radius'] = radius + 'px';
-		} else if (typeof radius == 'string' && util.isPercentage(radius)) {
-			styles['border-radius'] = radius;
-		}
+		const styles = computed(() => {
+			let styles = {};
+			let radius = toRef(props, 'radius').value;
+			if (typeof radius == 'boolean' && radius === true) {
+				styles['border-radius'] = '100px';
+			} else if (typeof radius == 'number') {
+				styles['border-radius'] = radius + 'px';
+			} else if (typeof radius == 'string' && util.isPercentage(radius)) {
+				styles['border-radius'] = radius;
+			}
+			return styles;
+		});
 
 		let icon = toRef(props, 'icon').value;
 		if (typeof icon == 'string') {
+			const iconSize = {xl:28,lg:28,md:18,sm:14}
 			icon = {
 				name: icon,
-				size: 16
+				size: iconSize[size.value] || 18
 			};
 		}
-
+		if(typeof icon == 'object'){
+			if(['primary', 'success', 'warning', 'error', 'info'].includes(type) && !icon.color){
+				icon.color = '#ffffff'
+			}
+			if(disabled && !icon.color){
+				icon.color = '#d2d2d2 '
+			}
+		}
+		
+		
+		const handleClick = (evt:MouseEvent)=>{
+			ctx.emit('click',evt)
+		}
+		
 		return {
 			classs,
 			styles,
-			icon
+			icon,
+			handleClick
 		};
 	}
 };

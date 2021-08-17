@@ -11,7 +11,7 @@ export default {
 		};
 		if (col) {
 			computed(col);
-			if(colspan>col.length){
+			if (colspan > col.length) {
 				colspan -= col.length;
 			}
 		} else {
@@ -19,19 +19,16 @@ export default {
 		}
 		return colspan;
 	},
-	rowspan:function(col){
+	rowspan: function(col) {
 		let rowspan = 1;
-		
-		
-		console.log(this.makeColumnsId(col))
-		
-		
 		return rowspan;
 	},
-	makeColumnsId:function (columns) {
-	    return columns.map(item => {
-	        if ('children' in item) this.makeColumnsId(item.children);
-	        return item;
-	    });
+	makeColumnsId: function(columns) {
+		if (columns) {
+			return columns.map(item => {
+				if ('children' in item) this.makeColumnsId(item.children);
+				return item;
+			});
+		}
 	},
 }

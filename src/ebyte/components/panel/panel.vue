@@ -1,25 +1,54 @@
 <template>
-	<div class="e-panel" :style="styles.default">
-		<div class="e-panel-header" :style="styles.header" v-if="!body || header">
-			<slot class="e-panel-header" name="header">
-				<Icon :name="icon" :title="title" :size="size" v-if="icon"></Icon>
-				<template v-else>{{title}}</template>
-			</slot>
+	<div :class="['e-panel', type ? 'e-panel-' + type : '', type == 'code' && skin ? 'e-panel-code-' + skin : '']" :style="styles.default">
+		<div class="e-panel-header e-flex e-row-between" :style="styles.header" v-if="header" @click="handleToggle">
+			<div class="e-panel-header-left">
+				<slot class="e-panel-header" name="header">
+					<Icon :name="icon" :title="title" :size="size" v-if="icon"></Icon>
+					<template v-else>
+						{{ title }}
+					</template>
+				</slot>
+			</div>
+			<div class="e-panel-header-right">
+				<slot name="extra">
+					<Icon name="ios-arrow-down" v-if="hasCollapse=='open'"></Icon>
+					<Icon name="ios-arrow-forward" v-if="hasCollapse=='close'"></Icon>
+				</slot>
+			</div>
 		</div>
-		<div class="e-panel-body" :style="styles.body">
-			<slot></slot>
-		</div>
-		<div class="e-panel-footer" :style="styles.footer" v-if="footer">
-			<slot name="footer"></slot>
-		</div>
+		
+		<template v-if="hasCollapse">
+			<e-transition-folded>
+				<div :class="['e-panel-collapse']" v-if="hasCollapse=='open'">
+					<div class="e-panel-body" :style="styles.body"><slot></slot></div>
+					<div class="e-panel-footer" :style="styles.footer" v-if="hasFooter"><slot name="footer"></slot></div>
+				</div>
+			</e-transition-folded>
+		</template>
+		
+		<template v-else>
+			<div class="e-panel-body" :style="styles.body"><slot></slot></div>
+			<div class="e-panel-footer" :style="styles.footer" v-if="hasFooter"><slot name="footer"></slot></div>
+		</template>
 	</div>
 </template>
 
-<script>
-import { defineComponent, computed, toRef } from 'vue';
+<script lang="ts">
+import ETransitionFolded from './../base/transition/folded';
+import { defineComponent, computed, toRef, ref } from 'vue';
 export default defineComponent({
 	name: 'Panel',
+	components:{
+		ETransitionFolded
+	},
 	props: {
+		type: {
+			type: String,
+			default: ''
+		},
+		skin: {
+			type: String
+		},
 		padding: {
 			type: [String, Number],
 			default: ''
@@ -30,25 +59,17 @@ export default defineComponent({
 		},
 		header: {
 			type: Boolean,
-			default: false
-		},
-		body: {
-			type: Boolean,
-			default: false
-		},
-		footer: {
-			type: Boolean,
-			default: false
+			default: true
 		},
 		styles: {
 			type: Object,
 			default: {}
 		},
-		title:{
+		title: {
 			type: String,
 			default: ''
 		},
-		icon:{
+		icon: {
 			type: String,
 			default: ''
 		},
@@ -56,12 +77,17 @@ export default defineComponent({
 			type: Number,
 			default: 22
 		},
-		radius:{
-			type: [Number,String,Boolean],
+		radius: {
+			type: [Number, String, Boolean],
 			default: 6
+		},
+		collapse: {
+			type: [Boolean, String],
+			default: false
 		}
 	},
 	setup(props, ctx) {
+		const type = toRef(props, 'type').value;
 		const radius = toRef(props, 'radius').value;
 		const margin = toRef(props, 'margin').value;
 		const padding = toRef(props, 'padding').value;
@@ -69,7 +95,7 @@ export default defineComponent({
 		const styles = computed(() => {
 			const style = toRef(props, 'styles').value;
 			let styles = {
-				default: style || {},
+				default: {},
 				header: style && style.header ? style.header : {},
 				body: style && style.body ? style.body : {},
 				footer: style && style.footer ? style.footer : {}
@@ -90,17 +116,38 @@ export default defineComponent({
 				styles.body['padding'] = padding;
 				styles.footer['padding'] = padding;
 			}
-			if(radius!==false){
-				styles.default['border-radius'] = radius+'px';
-				styles.header['border-top-left-radius'] = radius+'px';
-				styles.header['border-top-right-radius'] = radius+'px';
-				styles.footer['border-bottom-left-radius'] = radius+'px';
-				styles.footer['border-bottom-right-radius'] = radius+'px';
+			if (radius !== false && type != 'code') {
+				styles.default['border-radius'] = radius + 'px';
+				styles.header['border-top-left-radius'] = radius + 'px';
+				styles.header['border-top-right-radius'] = radius + 'px';
+				styles.footer['border-bottom-left-radius'] = radius + 'px';
+				styles.footer['border-bottom-right-radius'] = radius + 'px';
 			}
 			return styles;
 		});
+
+		const collapse = ref<Boolean | String>(props.collapse);
+		const hasCollapse = computed(() => {
+			let hasCollapse = '';
+			if ((collapse.value && collapse.value != 'close') || collapse.value == 'open') {
+				hasCollapse = 'open';
+			} else if ((collapse.value && collapse.value == 'close') || collapse.value == 'close') {
+				hasCollapse = 'close';
+			}
+			return hasCollapse;
+		});
+
+		const handleToggle = (evt: MouseEvent) => {
+			if(hasCollapse.value!=''){
+				collapse.value = hasCollapse.value == 'open' ? 'close' : 'open';
+			}
+		};
+
 		return {
-			styles
+			styles,
+			hasCollapse,
+			handleToggle,
+			hasFooter: !!ctx.slots.footer
 		};
 	}
 });

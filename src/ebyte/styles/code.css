@@ -1,22 +1,21 @@
 .e-code {
 	display: block;
 	position: relative;
-	margin: 10px 0;
 	padding: 0;
 	border: 1px solid #eee;
 	border-left-width: 6px;
 	background-color: #fafafa;
 	color: #333;
 	font-family: Courier New;
-	font-size: 12px;
-	line-height: 20px;
+	font-size: 14px;
+	line-height: 22px;
 	box-sizing: content-box;
 	word-wrap: break-word;
 	white-space: pre-wrap;
 	white-space: pre;
 }
+
 .e-code-h3 {
-	position: relative;
 	padding: 0 10px;
 	height: 40px;
 	line-height: 40px;
@@ -24,35 +23,51 @@
 	font-size: 12px;
 	box-sizing: content-box;
 	font-weight: 400;
+	display: flex;
+	justify-content: space-between;
 }
+
 .e-code-h3 a {
-	position: absolute;
+	padding: 0 5px;
 	right: 10px;
 	top: 0;
 	color: #999;
 	text-decoration: none;
 }
+
+.e-code-h3 a.link {
+	text-decoration: underline;
+}
+
+
+.e-code-scroll{
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
 .e-code-ol {
 	position: relative;
-	overflow: auto;
 }
 
 .e-code-ol li {
 	position: relative;
 	margin-left: 45px;
-	line-height: 20px;
 	padding: 0 10px;
 	border-left: 1px solid #e2e2e2;
 	list-style-type: decimal-leading-zero;
 	background-color: #fff;
+	width: calc(100% - 45px);
 }
 
 .e-code-ol li:first-child {
-	padding-top: 10px;
+	padding-top: 8px;
 }
 
 .e-code-ol li:last-child {
-	padding-bottom: 10px;
+	padding-bottom: 8px;
 }
 
 .e-code-dark {
@@ -65,6 +80,7 @@
 .e-code-dark .e-code-h3 {
 	border-bottom: none;
 }
+
 .e-code-dark .e-code-ol li {
 	background-color: #3f3f3f;
 	border-left: none;

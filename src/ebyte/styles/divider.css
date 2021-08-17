@@ -1,0 +1,46 @@
+.e-divider {
+	font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #515A6E;
+	box-sizing: border-box;
+	padding: 0;
+	position: relative;
+	min-height: 12px;
+}
+
+.e-divider-horizontal {
+	display: block;
+	width: 100%;
+	min-width: 100%;
+	margin: 24px 0;
+	clear: both;
+	border-top: 1px solid #E8EAEC;
+}
+
+.e-divider-vertical {
+	margin: 0px 8px;
+	display: inline-block;
+	height: 1em;
+	width: 1px;
+	background: #E8EAEC;
+}
+
+.e-divider-text {
+	position: absolute;
+	left: 50%;
+	background: white;
+	padding: 0 24px;
+	transform: translate(-50%, -50%);
+	font-size: 16px;
+	color: #17233d;
+}
+
+.e-divider-dashed {
+	background: 0 0;
+	border-top: 1px dashed #E8EAEC;
+}
+
+.e-divider-content {
+	padding: 18px 10px 10px;
+}

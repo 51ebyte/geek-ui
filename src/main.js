@@ -5,6 +5,13 @@ import router from './route.js'
 
 import ebyte from './ebyte'
 
-createApp(App).use(ebyte,{
-	theme:'primary'
-}).use(router).mount('#app')
+let layout = import.meta.globEager('./layouts/*.vue');
+
+createApp(App).use(router).use(ebyte,{
+	theme:'primary',
+	plugins:{
+		layout:{
+			template:layout
+		}
+	}
+}).mount('#app')

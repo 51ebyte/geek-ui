@@ -1,20 +1,26 @@
 <template>
-	<pre :class="classs" v-html="html"></pre>
+	<pre
+		:class="['e-code', skin ? 'e-code-' + skin : '']"
+	><h3 class="e-code-h3"><span>{{title}}</span><div class="slot"><slot><a :class="{link:copy}" href="javascript:;" @click="handleCopy">{{copy?'复制':(toggle?'':'code')}}</a><a href="javascript:;" class="link" v-if="toggle" @click="handleToggle">{{unflod?'收起':'展开'}}</a></slot></div></h3><div class="e-code-scroll" :style="styles.scroll"><ol class="e-code-ol" v-html="html" ref="olRef"></ol></div></pre>
 </template>
 
 <script lang="ts">
-import { toRef } from 'vue';
-export default {
+import { defineComponent,toRef, ref, computed,nextTick,onMounted,watch } from 'vue';
+export default defineComponent({
 	name: 'Code',
 	data() {
 		return {
-			html: ''
+			html: '',
+			auto: ''
 		};
 	},
 	props: {
+		modelValue:{
+			type: String,
+		},
 		title: {
 			type: String,
-			default: '&lt;/&gt;'
+			default: '</>'
 		},
 		height: {
 			type: Number,
@@ -26,37 +32,111 @@ export default {
 		code: {
 			type: String,
 			required: true
+		},
+		copy: {
+			type: Boolean,
+			default: false
+		},
+		toggle: {
+			type: Boolean,
+			default: false
+		},
+		br:{
+			type: Boolean,
+			default: true
 		}
 	},
-	setup(props, context) {
+
+	emits: ['update:height'],
+
+	setup(props, ctx) {
+		const height = ref<Number>(props.height);
+		const br = ref<Boolean>(props.br);
+		const unflod = ref<Boolean>(false);
+		const code = toRef(props, 'code').value;
+		const html = ref<String>('')
 		
-		var code = toRef(props, 'code').value;
-		var title = toRef(props, 'title').value;
-		var skin = toRef(props, 'skin').value;
-		var height = toRef(props, 'height').value;
-		code = code.replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;');
-		code = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-		code = code.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-		code = code.replace(/[\r\t\n]+/g, '</li><li>');
-		code = '<h3 class="e-code-h3">' + title + '<a href="javascript:;">code</a></h3><ol class="e-code-ol" style="max-height:' + height + 'px;"><li>' + code + '</li></ol>';
+		const value = computed(() => (props.modelValue === null || props.modelValue === undefined ? '' : String(props.modelValue)));
 		
-		let classs = ['e-code'];
-		if (skin) {
-			classs.push('e-code-' + skin);
+		const styles = computed(() => {
+			var styles = { scroll: {
+			} };
+			if (typeof height.value == 'number') {
+				styles.scroll['height'] = height.value + 'px';
+			} else if (typeof height.value == 'string') {
+				styles.scroll['height'] = height.value;
+			}
+			if(!br){
+				styles.scroll['overflow-x'] = 'auto';
+				styles.scroll['white-space'] = 'inherit';
+			}
+			return styles;
+		});
+		
+		const olRef = ref(null)
+		const toggle = ref(false);
+		onMounted(()=>{
+			handleHtml(code)
+			nextTick(()=>{
+				let olHieght = olRef.value.offsetHeight;
+				if(props.toggle){
+					toggle.value = olHieght>height.value
+				}
+			})
+		})
+		
+		watch(value,()=>{
+			handleHtml(value.value);
+		})
+		
+		const handleHtml=(code:string)=>{
+			var ol = code.replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;');
+			ol = ol.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			ol = ol.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+			ol = ol.replace(/[\r\t\n]+/g, '</li><li>');
+			ol = '<li>' + ol + '</li>';
+			html.value = ol;
 		}
-		return {
-			html: code,
-			classs
+
+		var copy = toRef(props, 'copy').value;
+		const handleCopy = (evt: MouseEvent) => {
+			if (copy) {
+				var html = ol.value.innerText;
+				const textarea = document.createElement('textarea');
+				textarea.readOnly = 'readonly';
+				textarea.style.position = 'absolute';
+				textarea.style.left = '-9999px';
+				textarea.value = html;
+				document.body.appendChild(textarea);
+				textarea.select();
+				const result = document.execCommand('Copy');
+				if (result) {
+					alert('复制成功');
+				}
+				document.body.removeChild(textarea);
+			}
 		};
-	},
-	watch:{
-		modelValue(o,n){
-			console.log(n)
-		}
+
+		const handleToggle = (evt: MouseEvent) => {
+			height.value = unflod.value ? props.height : 'auto';
+			unflod.value = !unflod.value;
+			ctx.emit('update:height', height.value);
+		};
+
+		return {
+			value,
+			olRef,
+			toggle,
+			styles,
+			unflod,
+			html,
+			handleCopy,
+			handleToggle
+		};
 	}
-};
+});
 </script>
 
 <style>
-@import url("../../styles/code.css");
+@import url('../../styles/code.css');
 </style>

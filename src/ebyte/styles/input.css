@@ -1,8 +1,16 @@
 .e-input-wrapper {
-	display: inline-block;
+	display: block;
 	position: relative;
 	vertical-align: middle;
 	line-height: normal;
+}
+
+.e-input-wrapper+.e-input-wrapper {
+	margin-top: 16px;
+}
+
+.e-input-wrapper.e-input-inline {
+	display: inline-block;
 }
 
 .e-input-wrapper .icon-clear {
@@ -18,15 +26,17 @@
 
 .e-input-wrapper .e-input {
 	height: 38px;
-	line-height: 1.3;
+	line-height: 38px;
 	border-width: 1px;
 	border-style: solid;
+	border-color: #d2d2d2;
 	background-color: #fff;
 	color: rgba(0, 0, 0, .85);
-	border-radius: 2px;
+	border-radius: 5px;
 	display: block;
 	padding-left: 10px;
-	border-color: #d2d2d2;
+	font-size: 14px;
+	width: 100%;
 }
 
 .e-input-wrapper .e-input:hover {
@@ -42,5 +52,188 @@
 .e-input-wrapper .e-input.e-theme-primary:focus {
 	border-color: #57a3f3 !important;
 	box-shadow: 0 0 0 2px rgba(45, 140, 240, .2) !important;
-	;
+}
+
+.e-input-wrapper .e-input.e-input-disabled {
+	background-color: #f5f7fa;
+	color: #c0c4cc;
+	cursor: not-allowed;
+}
+
+.e-input-wrapper .e-icon-prefix,
+.e-input-wrapper .e-icon-suffix,
+.e-input-wrapper .e-icon-password-uppercase,
+.e-input-wrapper .e-icon-password {
+	position: absolute;
+	width: 38px;
+	height: 38px;
+	line-height: 38px;
+	top: 0px;
+}
+
+.e-input-wrapper.e-input-password-uppercase .e-input{
+	padding-right: 64px;
+}
+
+.e-input-wrapper .e-icon-password-uppercase{
+	right: 26px;
+}
+
+.e-input-wrapper .e-icon-password-uppercase .lock{
+	position: absolute;
+	top: -52px;
+	right: 0px;
+	width: 98px;
+	background-color: rgba(70,76,91,.9);
+	box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+	text-align: center;
+	padding: 0px 12px;
+	display: inline-block;
+	line-height: 48px;
+	height: 48px;
+	border-radius: 4px;
+	color: white;
+}
+
+.e-input-wrapper .e-icon-password-uppercase .lock::after{
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 6px 6px 0;
+	border-top-color: rgba(70,76,91,.9);
+	content: '';
+	position: absolute;
+	right: 14px;
+	top: 48px;
+	display: block;
+}
+
+
+
+.e-input-wrapper .e-icon-password {
+	cursor: pointer;
+}
+
+.e-input-wrapper.e-input-password .e-input{
+	padding-right: 38px;
+}
+
+.e-input-wrapper .e-icon-prefix {
+	left: 0px;
+	border-top-left-radius: ;
+}
+
+.e-input-wrapper .e-icon-suffix,
+.e-input-wrapper .e-icon-password {
+	right: 0px;
+}
+
+.e-input-wrapper .e-icon-prefix .e-icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.e-input-wrapper .e-icon-suffix .e-icon,
+.e-input-wrapper .e-icon-password-uppercase .e-icon,
+.e-input-wrapper .e-icon-password .e-icon{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.e-input-wrapper .e-icon-prepend,
+.e-input-wrapper .e-icon-append {
+	color: #909399;
+	vertical-align: middle;
+	position: relative;
+	border: 1px solid #dcdfe6;
+	border-radius: 4px;
+	padding: 0 20px;
+	width: auto;
+	white-space: nowrap;
+	background-color: #f5f7fa;
+	height: 38px;
+	line-height: 38px;
+	box-sizing: border-box;
+}
+
+.e-input-wrapper .e-icon-prepend {
+	border-right: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.e-input-wrapper .e-icon-append {
+	border-left: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.e-input-wrapper.e-icon-prepend .e-input:not(:first-child) {
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.e-input-wrapper.e-icon-append .e-input:not(:last-child) {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.e-input-wrapper.e-input-prompt .e-input{
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.e-input-wrapper .e-input-prompt {
+	border-style: solid;
+	border-color: #d2d2d2;
+	border-top-width: 0px;
+	border-left-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	max-height: 280px;
+	padding: 6px 0;
+	box-sizing: border-box;
+	overflow: auto;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	position: absolute;
+	width: 100%;
+	z-index: 100;
+	background: white;
+	box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
+
+.e-input-wrapper .e-input-prompt .e-input-prompt-item,
+.e-input-wrapper .e-input-prompt .e-input-prompt-empty{
+	padding: 0 10px;
+	margin: 0;
+	line-height: 38px;
+	cursor: pointer;
+	color: #606266;
+	font-size: 14px;
+	list-style: none;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: list-item;
+}
+
+.e-input-wrapper .e-input-prompt .e-input-prompt-item:hover {
+	background-color: #f5f7fa;
+}
+
+.e-input-wrapper .e-input-prompt .e-input-prompt-empty{
+	text-align: center;
+	padding: 0 5px;
+}
+
+
+.e-input-wrapper .e-input.e-input-textarea {
+	max-width: 100%;
 }

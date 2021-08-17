@@ -1,102 +1,141 @@
 <template>
-	<table :class="classs" :style="styles" border="1">
+	<table :class="classs" :style="styles">
 		<thead>
-			<!-- <tr>
-				<th colspan="1" rowspan="3">id</th>
-				<th colspan="2" rowspan="1">姓名</th>
-				<th colspan="1" rowspan="3">年龄</th>
-				<th colspan="7" rowspan="1">地址</th>
-			</tr>
-			<tr>
-				<th colspan="1" rowspan="2">张</th>
-				<th colspan="1" rowspan="2">三</th>
-				<th colspan="2" rowspan="1">省</th>
-				<th colspan="1" rowspan="1">市</th>
-				<th colspan="4" rowspan="1">区</th>
-			</tr>
-			<tr>
-				<th colspan="1" rowspan="1">省</th>
-				<th colspan="1" rowspan="1">直辖市</th>
-				<th colspan="1" rowspan="1">地级市</th>
-				<th colspan="1" rowspan="1">区</th>
-				<th colspan="1" rowspan="1">县</th>
-				<th colspan="1" rowspan="1">县级市</th>
-			</tr> -->
-
-			<template v-for="col in columns">
+			<template v-for="row in columns">
 				<tr>
-					<template v-for="th in col">
-						<th :colspan="th.colspan" :rowspan="th.rowspan">{{ th.title }}</th>
+					<template v-for="col in row">
+						<th :colspan="col.colspan" :rowspan="col.rowspan" :width="col.width" :style="col.style">
+							<div class="e-table-cell">{{ col.title }}</div>
+						</th>
 					</template>
 				</tr>
 			</template>
 		</thead>
-		<tbody></tbody>
+		<tbody>
+			<template v-for="(row, i) in data">
+				<tr @click="handleRowClick(row,i,$event)">
+					<template v-for="(col, j) in row">
+						<td :colspan="col.colspan" :rowspan="col.rowspan" :style="col.style">
+							<div class="e-table-cell">
+								<template v-if="col.type=='render'">
+									<table-render :render="col.vnode"></table-render>
+								</template>
+								<template v-if="col.type=='html'">
+									<span v-html="col.text"></span>
+								</template>
+								<template v-if="col.type=='text'">
+									{{ col.text }}
+								</template>
+							</div>
+						</td>
+					</template>
+				</tr>
+			</template>
+		</tbody>
 		<tfoot></tfoot>
 	</table>
 </template>
 
 <script lang="ts">
-	import util from './util.js'
-export default {
+import util from './util.js';
+import TableRender from './render'
+import { toRef, defineComponent,h } from 'vue';
+export default defineComponent({
 	name: 'Table',
+	components:{
+		TableRender
+	},
 	props: {
 		cols: {
 			type: Array,
-			required: true
+			required: true,
+			default: []
 		},
 		data: {
-			type: Array
+			type: Array,
+			default: []
+		},
+		border: {
+			type: Boolean,
+			default: false
+		},
+		paging: {
+			type: [Boolean, String],
+			default: false
 		}
 	},
-	setup(props, context) {
-		const cols = [
-			[
-				{ width: 80, title: 'id', colspan: '1', rowspan: '3' },
-				{ width: 80, title: '姓名', colspan: '2', rowspan: '1' },
-				{ width: 80, title: '年龄', colspan: '1', rowspan: '3' },
-				{ width: 80, title: '地址', colspan: '6', rowspan: '1' }
-			],
-			[
-				{ width: 80, title: '张', colspan: '1', rowspan: '2' }, 
-				{ width: 80, title: '三', colspan: '1', rowspan: '2' }, 
-				{ width: 80, title: '省', colspan: '2', rowspan: '1' }, 
-				{ width: 80, title: '市', colspan: '1', rowspan: '1' }, 
-				{ width: 80, title: '区', colspan: '4', rowspan: '1' },
-			],
-			[
-				{ width: 80, title: '省', colspan: '1', rowspan: '1' },
-				{ width: 80, title: '直辖市', colspan: '1', rowspan: '1' },
-				{ width: 80, title: '地级市', colspan: '1', rowspan: '1' },
-				{ width: 80, title: '区', colspan: '1', rowspan: '1' },
-				{ width: 80, title: '县', colspan: '1', rowspan: '1' },
-				{ width: 80, title: '县级市', colspan: '1', rowspan: '1' }
-			]
-		];
+	emits:['on-row-click'],
+	setup(props, ctx) {
+		const columns = toRef(props, 'cols').value;
+		const data = toRef(props, 'data').value;
+		const border = toRef(props, 'border').value;
+		const theadTr = [];
 
-		const columns = props.cols;
-		var thead = [];
-		var tr = [];
+		const theadTh = columns.map((col, index) => {
+			col.colspan = util.colspan(col.children);
+			col.rowspan = util.rowspan(col.children);
+			col.style = [`text-align:${col.align || 'left'}`, border ? 'border-width:1px' : ''];
+			return col;
+		});
+		theadTr.push(theadTh);
+
+		var tbody = [];
+
+		if (data.length < 1) {
+			tbody = [
+				[{
+					type:'text',
+					colspan: theadTr[theadTr.length - 1].length,
+					text: '暂无数据',
+					style: [`text-align:center`, `height:36px`, border ? 'border-width:1px' : '']
+				}]
+			];
+		} else {
+			tbody = data.map((row, i) => {
+				let tr = [];
+				columns.forEach((col, j) => {
+					var td = {}
+					if(typeof col.render =='function'){
+						td = {
+							type:'render',
+							vnode:col.render(h,{
+								index:i,
+								rows:row
+							}),
+						}
+					}else if(typeof col.render == 'string'){
+						td = {
+							type:'html',
+							text: (typeof row[col.key] == 'boolean'?row[col.key]+'':row[col.key]) || col.default || '',
+						}
+					}else{
+						td = {
+							type:'text',
+							text: (typeof row[col.key] == 'boolean'?row[col.key]+'':row[col.key]) || col.default || '',
+						};
+					}
+					td['style'] = [`text-align:${col.align || 'left'}`, border ? 'border-width:1px' : ''];
+					tr.push(td);
+				});
+				return tr;
+			});
+		}
 		
-		util.rowspan(columns)
-
-		// columns.forEach(col => {
-		// 	let colspan = util.colspan(col.children);
-		// 	let rowspan = util.rowspan(col.children);
-		// 	tr.push({ title: col.title, colspan: colspan,rowspan:rowspan });
-		// });
-
-		console.log(tr);
+		const handleRowClick = (row:Object,index:Number,evt:MouseEvent,)=>{
+			ctx.emit('on-row-click',row,index,evt)
+		}
 
 		const classs = ['e-table'];
 		const styles = {};
 		return {
 			classs: classs,
 			styles: styles,
-			columns: cols
+			columns: theadTr,
+			data: tbody,
+			handleRowClick
 		};
 	}
-};
+});
 </script>
 
 <style>

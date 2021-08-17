@@ -16,7 +16,8 @@
 
 .e-panel-header {
 	padding: 12px 15px;
-	border-bottom: 1px solid #eee;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 .e-panel-body {
@@ -28,18 +29,31 @@
 	border-top: 1px solid #eee;
 }
 
-.e-panel-folded {
-	border-radius: 0px;
+.e-panel.e-panel-code {
+	border-radius: 0px !important;
+	border-left: 6px solid #EEEEEE;
 }
 
-.e-panel-folded-title {
-	padding: 12px;
+.e-panel.e-panel-code .e-panel-header {
+	background: #fafafa;
 }
 
-.e-panel-folded-title.border {
-	border-bottom: 1px solid #eee;
+
+.e-panel.e-panel-code-dark {
+	background-color: #0c0c0c;
+	color: #c2be9e;
+	border: none;
 }
 
-.e-panel-folded-body {
-	padding: 10px;
+.e-panel.e-panel-code-dark .e-panel-header {
+	background-color: #0c0c0c;
+	border-bottom: 0px;
+}
+
+.e-panel.e-panel-code-dark .e-panel-body {
+	background-color: #3f3f3f;
+}
+
+.e-panel.e-panel-code-dark .e-panel {
+	border-radius: 0px !important;
 }
