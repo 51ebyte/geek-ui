@@ -7,25 +7,25 @@
 				<Icon :name="(isOpen?'ios-arrow-down':'ios-arrow-forward')" :title="title" @click="handleClickIcon"></Icon>
 			</slot>
 		</div>
-		<e-transition>
+		<transition-collapse>
 			<div class="e-panel-folded-body" v-show="isOpen">
 				<slot></slot>
 			</div>
-		</e-transition>
+		</transition-collapse>
 	</div>
 </template>
 
 <script lang="ts">
-	import ETransition from './../base/transition/folded';
+	import TransitionCollapse from './../base/transition/collapse';
 import { defineComponent, computed } from 'vue';
 export default defineComponent({
+	components:{
+		TransitionCollapse
+	},
 	data() {
 		return {
 			isOpen: false
 		};
-	},
-	components:{
-		ETransition
 	},
 	props: {
 		title: {

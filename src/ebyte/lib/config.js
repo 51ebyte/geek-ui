@@ -1,12 +1,14 @@
 import {
-	getCurrentInstance
+	inject
 } from 'vue'
-const getter = function(option) {
-	const {proxy} = getCurrentInstance();
-	if ('$ebyte' in proxy) {
-		return proxy.$ebyte[option] || '';
+const getter = function(key,def='') {
+	key = key.split('.');
+	const opts = inject('opts')
+	let option = {...opts};
+	for (let i in key) {
+		option = option[key[i]];
 	}
-	return proxy[option] || '';
+	return option || def;
 }
 
 export default {

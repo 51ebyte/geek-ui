@@ -13,5 +13,11 @@ createApp(App).use(router).use(ebyte,{
 		layout:{
 			template:layout
 		}
+	},
+	config:{
+		breadcrumb:{
+			separator:'/',
+			home:'a'
+		}
 	}
 }).mount('#app')

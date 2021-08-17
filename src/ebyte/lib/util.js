@@ -1,6 +1,7 @@
 import * as vue from 'vue'
 import ebyte from './byte.js'
-/* istanbul ignore next */
+
+
 ebyte.addClass = (el, cls) => {
 	if (!el) return;
 	let curClass = el.className;
@@ -23,7 +24,6 @@ ebyte.addClass = (el, cls) => {
 	}
 }
 
-/* istanbul ignore next */
 ebyte.removeClass = (el, cls) => {
 	if (!el || !cls) return;
 	const classes = cls.split(' ');
@@ -45,4 +45,30 @@ ebyte.removeClass = (el, cls) => {
 		el.className = trim(curClass);
 	}
 }
+
+ebyte.addListener = (element, event, handler, useCapture = false) => {
+	if (document.addEventListener) {
+		if (element && event && handler) {
+			element.addEventListener(event, handler, useCapture);
+		}
+	} else {
+		if (element && event && handler) {
+			element.attachEvent('on' + event, handler);
+		}
+	}
+};
+
+ebyte.removeListener = (element, event, handler, useCapture = false) => {
+	if (document.removeEventListener) {
+		if (element && event) {
+			element.removeEventListener(event, handler, useCapture);
+		}
+	} else {
+		if (element && event) {
+			element.detachEvent('on' + event, handler);
+		}
+	}
+};
+
+
 export default ebyte

@@ -1,3 +1,9 @@
 'use strict';
 import menu from './menu.vue'
-export default menu;
+import subMenu from './subMenu.vue'
+import item from './menuItem.vue'
+export default {
+	menu,
+	item,
+	subMenu
+};

@@ -1,0 +1,24 @@
+.e-breadcrumb {
+	display: flex;
+}
+
+.e-breadcrumb-item {
+	position: relative;
+	color: #00000073;
+}
+
+.e-breadcrumb-item .text {
+	cursor: pointer;
+}
+
+.e-breadcrumb-item .separator {
+	margin: 0 8px;
+}
+
+.e-breadcrumb-item:last-child .text {
+	color: #000000d9;
+}
+
+.e-breadcrumb-item:last-child .separator {
+	display: none;
+}

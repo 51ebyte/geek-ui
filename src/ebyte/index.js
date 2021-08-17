@@ -13,9 +13,9 @@ const install = function(app, opts = {}) {
 	if (install.installed) return;
 	//配置合并
 	const option = Object.assign({
-		theme: 'default',
-		script: 'js',
-	}, opts);
+		theme: opts.theme || 'default',
+		script: opts.script || 'js',
+	}, opts.config || {});
 
 	//组件注册
 	Object.keys(components).forEach((key) => {
@@ -32,9 +32,9 @@ const install = function(app, opts = {}) {
 		}
 	})
 	//layou统一布局注册
-	if(opts.plugins && opts.plugins.layout && opts.plugins.layout.template){
+	if (opts.plugins && opts.plugins.layout && opts.plugins.layout.template) {
 		let layouts = opts.plugins.layout.template;
-		if(layouts!=""){
+		if (layouts != "") {
 			Object.keys(layouts).forEach((key) => {
 				const start = key.lastIndexOf('/') + 1;
 				const end = key.lastIndexOf('.vue');
@@ -44,9 +44,9 @@ const install = function(app, opts = {}) {
 				app.component("layout-" + name, component)
 			})
 		}
-		app.component("layout-default",layoutDefault)
+		app.component("layout-default", layoutDefault)
 	}
-	
+
 	//指令注册
 	Object.keys(directives).forEach((key) => {
 		const directive = directives[key].default;
@@ -54,13 +54,10 @@ const install = function(app, opts = {}) {
 	})
 
 	//配置暴露给页面
-	app.config.globalProperties.$ebyte = {
-		theme: opts.theme,
-		script: opts.script,
-	}
-	
+	app.config.globalProperties.$ebyte = option;
 	app.config.globalProperties.$byte = byte;
-	
+	app.provide('opts', option)
+
 }
 
 export default {

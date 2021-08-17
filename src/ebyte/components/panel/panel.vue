@@ -18,12 +18,12 @@
 		</div>
 		
 		<template v-if="hasCollapse">
-			<e-transition-folded>
-				<div :class="['e-panel-collapse']" v-if="hasCollapse=='open'">
+			<transition-collapse>
+				<div :class="['e-panel-collapse']" v-show="hasCollapse=='open'">
 					<div class="e-panel-body" :style="styles.body"><slot></slot></div>
 					<div class="e-panel-footer" :style="styles.footer" v-if="hasFooter"><slot name="footer"></slot></div>
 				</div>
-			</e-transition-folded>
+			</transition-collapse>
 		</template>
 		
 		<template v-else>
@@ -34,12 +34,12 @@
 </template>
 
 <script lang="ts">
-import ETransitionFolded from './../base/transition/folded';
+import TransitionCollapse from './../base/transition/collapse';
 import { defineComponent, computed, toRef, ref } from 'vue';
 export default defineComponent({
 	name: 'Panel',
 	components:{
-		ETransitionFolded
+		TransitionCollapse
 	},
 	props: {
 		type: {

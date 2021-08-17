@@ -13,7 +13,7 @@ export default defineComponent({
 			on: {
 				//进入之前
 				beforeEnter(el) {
-					util.addClass(el, 'transition-collapse');
+					util.addClass(el, 'collapse');
 					if (!el.dataset) el.dataset = {};
 
 					el.dataset.oldPaddingTop = el.style.paddingTop;
@@ -40,7 +40,7 @@ export default defineComponent({
 				},
 				//进入之后
 				afterEnter(el) {
-					util.removeClass(el, 'transition-collapse');
+					util.removeClass(el, 'collapse');
 					el.style.height = '';
 					el.style.overflow = el.dataset.oldOverflow;
 				},
@@ -58,7 +58,7 @@ export default defineComponent({
 
 				leave(el) {
 					if (el.scrollHeight !== 0) {
-						util.addClass(el, 'transition-collapse');
+						util.addClass(el, 'collapse');
 						el.style.transitionProperty = 'height';
 						el.style.height = 0;
 						el.style.paddingTop = 0;
@@ -67,7 +67,7 @@ export default defineComponent({
 				},
 				//离开之后
 				afterLeave(el) {
-					util.removeClass(el, 'transition-collapse');
+					util.removeClass(el, 'collapse');
 					el.style.height = '';
 					el.style.overflow = el.dataset.oldOverflow;
 					el.style.paddingTop = el.dataset.oldPaddingTop;
@@ -79,5 +79,14 @@ export default defineComponent({
 });
 </script>
 <style>
-	@import url("../../../styles/transition/folded.css");
+	.collapse {
+		-webkit-transition: .3s height ease-in-out, .3s padding-top ease-in-out, .3s padding-bottom ease-in-out;
+		transition: .3s height ease-in-out, .3s padding-top ease-in-out, .3s padding-bottom ease-in-out
+	}
+	
+	.collapse-horizontal {
+		-webkit-transition: .3s width ease-in-out, .3s padding-left ease-in-out, .3s padding-right ease-in-out;
+		transition: .3s width ease-in-out, .3s padding-left ease-in-out, .3s padding-right ease-in-out
+	}
+	
 </style>

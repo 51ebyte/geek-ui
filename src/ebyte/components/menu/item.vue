@@ -1,56 +1,75 @@
 <template>
-	<div class="e-menu-item" @click="handleClickItem(item, index)">
-		<div class="e-menu-item-box e-flex e-col-center"
+	<div class="e-menu-item" @click="handleClickItem">
+		<div
+			class="e-menu-item-box"
 			:class="{
 				'e-menu-item-prefix': item.icon,
-				'e-menu-item-suffix': item.children,
-				'e-menu-item-active': current == item || index == current 
-				|| (item.to && current==-1 && $route.name == item.to.name) 
-				|| (item.to && current==-1 && $route.path == item.to.path)
-				|| (item.to && current==-1 && $route.name == item.to)
+				'e-menu-item-active': isActive
 			}"
 		>
-			<template v-if="item.icon">
-				<Icon class="prefix-icon" name="md-add"></Icon>
-			</template>
-			<span class="text">{{ item.name }}</span>
-			<template v-if="item.children">
-				<Icon class="suffix-icon" name="ios-arrow-down"></Icon>
-			</template>
-		</div>
-		<div class="e-menu-item-children" v-if="item.children">
-			<template v-for="(children, j) in item.children">
-				<menu-item :item="children"></menu-item>
-			</template>
+			<Icon class="prefix-icon" :name="item.icon"></Icon>
+			<span class="text">{{item.text}}</span>
 		</div>
 	</div>
 </template>
 
 <script>
-import { defineComponent, computed, toRef, ref, getCurrentInstance } from 'vue';
+import { defineComponent, computed, toRef, ref, getCurrentInstance, inject } from 'vue';
 export default defineComponent({
 	name: 'MenuItem',
 	props: {
 		item: {
 			type: Object
 		},
-		index: {
-			type: Number
-		},
-		current: {
-			type: [Object, Number],
-			default:-1
-		}
 	},
-	emits: ['click'],
+	emits: ['click', 'collapse'],
 	setup: (props, ctx) => {
+		const item = toRef(props, 'item').value;
+		
 		const { proxy } = getCurrentInstance();
+		const menuActive = inject('menuActive',{value:''})
+		
+		const openMenuLevel = ref([])
+		const isActive = computed(()=>{
+			let is = false
+			if(menuActive.value && item.name){
+				is = item.name == menuActive.value 
+			}else{
+				is = (proxy.$route.name == item.name || proxy.$route.name == item.to);
+			}
+			if(is){
+				openMenuLevel.value = [menuActive.value]
+				let Menu = findComponents(proxy.$parent);
+				Menu.open = openMenuLevel.value
+			}
+			return is
+		})
+		
+		const findComponents = component => {
+			if (component.$options.name == 'Menu') {
+				return component;
+			}
+			if(component.$options.name == "MenuChild"){
+				openMenuLevel.value.push(component.name)
+			}
+			return findComponents(component.$parent);
+		};
+		
 
-		const handleClickItem = (item, index) => {
-			ctx.emit('click', item, index);
-			let routes = proxy.$router.getRoutes();
+		const handleClickItem = () => {
+			
+			let Menu = findComponents(proxy.$parent);
+			Menu.active = item.name;
+			
+			if (item.children) {
+				hasOpen.value = !hasOpen.value;
+				ctx.emit('collapse', item, hasOpen.value);
+				return;
+			}
+			ctx.emit('click', item, props.keys);
 			if (typeof item.to == 'object') {
 				let _target = item.to.target || '';
+				let routes = proxy.$router.getRoutes();
 				if (routes.findIndex(e => e.name == item.to.name || e.path == item.to.path) >= 0) {
 					if (_target == '_blank') {
 						const { href } = proxy.$router.resolve(item.to);
@@ -84,7 +103,10 @@ export default defineComponent({
 		};
 
 		return {
-			route: proxy.$route.name,
+			isActive,
+			menuActive,
+			// hasOpen,
+			hasSlot: !!ctx.slots.default,
 			handleClickItem
 		};
 	}
