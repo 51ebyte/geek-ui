@@ -1,10 +1,11 @@
 <template>
 	<div class="e-menu-sub">
-		<div class="e-menu-item" @click="handleCollapse">
-			<div class="e-menu-item-box e-menu-item-suffix">
-				<span class="text">{{ text }}</span>
-				<span class="suffix-icon" v-if="isChildren" :class="{open:hasOpen}"></span>
-			</div>
+		<div class="e-menu-item" :class="{
+			'e-menu-item-suffix':isChildren,
+			'e-menu-item-open':hasOpen,
+		}" @click="handleCollapse">
+			<span class="text">{{ name }}</span>
+			<span class="suffix-icon"></span>
 		</div>
 		<transition-collapse v-if="isChildren">
 			<div class="e-menu-children" v-show="hasOpen">
@@ -30,7 +31,7 @@ export default defineComponent({
 		name: {
 			type: String
 		},
-		text: {
+		keys: {
 			type: String
 		}
 	},

@@ -26,7 +26,7 @@ export default defineComponent({
 		},
 		color: {
 			type: String,
-			default:'#808695'
+			default:''
 		},
 		title: {
 			type: String

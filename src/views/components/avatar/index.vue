@@ -170,7 +170,7 @@
 			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
 				<Blockquote title="Avatar Props"></Blockquote>
-				<table-props :data="table.props.data"></table-props>
+				<table-props :data="table.props.data" :example="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title='Avatar Upload Props'>仅展示类型为图片时有效</Blockquote>

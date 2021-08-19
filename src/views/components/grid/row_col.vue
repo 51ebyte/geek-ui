@@ -179,11 +179,11 @@
 			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
 				<Blockquote title="Row props"></Blockquote>
-				<table-props :data="table.props.row.data"></table-props>
+				<table-props :data="table.props.row.data" :example="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="Col props"></Blockquote>
-				<table-props :data="table.props.col.data"></table-props>
+				<table-props :data="table.props.col.data" :example="false" :select="false"></table-props>
 			</Col>
 		</Row>
 	</div>

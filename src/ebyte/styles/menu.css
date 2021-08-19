@@ -1,10 +1,10 @@
 .e-menu {
 	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
-.e-menu-item {}
-
-.e-menu-item-box {
+.e-menu .e-menu-item {
 	cursor: pointer;
 	position: relative;
 	padding: 13px 16px;
@@ -15,30 +15,28 @@
 	align-items: center;
 }
 
-.e-menu-item-box.e-menu-item-prefix {
+.e-menu .e-menu-item.e-menu-item-prefix {
 	padding-left: 38px;
 }
 
-.e-menu-item-box .text {
+.e-menu .e-menu-item .text {
 	font-size: 14px;
 }
 
-.e-menu-item-box.e-menu-item-suffix {
+.e-menu .e-menu-item.e-menu-item-suffix {
 	padding-right: 32px;
 }
 
-.e-menu-item-prefix .prefix-icon,
-.e-menu-item-suffix .suffix-icon {
+.e-menu .e-menu-item-prefix .prefix-icon {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-}
-
-.e-menu-item-prefix .prefix-icon {
 	left: 13px;
 }
 
-.e-menu-item-suffix .suffix-icon {
+.e-menu .e-menu-item-suffix .suffix-icon {
+	position: absolute;
+	top: 50%;
 	right: 13px;
 	width: 10px;
 	height: 10px;
@@ -48,34 +46,26 @@
 	transform: translateY(-50%) rotate(-45deg);
 }
 
-.e-menu-item-suffix .suffix-icon.open {
+.e-menu .e-menu-item-suffix.e-menu-item-open .suffix-icon {
 	transform: translateY(-50%) rotate(45deg);
 }
 
-
-.e-menu.e-flex-col .e-menu-item-box:hover,
-.e-menu.e-flex-col .e-menu-item-box:hover * {
+.e-menu .e-menu-item:hover,
+.e-menu .e-menu-item:hover * {
 	color: #0f8de9;
 }
 
-.e-menu.e-flex-col .e-menu-item-box.e-menu-item-active {
+.e-menu .e-menu-item.e-menu-item-active {
 	background: #f0faff;
 	color: #0f8de9;
 }
 
-
-.e-menu .e-menu-item-box.e-menu-item-active::after {
+.e-menu .e-menu-item.e-menu-item-active::after {
 	content: '';
 	background: #0f8de9;
 	position: absolute;
 	transition: all 500ms;
 	color: #0f8de9;
-	width: 0px;
-	height: 0px;
-	opacity: 0;
-}
-
-.e-menu.e-flex-col .e-menu-item-box.e-menu-item-active::after {
 	width: 2px;
 	height: 100%;
 	top: 50%;
@@ -84,53 +74,101 @@
 	opacity: 1;
 }
 
-.e-menu.e-flex .e-menu-item-box.e-menu-item-active::after {
-	height: 2px;
-	width: 100%;
-	left: 50%;
-	bottom: 0%;
-	transform: translateX(-50%);
-	opacity: 1;
-}
-
-/**
- * 垂直
- */
-
-.e-menu.e-flex {}
-
-
-.e-menu.e-flex .e-menu-item {
-	display: flex;
-}
-
-.e-menu.e-flex .e-menu-item-box::after {
-	bottom: 0%;
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-.e-menu.e-flex .e-menu-item-box:hover::after,
-.e-menu.e-flex .e-menu-item-box.e-menu-item-active::after {
-	width: 100%;
-	height: 2px;
-}
-
-/**
- * 
- */
-.e-menu.e-flex-col .e-menu-children {
+.e-menu .e-menu-children {
 	padding-left: 20px;
 }
 
-.e-menu.e-flex .e-menu-children {
-	display: none;
-}
-
-.e-menu-group .text {
+.e-menu-group>.text {
 	height: 48px;
 	line-height: 48px;
 	font-size: 14px;
 	padding-left: 28px;
 	color: #999;
+}
+
+/**
+ * 水平
+ */
+
+
+
+.e-menu.e-menu-horizontal {
+	flex-direction: row;
+	align-items: center;
+}
+
+.e-menu.e-menu-horizontal .e-menu-sub {
+	display: flex;
+	position: relative;
+}
+
+.e-menu.e-menu-horizontal .e-menu-item {
+	width: auto;
+	display: flex;
+}
+
+.e-menu.e-menu-horizontal .e-menu-item.e-menu-item-suffix .suffix-icon {
+	transform: translateY(-20%) rotate(-135deg);
+}
+
+.e-menu.e-menu-horizontal .e-menu-item-suffix.e-menu-item-open .suffix-icon {
+	transform: translateY(-50%) rotate(45deg);
+}
+
+.e-menu.e-menu-horizontal .e-menu-children {
+	position: absolute;
+	z-index: 999;
+	background-color: white;
+	top: 45px;
+	display: flex;
+	flex-direction: column;
+	padding-left: 0px;
+	min-width: 100%;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+	white-space: nowrap;
+}
+
+.e-menu.e-menu-horizontal>.e-menu-sub>.e-menu-children {
+	right: 0px !important;
+}
+
+.e-menu.e-menu-horizontal .e-menu-children .e-menu-sub {
+	width: 100%;
+}
+
+.e-menu.e-menu-horizontal .e-menu-children .e-menu-item.e-menu-item-suffix .suffix-icon {
+	transform: translateY(-50%) rotate(-45deg);
+	width: 8px;
+	height: 8px;
+}
+
+.e-menu.e-menu-horizontal .e-menu-item.e-menu-item-active::after {
+	height: 0px;
+	width: 0%;
+	opacity: 0;
+}
+
+.e-menu.e-menu-horizontal .e-menu-children .e-menu-children {
+	top: 0px;
+	right: 0px;
+}
+
+.e-menu.e-menu-horizontal .e-menu-item.e-menu-item-active {
+	background: #FFFFFF;
+	color: #0f8de9;
+}
+
+.e-menu.e-menu-horizontal .e-menu-item.e-menu-item-active::after {
+	content: '';
+	background: #0f8de9;
+	position: absolute;
+	transition: all 500ms;
+	color: #0f8de9;
+	width: 100%;
+	height: 2px;
+	bottom: 0%;
+	left: 50%;
+	top: unset;
+	transform: translateX(-50%);
+	opacity: 1;
 }

@@ -1,10 +1,8 @@
 <template>
-	<div class="e-menu-item" @click="handleClickItem">
-		<div class="e-menu-item-box" :class="{
+	<div class="e-menu-item" :class="{
 			'e-menu-item-active': isActive
-		}">
+		}" @click="handleClickItem">
 			<slot></slot>
-		</div>
 	</div>
 </template>
 
@@ -13,7 +11,7 @@
 	export default defineComponent({
 		name: 'MenuItem',
 		props:{
-			name:{
+			keys:{
 				type:String
 			},
 			to:{
@@ -29,13 +27,14 @@
 		},
 		setup(props,ctx){
 			const to = toRef(props,'to').value;
+			
 			const { proxy } = getCurrentInstance();
 			
 			const menuActive = inject('menuActive',{value:''})
 			
 			const openMenuLevel = ref([])
 			const isActive = computed(()=>{
-				let is = props.name == menuActive.value;
+				let is = props.keys == menuActive.value;
 				if(is){
 					openMenuLevel.value = [menuActive.value]
 					let Menu = findComponents(proxy.$parent);
@@ -56,7 +55,7 @@
 			
 			const handleClickItem = (evt) => {
 				let Menu = findComponents(proxy.$parent);
-				Menu.active = props.name;
+				Menu.active = props.keys;
 				
 				if (typeof to == 'object') {
 					let _target = to.target || '';
@@ -95,7 +94,6 @@
 			};
 			return {
 				isActive,
-				menuActive,
 				handleClickItem
 			}
 		}

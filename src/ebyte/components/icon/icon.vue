@@ -29,7 +29,7 @@ export default defineComponent({
 		},
 		color: {
 			type: String,
-			default: '#808695'
+			default: ''
 		},
 		svg: {
 			type: Boolean,

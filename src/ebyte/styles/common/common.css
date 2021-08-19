@@ -15,7 +15,7 @@ body {
 	user-select: none;
 }
 
-*{
+* {
 	box-sizing: border-box;
 }
 
@@ -74,6 +74,14 @@ code {
 	display: inline-block;
 }
 
+a {
+	color: #2d8cf0;
+	background: 0 0;
+	text-decoration: none;
+	outline: 0;
+	cursor: pointer;
+	transition: color .2s ease;
+}
 
 .e-button,
 .e-input,

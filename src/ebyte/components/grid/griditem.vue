@@ -100,7 +100,6 @@ export default defineComponent({
 		});
 
 		const handleClickItem = (item, index, evt:MouseEvent) => {
-			console.log(item)
 			ctx.emit('click', item, index, evt);
 		};
 		return {

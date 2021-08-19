@@ -88,23 +88,23 @@
 			</Col>
 			<Col :span="24">
 				<Blockquote title="LayoutAside Props"></Blockquote>
-				<table-props :data="table.props.aside"></table-props>
+				<table-props :data="table.props.aside" :example="false" :select="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="LayoutNorth Props"></Blockquote>
-				<table-props :data="table.props.north"></table-props>
+				<table-props :data="table.props.north" :example="false" :select="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="LayoutWest Props"></Blockquote>
-				<table-props :data="table.props.west"></table-props>
+				<table-props :data="table.props.west" :example="false" :select="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="LayoutEast Props"></Blockquote>
-				<table-props :data="table.props.east"></table-props>
+				<table-props :data="table.props.east" :example="false" :select="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="LayoutSouth Props"></Blockquote>
-				<table-props :data="table.props.south"></table-props>
+				<table-props :data="table.props.south" :example="false" :select="false"></table-props>
 			</Col>
 		</Row>
 	</div>

@@ -48,7 +48,7 @@
 	position: absolute;
 	width: 100%;
 	box-sizing: border-box;
-	max-height: 200px;
+	max-height: 260px;
 	overflow: auto;
 	background-color: #fff;
 	box-sizing: border-box;
@@ -78,7 +78,7 @@
 	margin-right: 4px;
 }
 
-.e-select-dropdown li:hover {
+.e-select-dropdown li:not(.group):hover {
 	background-color: #f3f3f3;
 }
 
@@ -89,6 +89,12 @@
 .e-select-dropdown li.disabled {
 	color: #c5c8ce;
 	cursor: not-allowed;
+}
+
+.e-select-dropdown li.group {
+	color: #999;
+	cursor: auto;
+	padding-left: 30px;
 }
 
 .e-select-dropdown li.empty {

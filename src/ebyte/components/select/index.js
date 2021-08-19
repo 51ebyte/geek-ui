@@ -1,3 +1,5 @@
 'use strict';
 import select from './select.vue'
-export default select;
+export default {
+	select
+};

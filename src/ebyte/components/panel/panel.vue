@@ -84,6 +84,10 @@ export default defineComponent({
 		collapse: {
 			type: [Boolean, String],
 			default: false
+		},
+		border:{
+			type: [Boolean,String],
+			default: true
 		}
 	},
 	setup(props, ctx) {
@@ -91,6 +95,7 @@ export default defineComponent({
 		const radius = toRef(props, 'radius').value;
 		const margin = toRef(props, 'margin').value;
 		const padding = toRef(props, 'padding').value;
+		const border = toRef(props, 'border').value;
 
 		const styles = computed(() => {
 			const style = toRef(props, 'styles').value;
@@ -122,6 +127,18 @@ export default defineComponent({
 				styles.header['border-top-right-radius'] = radius + 'px';
 				styles.footer['border-bottom-left-radius'] = radius + 'px';
 				styles.footer['border-bottom-right-radius'] = radius + 'px';
+			}
+			
+			if (border == false) {
+				styles.default['border'] = 'none';
+			}
+			if (typeof border =='string') {
+				styles.default['border-color'] = border;
+			}
+			if (typeof border =='object') {
+				styles.default['border-color'] = border.color || '#EEEEEE';
+				styles.default['border-style'] = border.style || 'solid';
+				styles.default['border-width'] = (border.width || 1)+'px';
 			}
 			return styles;
 		});

@@ -58,7 +58,7 @@
 			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
 				<Blockquote title="Radio Props"></Blockquote>
-				<table-props :data="table.props.data"></table-props>
+				<table-props :data="table.props.data" :example="false" :select="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="Radio Slots"></Blockquote>

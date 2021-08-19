@@ -1,11 +1,23 @@
 <template>
-	<pre
-		:class="['e-code', skin ? 'e-code-' + skin : '']"
-	><h3 class="e-code-h3"><span>{{title}}</span><div class="slot"><slot><a :class="{link:copy}" href="javascript:;" @click="handleCopy">{{copy?'复制':(toggle?'':'code')}}</a><a href="javascript:;" class="link" v-if="toggle" @click="handleToggle">{{unflod?'收起':'展开'}}</a></slot></div></h3><div class="e-code-scroll" :style="styles.scroll"><ol class="e-code-ol" v-html="html" ref="olRef"></ol></div></pre>
+	<div :class="['e-code', skin ? 'e-code-' + skin : '']">
+		<h3 class="e-code-h3">
+			<span>{{ title }}</span>
+			<div class="extra">
+				<slot name="extra">
+					<a :class="{ link: copy }" href="javascript:;" @click="handleCopy">{{ copy ? '复制' : toggle ? '' : 'code' }}</a>
+					<a href="javascript:;" class="link" v-if="toggle" @click="handleToggle">{{ unflod ? '收起' : '展开' }}</a>
+				</slot>
+			</div>
+		</h3>
+		<div class="e-code-scroll" :style="styles.scroll">
+			<pre><ol class="e-code-ol" v-html="html" ref="olRef"></ol></pre>
+		</div>
+		<div class="e-code-more" @click="handleToggle" v-if="!unflod && toggle && height>62">展开代码</div>
+	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent,toRef, ref, computed,nextTick,onMounted,watch } from 'vue';
+import { defineComponent, toRef, ref, computed, nextTick, onMounted, watch } from 'vue';
 export default defineComponent({
 	name: 'Code',
 	data() {
@@ -15,8 +27,8 @@ export default defineComponent({
 		};
 	},
 	props: {
-		modelValue:{
-			type: String,
+		modelValue: {
+			type: String
 		},
 		title: {
 			type: String,
@@ -41,7 +53,7 @@ export default defineComponent({
 			type: Boolean,
 			default: false
 		},
-		br:{
+		br: {
 			type: Boolean,
 			default: true
 		}
@@ -54,49 +66,48 @@ export default defineComponent({
 		const br = ref<Boolean>(props.br);
 		const unflod = ref<Boolean>(false);
 		const code = toRef(props, 'code').value;
-		const html = ref<String>('')
-		
+		const html = ref<String>('');
+
 		const value = computed(() => (props.modelValue === null || props.modelValue === undefined ? '' : String(props.modelValue)));
-		
+
 		const styles = computed(() => {
-			var styles = { scroll: {
-			} };
+			var styles = { scroll: {} };
 			if (typeof height.value == 'number') {
 				styles.scroll['height'] = height.value + 'px';
 			} else if (typeof height.value == 'string') {
 				styles.scroll['height'] = height.value;
 			}
-			if(!br){
+			if (!br) {
 				styles.scroll['overflow-x'] = 'auto';
 				styles.scroll['white-space'] = 'inherit';
 			}
 			return styles;
 		});
-		
-		const olRef = ref(null)
+
+		const olRef = ref(null);
 		const toggle = ref(false);
-		onMounted(()=>{
-			handleHtml(code)
-			nextTick(()=>{
+		onMounted(() => {
+			handleHtml(code);
+			nextTick(() => {
 				let olHieght = olRef.value.offsetHeight;
-				if(props.toggle){
-					toggle.value = olHieght>height.value
+				if (props.toggle) {
+					toggle.value = olHieght > height.value;
 				}
-			})
-		})
-		
-		watch(value,()=>{
+			});
+		});
+
+		watch(value, () => {
 			handleHtml(value.value);
-		})
-		
-		const handleHtml=(code:string)=>{
+		});
+
+		const handleHtml = (code: string) => {
 			var ol = code.replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;');
 			ol = ol.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			ol = ol.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
 			ol = ol.replace(/[\r\t\n]+/g, '</li><li>');
 			ol = '<li>' + ol + '</li>';
 			html.value = ol;
-		}
+		};
 
 		var copy = toRef(props, 'copy').value;
 		const handleCopy = (evt: MouseEvent) => {

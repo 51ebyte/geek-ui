@@ -88,7 +88,6 @@ export default defineComponent({
 		});
 
 		const handleClickItem = (item, index, evt) => {
-			console.log(item)
 			ctx.emit('click', item, index, evt);
 		};
 

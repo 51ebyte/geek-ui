@@ -61,7 +61,7 @@
 			</Col>
 			<Col :span="24">
 				<Blockquote title="GridItem props"></Blockquote>
-				<table-props :data="table.props.griditem.data"></table-props>
+				<table-props :data="table.props.griditem.data" :select="false"></table-props>
 			</Col>
 			<Col :span="24">
 				<Blockquote title="Grid/GridItem event"></Blockquote>

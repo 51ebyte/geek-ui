@@ -3,8 +3,8 @@
 		<div class="e-select-input" @click="handleClickInputbox" @keyup.delete="handleDeleteTag">
 			<template v-if="multiple">
 				<template v-for="(tag,index) in inputTag">
-					<div class="tag" @click.stop="handleDeleteTag(tag,index)" :title="'点击删除/'+tag.label">
-						<span class="text">{{ tag.label }}</span>
+					<div class="tag" @click.stop="handleDeleteTag(tag,index)" :title="'点击删除/'+tag[labelKey]">
+						<span class="text">{{ tag[labelKey] }}</span>
 					</div>
 				</template>
 				<input ref="inputRef" :placeholder="inputTag.length<1?placeholder:''" :disabled="disabled" :value="inputLabel" @input="handleInput" @focus="handleFocus" @blur="handleBlur" />
@@ -19,11 +19,12 @@
 				<template v-for="(item, index) in list">
 					<li :class="{
 							disabled: item.disabled,
-							selected: inputTag.findIndex(e => e.value == item.value) >= 0 || inputLabel == item.label
+							selected: inputTag.findIndex(e => e.value == item[valueKey]) >= 0 || inputLabel && inputLabel == item[labelKey],
+							group:!!item.group
 						}"
 						@click.stop="handleClickOption(item, index)"
 					>
-						<slot :item="item" :index="index">{{ item.label }}</slot>
+						<slot :item="item" :index="index">{{ item.group || item[labelKey] }}</slot>
 					</li>
 				</template>
 				<template v-if="list.length < 1">
@@ -68,6 +69,14 @@ export default defineComponent({
 		multiple: {
 			type: Boolean,
 			default: false
+		},
+		labelKey:{
+			type:String,
+			default:'label'
+		},
+		valueKey:{
+			type:String,
+			default:'value'
 		}
 	},
 	emits: [UPDATE_MODEL_VALUE_EVENT, 'change', 'update:list'],
@@ -92,7 +101,7 @@ export default defineComponent({
 			if(inputValue.value){
 				if(typeof inputValue.value =='number' || typeof inputValue.value =='string'){
 					let index = deepList.findIndex(e=>e.value == inputValue.value);
-					inputLabel.value = index>=0?deepList[index].label:'';
+					inputLabel.value = index>=0?deepList[index][props.labelKey]:'';
 				}else if(typeof (inputValue.value) =='object' && multiple.value){
 					inputValue.value.map(v=>{
 						let item = deepList.filter(e=>e.value == v);
@@ -148,15 +157,15 @@ export default defineComponent({
 			inputLabel.value = value;
 			if (isUnfold.value) {
 				list.value = deepList.filter(function(item) {
-					return item['label'].search(value) >= 0 ? item : '';
+					return item[props.labelKey]?(item[props.labelKey].toLowerCase().search(value.toLowerCase()) >= 0 ? item : ''):'';
 				});
 			}
 		};
 		//点击下拉选项
 		const handleClickOption = (item, index) => {
-			if (item.disabled) return;
+			if (item.disabled || item.group) return;
 			if (multiple.value) {
-				let index = inputTag.value.findIndex(e => e.value == item.value);
+				let index = inputTag.value.findIndex(e => e.value == item[props.valueKey]);
 				if (index >= 0) {
 					inputTag.value.splice(index, 1);
 				} else {
@@ -166,11 +175,11 @@ export default defineComponent({
 				ctx.emit(UPDATE_MODEL_VALUE_EVENT, inputTag.value);
 				ctx.emit('change', inputTag.value);
 			} else {
-				if (item.value === inputValue.value) return;
+				if (item[props.valueKey] === inputValue.value) return;
 				isUnfold.value = false;
-				inputLabel.value = item.label;
-				ctx.emit(UPDATE_MODEL_VALUE_EVENT, item.value);
-				ctx.emit('change', item.value);
+				inputLabel.value = item[props.labelKey];
+				ctx.emit(UPDATE_MODEL_VALUE_EVENT, item[props.valueKey]);
+				ctx.emit('change', item, index);
 				let defaultClass = classs.value.default;
 				let key = defaultClass.findIndex(e => e == 'e-select-unfold');
 				if (key >= 0) {

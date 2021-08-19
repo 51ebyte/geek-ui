@@ -74,7 +74,11 @@ export default defineComponent({
 		const theadTh = columns.map((col, index) => {
 			col.colspan = util.colspan(col.children);
 			col.rowspan = util.rowspan(col.children);
-			col.style = [`text-align:${col.align || 'left'}`, border ? 'border-width:1px' : ''];
+			col.style = [
+				border ? 'border-width:1px' : '',
+				`text-align:${col.align || 'left'}`, 
+				`width:${col.width+'px' || 'auto'}`, 
+				];
 			return col;
 		});
 		theadTr.push(theadTh);

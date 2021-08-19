@@ -1,15 +1,10 @@
 <template>
-	<div class="e-menu-item" @click="handleClickItem">
-		<div
-			class="e-menu-item-box"
-			:class="{
+	<div class="e-menu-item" :class="{
 				'e-menu-item-prefix': item.icon,
-				'e-menu-item-active': isActive
-			}"
-		>
+				'e-menu-item-active': isActive(item)
+			}" @click="handleClickItem">
 			<Icon class="prefix-icon" :name="item.icon"></Icon>
-			<span class="text">{{item.text}}</span>
-		</div>
+			<span class="text">{{item.name}}</span>
 	</div>
 </template>
 
@@ -25,25 +20,25 @@ export default defineComponent({
 	emits: ['click', 'collapse'],
 	setup: (props, ctx) => {
 		const item = toRef(props, 'item').value;
-		
 		const { proxy } = getCurrentInstance();
 		const menuActive = inject('menuActive',{value:''})
 		
 		const openMenuLevel = ref([])
-		const isActive = computed(()=>{
+		const isActive = (item)=>{
 			let is = false
 			if(menuActive.value && item.name){
-				is = item.name == menuActive.value 
+				is = item.keys == menuActive.value 
 			}else{
-				is = (proxy.$route.name == item.name || proxy.$route.name == item.to);
+				is = (proxy.$route.name == item.keys || proxy.$route.name == item.to);
 			}
+			
 			if(is){
 				openMenuLevel.value = [menuActive.value]
 				let Menu = findComponents(proxy.$parent);
 				Menu.open = openMenuLevel.value
 			}
 			return is
-		})
+		}
 		
 		const findComponents = component => {
 			if (component.$options.name == 'Menu') {
@@ -57,9 +52,8 @@ export default defineComponent({
 		
 
 		const handleClickItem = () => {
-			
 			let Menu = findComponents(proxy.$parent);
-			Menu.active = item.name;
+			Menu.active = item.keys;
 			
 			if (item.children) {
 				hasOpen.value = !hasOpen.value;
@@ -69,6 +63,14 @@ export default defineComponent({
 			ctx.emit('click', item, props.keys);
 			if (typeof item.to == 'object') {
 				let _target = item.to.target || '';
+				if (typeof item.to.href == 'string') {
+					if (_target == '_blank') {
+						window.open(item.to.href, '_blank');
+					} else {
+						window.open(item.to.href, '_self');
+					}
+					return;
+				}
 				let routes = proxy.$router.getRoutes();
 				if (routes.findIndex(e => e.name == item.to.name || e.path == item.to.path) >= 0) {
 					if (_target == '_blank') {
@@ -104,9 +106,6 @@ export default defineComponent({
 
 		return {
 			isActive,
-			menuActive,
-			// hasOpen,
-			hasSlot: !!ctx.slots.default,
 			handleClickItem
 		};
 	}
