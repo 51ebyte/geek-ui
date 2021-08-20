@@ -1,5 +1,6 @@
 .e-select {
 	position: relative;
+	width: 100%;
 }
 
 .e-select.e-select-disabled {

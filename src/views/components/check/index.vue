@@ -59,26 +59,20 @@
 			</Col>
 			<Col :span="12">
 				<Panel type="code" title="复选框样式">
-					<Row :gutter="10">
-						<Col :span="12">
-							<Panel title="选择样式">
-								<Check v-model="value4" :list="list" style></Check>
-							</Panel>
-						</Col>
-						<Col :span="12">
-							<Panel title="按钮样式">
-								<Check v-model="value4" :list="list" button></Check>
-							</Panel>
-						</Col>
-					</Row>
+					<Panel title="选择样式">
+						<Check v-model="value4" :list="list" select></Check>
+					</Panel>
+					<Panel title="按钮样式">
+						<Check v-model="value4" :list="list" button></Check>
+					</Panel>
 					<Divider text="用法说明" left margin="36px 0 0">
 						<p>通过设置<code>button&lt;Boolean&gt;</code>属性可设置复选框样式为按钮样式</p>
-						<p>通过设置<code>style&lt;Boolean&gt;</code>属性可设置复选框样式为选择样式</p>
+						<p>通过设置<code>select&lt;Boolean&gt;</code>属性可设置复选框样式为选择样式</p>
 					</Divider>
 				</Panel>
 			</Col>
 			<Col :span="12">
-				<Code :code="code3" skin="dark" :height="252" copy toggle></Code>
+				<Code :code="code3" skin="dark" :height="348" copy toggle></Code>
 			</Col>
 			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
@@ -100,7 +94,7 @@
 <script>
 	import {TableProps,TableSlot,TableEvent} from '../bootstrap/table.js'
 	export default{
-		layout:'components',
+		layout:'develop',
 		components:{
 			TableProps,
 			TableSlot,
@@ -139,6 +133,9 @@
 					&lt;/script&gt;`,
 					code2:`<template>
 					  <Check v-model="value" :list="list" v-slot="{item,index}">
+					    <span>{{item.label}}</span>
+					  </Check>
+					  <Check v-model="value" :list="list" v-slot="{item,index}" vertical>
 					    <span>{{item.label}}</span>
 					  </Check>
 					</template>

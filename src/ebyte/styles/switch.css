@@ -30,8 +30,8 @@
 }
 
 .e-switch-checked {
-	border-color: #2d8cf0;
-	background-color: #2d8cf0;
+	border-color:var(--color-primary);
+	background-color: var(--color-primary);
 }
 
 .e-switch-checked::before {
@@ -77,8 +77,8 @@
 	left: 3px;
 	top: 3px;
 	z-index: 1;
-	border: 2px solid #2d8cf0;
-	border-color: transparent transparent transparent #2d8cf0;
+	border: 2px solid var(--color-primary);;
+	border-color: transparent transparent transparent var(--color-primary);;
 	animation: loading 1.5s linear;
 	animation-iteration-count: infinite;
 }

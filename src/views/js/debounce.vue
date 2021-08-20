@@ -4,7 +4,7 @@
 
 <script>
 	export default{
-		layout:'components'
+		layout:'develop'
 	}
 </script>
 

@@ -74,7 +74,7 @@
 <script>
 	import {TableProps,TableEvent} from '../bootstrap/table.js'
 	export default{
-		layout:'components',
+		layout:'develop',
 		components:{
 			TableProps,
 			TableEvent

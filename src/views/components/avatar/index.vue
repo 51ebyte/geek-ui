@@ -191,7 +191,7 @@
 <script>
 import {TableProps,TableSlot,TableEvent} from '../bootstrap/table.js'
 export default {
-	layout:'components',
+	layout:'develop',
 	components: {
 		TableProps,
 		TableSlot,
@@ -310,7 +310,7 @@ export default {
 							{params:'withCredentials',version:'0.0.1',desc:'头像上传支持发送 <code>cookie</code> 凭证信息',type:'<code>String</code>',required:'否'},
 							{params:'before',version:'0.0.1',desc:'上传文件之前的钩子，参数为上传的文件，若返回 <code>Promise.reject</code> 则停止上传',type:'<code>Function</code>',required:'否'},
 							{params:'complete',version:'0.0.1',desc:'文件上传成功时的钩子，返回字段为 <code>file&lt;File&gt;</code>, <code>response&lt;Object&gt;</code>',type:'<code>Function</code>',required:'否'},
-							{params:'progress',version:'0.0.1',desc:'文件上传时的钩子，返回字段为 <code>file&lt;File&gt;</code>, <code>progress&lt;ProgressEvent &gt;</code>',type:'<code>Function</code>',required:'否'},
+							{params:'progress',version:'0.0.1',desc:'文件上传时的钩子，返回字段为 <code>file&lt;File&gt;</code>, <code>progress&lt;ProgressEvent &gt;</code>',type:'<code>Function</code>',required:'否'},
 							{params:'error',version:'0.0.1',desc:'文件上传失败时的钩子，返回字段为 <code>file&lt;File&gt;</code>, <code>err&lt;Error&gt;</code>, <code>xhr&lt;XMLHttpRequest&gt;</code>',type:'<code>Function</code>',required:'否'},
 						],
 					}

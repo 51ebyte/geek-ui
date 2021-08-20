@@ -1,0 +1,77 @@
+:root {
+	--color-white: #fff;
+	--color-black: #000;
+	--color-primary: #1890ff;
+	--color-primary-light-1: #409eff;
+	--color-primary-light-2: #53a8ff;
+	--color-primary-light-3: #66b1ff;
+	--color-primary-light-4: #79bbff;
+	--color-primary-light-5: #8cc5ff;
+	--color-primary-light-6: #a0cfff;
+	--color-primary-light-7: #b3d8ff;
+	--color-primary-light-8: #c6e2ff;
+	--color-primary-light-9: #d9ecff;
+	--color-primary-light-10: #ecf5ff;
+	--color-success: #19be6b;
+	--color-warning: #f90;
+	--color-danger: #ff4d4f;
+	--color-error: #ed4014;
+	--color-info: #909399;
+
+	--background-color: #f2f2f2;
+	--background-color-disabled: #f7f7f7;
+
+	--text-color-primary: #303133;
+	--text-color-regular: #606266;
+	--text-color-secondary: #909399;
+	--text-color-placeholder: #c0c4cc;
+	--text-color-disabled: #c5c8ce;
+
+	--border-color: #d2d2d2;
+	--border-width: 1px;
+	--border-style: solid;
+	--border-color-hover: var(--text-color-placeholder);
+	--border-color-disabled: #dcdee2;
+	--border-radius-base: 4px;
+	--border-radius-small: 2px;
+	--border-radius-round: 20px;
+	--border-radius-circle: 100%;
+	--border: var(--border-width) var(--border-style) var(--border-color);
+
+	--font-size-extra-large: 20px;
+	--font-size-large: 18px;
+	--font-size: 14px;
+	--font-size-small: 14px;
+	--font-weight-primary: 500;
+	--font-line-height-primary: 24px;
+
+	--disabled-background: var(--background-color-disabled);
+	--disabled-color: var(--text-color-disabled);
+	--disabled-border: var(--border-color-disabled);
+
+	--box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+
+	/**
+	 * 头像 Avatar
+	 */
+	--avatar-background: #cccccc;
+	/**
+	 * 引用块 blockquote
+	 */
+	--blockquote-background: #FAFAFA;
+	--blockquote-border-left: var(--color-success);
+	--blockquote-text-color: #5e6d82;
+	/**
+	 * 面包屑 Breadcrumb
+	 */
+	--breadcrumb-item-color: #00000073;
+	--breadcrumb-item-active-color: #000000d9;
+	/**
+	 * 卡片 card
+	 */
+	--card-border-color: #eee;
+	/**
+	 * 面板 panel
+	 */
+	--panel-border-color: #eee;
+}

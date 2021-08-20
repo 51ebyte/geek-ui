@@ -7,7 +7,7 @@
 <script>
 import { toRefs,toRef } from 'vue'
 export default {
-	layout:'components',
+	layout:'develop',
 	data(){
 		return{
 			cols:[

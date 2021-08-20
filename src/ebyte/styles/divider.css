@@ -15,7 +15,7 @@
 	min-width: 100%;
 	margin: 24px 0;
 	clear: both;
-	border-top: 1px solid #E8EAEC;
+	border-top: 1px solid var(--border-color);
 }
 
 .e-divider-vertical {
@@ -23,7 +23,7 @@
 	display: inline-block;
 	height: 1em;
 	width: 1px;
-	background: #E8EAEC;
+	background: var(--background-color);
 }
 
 .e-divider-text {
@@ -38,7 +38,7 @@
 
 .e-divider-dashed {
 	background: 0 0;
-	border-top: 1px dashed #E8EAEC;
+	border-top: 1px dashed var(--border-color);
 }
 
 .e-divider-content {

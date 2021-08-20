@@ -6,7 +6,7 @@
 
 <script>
 	export default{
-		layout:'components',
+		layout:'develop',
 		data(){
 			return{
 				code:'1'

@@ -115,7 +115,7 @@
 <script>
 	import {TableProps,TableSlot} from '../bootstrap/table.js'
 	export default{
-		layout:'components',
+		layout:'develop',
 		components:{
 			TableProps,
 			TableSlot

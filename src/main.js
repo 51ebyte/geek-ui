@@ -1,4 +1,6 @@
-import { createApp } from 'vue'
+import {
+	createApp
+} from 'vue'
 import App from './App.vue'
 
 import router from './route.js'
@@ -7,17 +9,22 @@ import ebyte from './ebyte'
 
 let layout = import.meta.globEager('./layouts/*.vue');
 
-createApp(App).use(router).use(ebyte,{
-	theme:'primary',
-	plugins:{
-		layout:{
-			template:layout
+import './color.css'
+
+createApp(App).use(router).use(ebyte, {
+	theme: 'primary',
+	plugins: {
+		layout: {
+			template: layout
+		},
+		color:{
+			main:'red'
 		}
 	},
-	config:{
-		breadcrumb:{
-			separator:'/',
-			home:'a'
+	config: {
+		breadcrumb: {
+			separator: '/',
+			home: 'a'
 		}
 	}
 }).mount('#app')

@@ -31,7 +31,7 @@
 
 <script>
 	export default{
-		layout:'components',
+		layout:'develop',
 		data(){
 			return{
 				code1:`<Affix :top="100" right>

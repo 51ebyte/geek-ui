@@ -4,11 +4,15 @@
 
 .e-breadcrumb-item {
 	position: relative;
-	color: #00000073;
+	color: var(--breadcrumb-item-color, #00000073);
 }
 
-.e-breadcrumb-item .text {
+.e-breadcrumb-item .text.hover {
 	cursor: pointer;
+}
+
+.e-breadcrumb-item .text.hover:hover {
+	color: var(--color-primary);
 }
 
 .e-breadcrumb-item .separator {
@@ -16,7 +20,7 @@
 }
 
 .e-breadcrumb-item:last-child .text {
-	color: #000000d9;
+	color: var(--breadcrumb-item-active-color, #000000d9);
 }
 
 .e-breadcrumb-item:last-child .separator {

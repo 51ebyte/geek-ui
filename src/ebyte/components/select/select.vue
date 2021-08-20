@@ -2,25 +2,47 @@
 	<div :class="classs.default">
 		<div class="e-select-input" @click="handleClickInputbox" @keyup.delete="handleDeleteTag">
 			<template v-if="multiple">
-				<template v-for="(tag,index) in inputTag">
-					<div class="tag" @click.stop="handleDeleteTag(tag,index)" :title="'点击删除/'+tag[labelKey]">
+				<template v-for="(tag, index) in inputTag">
+					<div class="tag" @click.stop="handleDeleteTag(tag, index)" :title="'点击删除/' + tag[labelKey]">
 						<span class="text">{{ tag[labelKey] }}</span>
 					</div>
 				</template>
-				<input ref="inputRef" :placeholder="inputTag.length<1?placeholder:''" :disabled="disabled" :value="inputLabel" @input="handleInput" @focus="handleFocus" @blur="handleBlur" />
+				<input
+					ref="inputRef"
+					:placeholder="inputTag.length < 1 ? placeholder : ''"
+					:disabled="disabled"
+					:value="inputLabel"
+					@input="handleInput"
+					@focus="handleFocus"
+					@blur="handleBlur"
+				/>
 			</template>
 			<template v-else>
-				<input class="input" type="text" ref="inputRef" :placeholder="placeholder" :disabled="disabled" :value="inputLabel" :readonly="!inputFilter" @input="handleInput" @focus="handleFocus" @blur="handleBlur" />
+				<input
+					class="input"
+					type="text"
+					ref="inputRef"
+					:placeholder="placeholder"
+					:disabled="disabled"
+					:value="inputLabel"
+					:readonly="!inputFilter"
+					@input="handleInput"
+					@focus="handleFocus"
+					@blur="handleBlur"
+					@keyup.up="handleKeyUp"
+					@keyup.down="handleKeyDown"
+				/>
 				<span class="icon"></span>
 			</template>
 		</div>
-		<div class="e-select-dropdown" v-if="!disabled" @mouseenter.stop="onMouseOptionEnter" @mouseleave.stop="onMouseOptionLeave">
-			<ul class="e-select-ul">
+		<div class="e-select-dropdown" ref="dropdownRef" v-if="!disabled" @mouseenter.stop="onMouseOptionEnter" @mouseleave.stop="onMouseOptionLeave">
+			<ul class="e-select-ul" ref="dropdownUlRef">
 				<template v-for="(item, index) in list">
-					<li :class="{
+					<li
+						:class="{
 							disabled: item.disabled,
-							selected: inputTag.findIndex(e => e.value == item[valueKey]) >= 0 || inputLabel && inputLabel == item[labelKey],
-							group:!!item.group
+							selected: inputTag.findIndex(e => e.value == item[valueKey]) >= 0 || (inputLabel && inputLabel == item[labelKey]),
+							group: !!item.group
 						}"
 						@click.stop="handleClickOption(item, index)"
 					>
@@ -28,7 +50,7 @@
 					</li>
 				</template>
 				<template v-if="list.length < 1">
-					<li class="empty">{{noText}}</li>
+					<li class="empty">{{ noText }}</li>
 				</template>
 			</ul>
 		</div>
@@ -46,11 +68,11 @@ export default defineComponent({
 			type: [String, Number, Array],
 			default: ''
 		},
-		placeholder:{
+		placeholder: {
 			type: String,
 			default: '请选择'
 		},
-		noText:{
+		noText: {
 			type: String,
 			default: '无匹配数据'
 		},
@@ -58,7 +80,7 @@ export default defineComponent({
 			type: Array,
 			required: true
 		},
-		disabled:{
+		disabled: {
 			type: Boolean,
 			default: false
 		},
@@ -70,13 +92,13 @@ export default defineComponent({
 			type: Boolean,
 			default: false
 		},
-		labelKey:{
-			type:String,
-			default:'label'
+		labelKey: {
+			type: String,
+			default: 'label'
 		},
-		valueKey:{
-			type:String,
-			default:'value'
+		valueKey: {
+			type: String,
+			default: 'value'
 		}
 	},
 	emits: [UPDATE_MODEL_VALUE_EVENT, 'change', 'update:list'],
@@ -85,6 +107,9 @@ export default defineComponent({
 
 		let list = ref(props.list);
 		let deepList = JSON.parse(JSON.stringify(props.list));
+		
+		const dropdownRef = ref()
+		const dropdownUlRef = ref()
 
 		const isUnfold = ref(false);
 		const hoverUnfold = ref(false);
@@ -93,25 +118,26 @@ export default defineComponent({
 		const inputLabel = ref('');
 		const inputFilter = toRef(props, 'filter').value;
 		const inputTag = ref([]);
-		
-		onMounted(()=>{
-			if(props.disabled){
-				classs.value.default.push('e-select-disabled')
+		const inputSelectedIndex = ref(-1);
+
+		onMounted(() => {
+			if (props.disabled) {
+				classs.value.default.push('e-select-disabled');
 			}
-			if(inputValue.value){
-				if(typeof inputValue.value =='number' || typeof inputValue.value =='string'){
-					let index = deepList.findIndex(e=>e.value == inputValue.value);
-					inputLabel.value = index>=0?deepList[index][props.labelKey]:'';
-				}else if(typeof (inputValue.value) =='object' && multiple.value){
-					inputValue.value.map(v=>{
-						let item = deepList.filter(e=>e.value == v);
-						if(!item[0]['disabled']){
-							inputTag.value.push(item[0])
+			if (inputValue.value) {
+				if (typeof inputValue.value == 'number' || typeof inputValue.value == 'string') {
+					let index = deepList.findIndex(e => e.value == inputValue.value);
+					inputLabel.value = index >= 0 ? deepList[index][props.labelKey] : '';
+				} else if (typeof inputValue.value == 'object' && multiple.value) {
+					inputValue.value.forEach(v => {
+						let item = deepList.filter(e => e.value == v);
+						if (!item[0]['disabled']) {
+							inputTag.value.push(item[0]);
 						}
-					})
+					});
 				}
 			}
-		})
+		});
 
 		//是否多选
 		const multiple = computed(() => {
@@ -154,11 +180,19 @@ export default defineComponent({
 		//监听输入框变化
 		const handleInput = (evt: MouseEvent) => {
 			const { value } = evt.target;
-			inputLabel.value = value;
-			if (isUnfold.value) {
-				list.value = deepList.filter(function(item) {
-					return item[props.labelKey]?(item[props.labelKey].toLowerCase().search(value.toLowerCase()) >= 0 ? item : ''):'';
-				});
+			inputLabel.value = value.trim();
+			if (isUnfold.value && inputFilter) {
+				if (inputLabel.value == '') {
+					list.value = deepList;
+				} else {
+					list.value = deepList.filter(function(item) {
+						if (item[props.labelKey]) {
+							if (item[props.labelKey].toLowerCase().search(inputLabel.value.toLowerCase()) > 0) {
+								return item;
+							}
+						}
+					});
+				}
 			}
 		};
 		//点击下拉选项
@@ -194,14 +228,55 @@ export default defineComponent({
 			}
 		};
 		//删除tag
-		const handleDeleteTag=(item,index)=>{
-			if(inputLabel.value.length <= 0){
-				inputTag.value.splice(index>=0?index:inputTag.value.length-1,1)
+		const handleDeleteTag = (item, index) => {
+			if (inputLabel.value.length <= 0) {
+				inputTag.value.splice(index >= 0 ? index : inputTag.value.length - 1, 1);
 			}
-		}
+		};
+		
+		const handleKeyUp = evt => {
+			evt.preventDefault();
+			inputSelectedIndex.value--;
+			if (inputSelectedIndex.value < 0) {
+				inputSelectedIndex.value = deepList.length - 1;
+			}
+			const item = deepList[inputSelectedIndex.value];
+			if (item.group) {
+				inputSelectedIndex.value--;
+				dropdownRef.value.scrollTop -= 33
+			}
+			inputLabel.value = deepList[inputSelectedIndex.value]['name'];
+			if(inputSelectedIndex.value>0 && inputSelectedIndex.value<deepList.length - 1){
+				dropdownRef.value.scrollTop -= 33
+			}else if(inputSelectedIndex.value==deepList.length - 1){
+				dropdownRef.value.scrollTop = dropdownUlRef.value.clientHeight
+			}
+		};
+		const handleKeyDown = evt => {
+			console.log(dropdownUlRef.value)
+			evt.preventDefault();
+			inputSelectedIndex.value++;
+			if (inputSelectedIndex.value > deepList.length - 1) {
+				inputSelectedIndex.value = 0;
+			}
+			const item = deepList[inputSelectedIndex.value];
+			if (item.group) {
+				inputSelectedIndex.value++;
+				dropdownRef.value.scrollTop += 33
+			}
+			inputLabel.value = deepList[inputSelectedIndex.value]['name'];
+			if(inputSelectedIndex.value>0){
+				dropdownRef.value.scrollTop += 33
+			}else if(inputSelectedIndex.value==0){
+				dropdownRef.value.scrollTop = 0
+			}
+		};
+
 		return {
 			classs,
 			inputRef,
+			dropdownRef,
+			dropdownUlRef,
 			list,
 			multiple,
 			inputTag,
@@ -217,6 +292,8 @@ export default defineComponent({
 			onMouseOptionLeave,
 			handleClickInputbox,
 			handleDeleteTag,
+			handleKeyUp,
+			handleKeyDown
 		};
 	}
 });

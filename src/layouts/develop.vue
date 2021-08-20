@@ -1,24 +1,28 @@
 <template>
-	<Layout>
+	<Layout ref="layout" :westCollapseClose="false">
 		<template #aside>
 			<slider :logo="src" :menu="menu.sider" @menu="handleClickmenu"></slider>
 		</template>
 		<template #north>
-			<div style="height: 64px;width: 100%;padding: 0 20px;" class="e-flex e-col-center e-row-between">
-				<div class="e-flex-1" style="width: 280px;">
+			<div class="e-flex-1 e-flex e-col-center e-row-between">
+				<div class="e-flex e-col-center" style="width: 260px;">
 					<Select :list="menu.sider[2]['children']" filter label-key="name" @change="handleSelectChange"></Select>
 				</div>
 				<div class="navlist" style="height: 100%;">
-					<!-- <Menu :list="menu.north" horizontal></Menu> -->
+					<Menu :list="menu.north" horizontal></Menu>
 				</div>
 			</div>
 		</template>
 		<template #west>
-			<div style="height: 100%;width: 220px;padding-top: 10px;overflow: auto;">
-				<Menu :list="menu.west"></Menu>
-			</div>
+			<Menu :list="menu.west"></Menu>
 		</template>
 		<template #default>
+			<div style="margin: 20px 20px 0px 20px;">
+				<Breadcrumb :list="breadcrumb"></Breadcrumb>
+			</div>
+			<div class="tab-nav">
+				
+			</div>
 			<router-view></router-view>
 		</template>
 		<template #south>
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-	import slider from './slider.vue'
+	import slider from './components/slider.vue'
 	export default{
 		components:{
 			slider
@@ -145,10 +149,7 @@
 								{name:'滑动验证',keys:'template_drag',to:'template_drag'},
 							],
 						},
-						{name:'资源',keys:'resource',children:[
-								{name:'Axure',keys:'resource_axure',to:'resource_axure'},
-							],
-						},
+						{name:'资源',keys:'resource_axure',to:'resource_axure'},
 					],
 					north:[
 						{keys:"API",name:'API',href:"http://www.baidu.com",target:'_blank'},
@@ -156,14 +157,15 @@
 						{keys:"ZHICHI",name:'支持',href:"http://www.baidu.com",target:'_blank'},
 						{keys:"SHENGTAI",name:'生态',
 							children:[
-								{keys:"YANSE",name:'颜色',to:'doc_guide'},
+								{keys:"YANSE",name:'颜色',to:'SHENGTAI'},
 							]
 						},
 						{keys:'Gitee',name:'Gitee',href:"http://www.baidu.com",target:'_blank'},
 						{keys:'Github',name:'Github',href:"http://www.baidu.com",target:'_blank'},
 					],
 					west:[],
-				}
+				},
+				breadcrumb:[]
 			}
 		},
 		computed:{
@@ -171,20 +173,46 @@
 				const path = this.$route.path.split('/').filter(e => e.trim());
 				let index = this.menu.sider.findIndex(e => e.keys.split('_').filter(s => s.trim())[0] == path[0]);
 				return index >= 0 ? index : 0;
+			},
+		},
+		watch:{
+			'$route'(n){
+				console.log(n)
+				this.breadcrumb = this.handleBreadcrumb(n.name);
 			}
 		},
 		mounted() {
-			this.menu.west = this.menu.sider[this.active]['children'];
+			this.menu.west = this.menu.sider[this.active]['children'] || [];
+			let routeName = this.$route.name;
+			this.breadcrumb = this.handleBreadcrumb(routeName);
 		},
 		methods:{
+			handleBreadcrumb(routeName){
+				let breadcrumb =[
+					{name:'首页',to:{path:'/'}},
+				]
+				this.menu.west = this.menu.sider[this.active]['children'] || [];
+				let one = this.menu.sider.filter(e=>e.keys==routeName.split('_')[0])
+				let two = this.menu.west.filter(e=>e.keys==routeName);
+				if(one[0]){
+					breadcrumb.push({name:one[0]['name'] || ''})
+				}
+				if(two[0]){
+					let name = two[0]['name'];
+					breadcrumb.push({name:name.replace(name.match(/[a-zA-Z]+/),'').trim()})
+				}
+				return breadcrumb
+			},
 			handleClickmenu(item,index){
-				console.log(item)
-				this.menu.west = item.children;
+				this.menu.west = item.children || [];
 			},
 			handleSelectChange(item,index){
 				this.$router.push({
 					name:item.to
 				});
+			},
+			handleToggleWest(){
+				this.$refs.layout.toggleCollapseWest();
 			}
 		}
 	}

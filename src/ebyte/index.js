@@ -7,6 +7,7 @@ import layoutDefault from './layouts/default.vue'
 let components = import.meta.globEager('./components/*/index.js')
 let directives = import.meta.globEager('./directive/*.js')
 
+import './styles/skin/default.css'
 import './styles/common/common.css'
 
 const install = function(app, opts = {}) {

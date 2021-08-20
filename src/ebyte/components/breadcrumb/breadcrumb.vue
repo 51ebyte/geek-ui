@@ -3,7 +3,7 @@
 		<template v-for="(item, index) in list">
 			<div class="e-breadcrumb-item">
 				<slot :item="item" :index="index">
-					<span class="text" @click="handleClick(item, index)">{{ item.name || item }}</span>
+					<span class="text" :class="{hover:!!item.to}" @click="handleClick(item, index)">{{ item.name || item }}</span>
 				</slot>
 				<span class="separator" v-html="separator"></span>
 			</div>
@@ -44,6 +44,7 @@ export default defineComponent({
 					const { href } = proxy.$router.resolve(item.to);
 					window.open(href, '_blank');
 				} else {
+					console.log(item.to)
 					proxy.$router.push(item.to);
 				}
 			}

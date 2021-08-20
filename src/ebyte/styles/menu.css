@@ -21,6 +21,7 @@
 
 .e-menu .e-menu-item .text {
 	font-size: 14px;
+	white-space: nowrap;
 }
 
 .e-menu .e-menu-item.e-menu-item-suffix {
@@ -52,20 +53,20 @@
 
 .e-menu .e-menu-item:hover,
 .e-menu .e-menu-item:hover * {
-	color: #0f8de9;
+	color: var(--color-primary);
 }
 
 .e-menu .e-menu-item.e-menu-item-active {
 	background: #f0faff;
-	color: #0f8de9;
+	color: var(--color-primary);
 }
 
 .e-menu .e-menu-item.e-menu-item-active::after {
 	content: '';
-	background: #0f8de9;
+	background: var(--color-primary);
 	position: absolute;
 	transition: all 500ms;
-	color: #0f8de9;
+	color: var(--color-primary);
 	width: 2px;
 	height: 100%;
 	top: 50%;
@@ -154,16 +155,16 @@
 }
 
 .e-menu.e-menu-horizontal .e-menu-item.e-menu-item-active {
-	background: #FFFFFF;
-	color: #0f8de9;
+	background: var(--color-white);
+	color: var(--color-primary);
 }
 
 .e-menu.e-menu-horizontal .e-menu-item.e-menu-item-active::after {
 	content: '';
-	background: #0f8de9;
+	background: var(--color-primary);
 	position: absolute;
 	transition: all 500ms;
-	color: #0f8de9;
+	color: var(--color-primary);
 	width: 100%;
 	height: 2px;
 	bottom: 0%;

@@ -38,9 +38,7 @@ export default defineComponent({
 		};
 
 		const handleClickGridItem = (item, index) => {
-			if (item.children) {
-				ctx.emit('menu', item, index);
-			}
+			ctx.emit('menu', item, index);
 			const i = proxy.$router.getRoutes().findIndex(e => e.name.search(item.keys));
 			if (i >= 0) {
 				proxy.$router.push({

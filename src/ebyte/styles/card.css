@@ -1,5 +1,5 @@
 .e-card {
-	border: 1px solid #eee;
+	border: var(--border-width) var(--border-style) var(--card-border-color);
 	position: relative;
 	transition: all .2s ease-in-out;
 }
@@ -9,7 +9,7 @@
 }
 
 .e-card:hover {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+	box-shadow: var(--box-shadow);
 	border-color: transparent;
 	position: relative
 }
@@ -18,7 +18,7 @@
 	padding: 12px 16px;
 	font-size: 14px;
 	cursor: pointer;
-	border-bottom: 1px solid #e8eaec;
+	border-bottom: var(--border-width) var(--border-style) var(--card-border-color);
 }
 
 .e-card-body {
@@ -27,34 +27,5 @@
 
 .e-card-footer {
 	padding: 12px 16px;
-	border-top: 1px solid #eee;
-}
-
-.e-card.e-card-code {
-	border-radius: 0px !important;
-	border-left: 6px solid #EEEEEE;
-}
-
-.e-card.e-card-code .e-card-header {
-	background: #fafafa;
-}
-
-
-.e-card.e-card-code-dark {
-	background-color: #0c0c0c;
-	color: #c2be9e;
-	border: none;
-}
-
-.e-card.e-card-code-dark .e-card-header {
-	background-color: #0c0c0c;
-	border-bottom: 0px;
-}
-
-.e-card.e-card-code-dark .e-card-body {
-	background-color: #3f3f3f;
-}
-
-.e-card.e-card-code-dark .e-card {
-	border-radius: 0px !important;
+	border-top: var(--border-width) var(--border-style) var(--card-border-color);
 }

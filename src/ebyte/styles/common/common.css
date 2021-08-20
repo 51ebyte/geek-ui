@@ -157,6 +157,10 @@ a {
 	flex-direction: column;
 }
 
+.e-flex-1 {
+	flex: 1;
+}
+
 .e-flex-wrap {
 	flex-wrap: wrap;
 }

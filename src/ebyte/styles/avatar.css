@@ -2,8 +2,8 @@
 	padding: 2px;
 	display: inline-block;
 	text-align: center;
-	background: #ccc;
-	color: #fff;
+	background: var(--avatar-background,#cccccc);
+	color: var(--color-white);
 	white-space: nowrap;
 	position: relative;
 	overflow: hidden;
@@ -40,8 +40,8 @@
 	left: 50%;
 	top: 50%;
 	z-index: 1;
-	border: 2px solid #2d8cf0;
-	border-color: transparent transparent transparent #2d8cf0;
+	border: 2px solid var(--color-primary);
+	border-color: transparent transparent transparent var(--color-primary);
 	animation: iconAvatarLoading 1.5s linear;
 	animation-iteration-count: infinite;
 }
@@ -64,13 +64,13 @@
 	left: 50%;
 	top: 50%;
 	z-index: 1;
-	background: #FF0000;
+	background: var(--color-error);
 	transform: translate(-50%, -50%);
 }
 
 .e-avatar-image-loading-error .error::after {
 	content: '';
-	background-color: #FFFFFF;
+	background-color: var(--color-white);
 	width: 10px;
 	height: 2px;
 	position: absolute;

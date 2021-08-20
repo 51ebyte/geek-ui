@@ -103,7 +103,7 @@
 <script>
 	import {TableProps,TableSlot,TableEvent} from '../bootstrap/table.js'
 	export default{
-		layout:'components',
+		layout:'develop',
 		components:{
 			TableProps,
 			TableSlot,

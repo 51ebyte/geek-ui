@@ -62,7 +62,7 @@
 
 <script>
 	export default{
-		layout:'components',
+		layout:'develop',
 		data(){
 			return{
 				show:false,

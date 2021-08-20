@@ -9,13 +9,15 @@
 				}"
 				@click="handleClickItem(item)"
 			>
-				<span class="e-check-input-span"></span>
 				<input class="e-check-input" :name="inputName" type="checkbox" :value="item.value" :label="item.label" :checked="item.value == inputValue" :disabled="item.disabled" />
-				<div class="e-check-label e-flex">
-					<slot :item="item" :index="index">
-						<Icon :name="item.icon" v-if="item.icon && !style && !button"></Icon>
-						{{ item.label }}
-					</slot>
+				<span class="e-check-input-span"></span>
+				<div class="e-check-label">
+					<div class="e-flex e-col-center">
+						<slot :item="item" :index="index">
+							<Icon :name="item.icon" v-if="item.icon"></Icon>
+							<span>{{ item.label }}</span>
+						</slot>
+					</div>
 				</div>
 			</div>
 		</template>

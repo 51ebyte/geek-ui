@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, toRef,onMounted } from 'vue';
+import { defineComponent, ref, toRef, onMounted } from 'vue';
 import util from '../../lib/util.js';
 export default defineComponent({
 	name: 'Affix',
@@ -21,8 +21,8 @@ export default defineComponent({
 			type: Number,
 			default: 0
 		},
-		right:{
-			type: [Number,Boolean],
+		right: {
+			type: [Number, Boolean],
 			default: 0
 		}
 	},
@@ -63,11 +63,11 @@ export default defineComponent({
 					top: `${offsetTop}px`,
 					width: `${affixRef.value.offsetWidth}px`
 				};
-				if(offsetRight > 0 || offsetRight===true){
-					let right = typeof offsetRight == 'boolean'?0:offsetRight;
-					styles.value.default['right']=`${right || 0}px`
-				}else{
-					styles.value.default['left']=`${elOffset.left}px`
+				if (offsetRight > 0 || offsetRight === true) {
+					let right = typeof offsetRight == 'boolean' ? 0 : offsetRight;
+					styles.value.default['right'] = `${right || 0}px`;
+				} else {
+					styles.value.default['left'] = `${elOffset.left}px`;
 				}
 				styles.value.aria = {
 					width: `${affixRef.value.offsetWidth}px`,
@@ -78,7 +78,7 @@ export default defineComponent({
 				styles.value.default = {};
 				styles.value.aria = {};
 			}
-			ctx.emit('change',affix.value)
+			ctx.emit('change', affix.value);
 		};
 
 		const handleScrollBottom = () => {
@@ -91,11 +91,14 @@ export default defineComponent({
 					bottom: `${offsetBottom}px`,
 					width: `${affixRef.value.offsetWidth}px`
 				};
-				if(offsetRight > 0 || offsetRight===true){
-					offsetRight=typeof offsetRight == 'boolean'?0:offsetRight;
-					styles.value.default['right']=`${offsetRight || 0}px`
-				}else{
-					styles.value.default['left']=`${elOffset.left}px`
+				if (offsetRight > 0 || offsetRight === true) {
+					if(offsetRight == 'boolean'){
+						styles.value.default['right'] = `${0}px`;
+					}else{
+						styles.value.default['right'] = `${offsetRight}px`;
+					}
+				} else {
+					styles.value.default['left'] = `${elOffset.left}px`;
 				}
 				styles.value.aria = {
 					width: `${affixRef.value.offsetWidth}px`,
@@ -106,7 +109,7 @@ export default defineComponent({
 				styles.value.default = {};
 				styles.value.aria = {};
 			}
-			ctx.emit('change',affix.value)
+			ctx.emit('change', affix.value);
 		};
 
 		const handleScroll = () => {
@@ -116,10 +119,10 @@ export default defineComponent({
 				handleScrollTop();
 			}
 		};
-		
-		onMounted(()=>{
-			handleScroll()
-		})
+
+		onMounted(() => {
+			handleScroll();
+		});
 
 		util.addListener(window, 'scroll', handleScroll, false);
 		util.addListener(window, 'resize', handleScroll, false);

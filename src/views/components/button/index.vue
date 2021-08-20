@@ -160,7 +160,7 @@
 		components:{
 			TableProps
 		},
-		layout:'components',
+		layout:'develop',
 		data(){
 			return{
 				code1:`<div class="e-btn-container">

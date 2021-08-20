@@ -1,5 +1,5 @@
 .e-panel {
-	border: 1px solid #eee;
+	border: var(--border-width) var(--border-style) var(--panel-border-color);
 	position: relative;
 	transition: all .2s ease-in-out;
 }
@@ -9,7 +9,7 @@
 }
 
 .e-panel:hover {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+	box-shadow: var(--box-shadow);
 	border-color: transparent;
 	position: relative
 }
@@ -26,12 +26,12 @@
 
 .e-panel-footer {
 	padding: 10px 15px;
-	border-top: 1px solid #eee;
+	border-top: var(--border-width) var(--border-style) var(--card-border-color);
 }
 
 .e-panel.e-panel-code {
 	border-radius: 0px !important;
-	border-left: 6px solid #EEEEEE;
+	border-left: 6px var(--border-style) var(--card-border-color);
 }
 
 .e-panel.e-panel-code .e-panel-header {
