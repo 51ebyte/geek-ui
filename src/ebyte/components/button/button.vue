@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { h, toRef, computed, inject } from 'vue';
-import { config, util } from '../../lib/index.js';
+import { util } from '../../lib/index.js';
 
 type ButtonType = PropType<'primary' | 'success' | 'warning' | 'error' | 'info'>;
 type ButtonSize = PropType<'xl' | 'lg' | 'md' | 'sm'>;
@@ -74,9 +74,7 @@ export default {
 		});
 
 		const classs = computed(() => {
-			const theme = config.getter('theme');
-			const classs = ['ebyte', 'e-button'];
-			classs.push(theme ? 'e-button-theme--' + theme : '');
+			const classs = ['e-button'];
 			classs.push(type ? 'e-button-type--' + type : '');
 			classs.push(plain ? 'e-button-plain' : '');
 			classs.push(long ? 'e-button-long' : '');

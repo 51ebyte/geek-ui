@@ -1,28 +1,30 @@
 <template>
 	<div class="e-tags">
-		<template v-for="(item) in list">
-			<tag></tag>
-		</template>
-		<template v-for="c in blue">
-			<tag :style="{
-				background:c,
-				color:'white'
-			}"></tag>
-		</template>
-		<template v-for="c in color">
-			<tag :style="{
-				background:c,
-				color:'@geekblue-1'
-			}"></tag>
-		</template>
+    
+    <tag>标签1</tag>
+    <tag type="primary">标签2</tag>
+    <tag type="success">标签3</tag>
+    <tag type="warning">标签4</tag>
+    <tag type="error">标签5</tag>
+    <tag type="info">标签6</tag>
+    
+    <tag closable>标签2</tag>
+    <tag closable type="primary">标签2</tag>
+    <tag closable type="success">标签3</tag>
+    <tag closable type="warning">标签4</tag>
+    <tag closable type="error">标签5</tag>
+    <tag closable type="info">标签6</tag>
+    
+    
+		
 	</div>
 </template>
 
 <script>
 	import { defineComponent } from 'vue'
 	import tag from './tag.vue'
-	import { blue } from '@ant-design/colors';
-	import color from '../../color/colorPalette.js'
+	// import { blue } from '@ant-design/colors';
+	// import color from '../../color/colorPalette.js'
 	export default defineComponent({
 		name:'Tags',
 		components:{
@@ -36,19 +38,7 @@
 		setup(props,ctx){
 			
 			return {
-				blue,
-				color:[
-					color('blue',1),
-					color('blue',2),
-					color('blue',3),
-					color('blue',4),
-					color('blue',5),
-					color('blue',6),
-					color('blue',7),
-					color('blue',8),
-					color('blue',9),
-					color('blue',10)
-				],
+				
 			}
 			
 		}

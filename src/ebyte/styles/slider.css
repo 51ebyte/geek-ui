@@ -16,7 +16,7 @@
 
 .e-slider-bar {
 	height: 4px;
-	background: #57a3f3;
+	background: var(--color-primary);
 	border-radius: 3px;
 	position: absolute;
 	max-width: 100%;
@@ -26,21 +26,20 @@
 	position: absolute;
 	width: 16px;
 	height: 16px;
-	border: 2px solid #57a3f3;
+	border: 2px solid var(--color-primary);
 	border-radius: 50%;
-	background-color: #fff;
-	transition: all .2s linear;
+	background-color: var(--color-white);
 	outline: 0;
 	top: 50%;
-	right: 0px;
+	left: 0px;
 	transform: translateY(-50%);
 }
 
 .e-slider-disabled .e-slider-bar{
-	background-color: #c0c4cc;
+	background-color: var(--background-color-disabled);
 }
 
-.e-slider-disabled .e-slider-bar .e-slider-bar-btn{
-	border-color: #c0c4cc;
+.e-slider-disabled .e-slider-bar-btn{
+	border-color: var(--border-color-disabled);
 	cursor: no-drop;
 }

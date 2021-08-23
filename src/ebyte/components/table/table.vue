@@ -78,6 +78,7 @@ export default defineComponent({
 				border ? 'border-width:1px' : '',
 				`text-align:${col.align || 'left'}`, 
 				`width:${col.width+'px' || 'auto'}`, 
+        `min-width:${col.minWidth}px`
 				];
 			return col;
 		});

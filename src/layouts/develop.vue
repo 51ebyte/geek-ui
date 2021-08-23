@@ -1,5 +1,5 @@
 <template>
-	<Layout ref="layout" :westCollapseClose="false">
+	<Layout ref="layout" :southHeight="38" collapse>
 		<template #aside>
 			<slider :logo="src" :menu="menu.sider" @menu="handleClickmenu"></slider>
 		</template>
@@ -26,8 +26,8 @@
 			<router-view></router-view>
 		</template>
 		<template #south>
-			<div style="height: 38px;width: 100%;line-height: 38px;text-align: center;">
-				<p class="copyright">Copyright © 2020-{{new Date().getFullYear()}} 众芯智合/zxzhihe.com  版权所有</p>
+			<div style="height: 100%;width: 100%;line-height: 38px;text-align: center;">
+				<p class="copyright">Copyright © 2020-{{new Date().getFullYear()}} 字节极客 | bytegeek.cn | 版权所有</p>
 			</div>
 		</template>
 	</Layout>
@@ -86,7 +86,7 @@
 								{name:'选择框 Select',keys:'components_select',to:'components_select'},
 								{name:'开关 Switch',keys:'components_switch',to:'components_switch'},
 								{name:'滑块 Slider',keys:'components_slider',to:'components_slider'},
-								{name:'上传 Upload',keys:'components_table',to:'components_table'},
+								{name:'上传 Upload',keys:'components_upload',to:'components_upload'},
 								{name:'时间选择 Date',keys:'components_date',to:'components_date'},
 								{name:'评分 Rate',keys:'components_rate',to:'components_rate'},
 								{name:'颜色选择 Color',keys:'components_color',to:'components_color'},

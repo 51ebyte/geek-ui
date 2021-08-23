@@ -23,7 +23,7 @@
 			</Col>
 			<Col :span="12">
 				<Panel type='code' title="最大值和最小值">
-					<Panel :header="false">
+					<Panel :title="'最小值：10，最大值：1000，当前值：'+value2+''">
 						<Slider v-model="value2" :max="1000" :min="10"></Slider>
 					</Panel>
 					<Divider left text="用法说明" margin="26px 0 0">

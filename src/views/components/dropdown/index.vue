@@ -225,10 +225,10 @@
 						data:[
 							{params:'list',version:'0.0.1',desc:'下拉菜单数据对象',type:'<code>Array</code>',required:'是'},
 							{params:'name',version:'0.0.1',desc:'触发对象文字',type:'<code>String</code>',required:'否'},
-							{params:'keys',version:'0.0.1',desc:'数据对象显示文本键',type:'<code>String</code>',required:'否',select:'dark'},
-							{params:'trigger',version:'0.0.1',desc:'触发方式，可选值为 <code>hover</code>（悬停）<code>click</code>（点击）',type:'<code>String</code>',required:'否',select:'<code>hover</code> | <code>click</code>',default:'<code>hover</code>'},
+							{params:'keys',version:'0.0.1',desc:'数据对象显示文本键',type:'<code>String</code>',required:'否',default:'<code>name</code>'},
 							{params:'disabled',version:'0.0.1',desc:'禁用选项，匹配数据对象<code>name</code>或<code>keys</code>',type:'<code>Array</code>',required:'否'},
 							{params:'divided',version:'0.0.1',desc:'显示分割线，匹配数据对象<code>name</code>或<code>keys</code>',type:'<code>Array</code>',required:'否'},
+              {params:'trigger',version:'0.0.1',desc:'触发方式，可选值为 <code>hover</code>（悬停）<code>click</code>（点击）',type:'<code>String</code>',required:'否',select:'<code>hover</code> | <code>click</code>',default:'<code>hover</code>'},
 						]
 					},
 					slot:{

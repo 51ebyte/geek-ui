@@ -1,21 +1,21 @@
 <template>
 	<div :class="classs" :style="style.default" ref="sliderRef">
 		<div class="e-slider-warp">
-			<div class="e-slider-bar" :style="style.bar">
-				<div
-					class="e-slider-bar-btn"
-					@mouseenter="handleMouseEnter"
-					@mouseleave="handleMouseLeave"
-					@mousedown="onButtonDown"
-					@touchstart="onButtonDown"
-					@focus="handleMouseEnter"
-					@blur="handleMouseLeave"
-					@keydown.left="onLeftKeyDown"
-					@keydown.right="onRightKeyDown"
-					@keydown.down.prevent="onLeftKeyDown"
-					@keydown.up.prevent="onRightKeyDown"
-				></div>
-			</div>
+			<div class="e-slider-bar" :style="style.bar"></div>
+      <div
+      	class="e-slider-bar-btn"
+        :style="style.btn"
+      	@mouseenter="handleMouseEnter"
+      	@mouseleave="handleMouseLeave"
+      	@mousedown="onButtonDown"
+      	@touchstart="onButtonDown"
+      	@focus="handleMouseEnter"
+      	@blur="handleMouseLeave"
+      	@keydown.left="onLeftKeyDown"
+      	@keydown.right="onRightKeyDown"
+      	@keydown.down.prevent="onLeftKeyDown"
+      	@keydown.up.prevent="onRightKeyDown"
+      ></div>
 		</div>
 	</div>
 </template>
@@ -78,8 +78,9 @@ export default defineComponent({
 		});
 
 		const style = computed(() => {
-			let style = { default: {}, bar: {} };
+			let style = { default: {}, bar: {},btn:{} };
 			style.bar.width = currentPosition.value;
+			style.btn.left = currentPosition.value;
 			return style;
 		});
 

@@ -1,5 +1,7 @@
 <template>
-	<div :class="classs.default" :style="styles.default">
+	<div :class="classs.default" :style="styles.default"
+      @mouseenter.native="handleMouseEnter" 
+      @mouseleave.native="handleMouseLeave">
 		<template v-if="src">
 			<img :src="src" :style="styles.image" @load="imgLoading" @error="imgLoadErr" />
 			<template v-if="hasLoadError">
@@ -9,10 +11,12 @@
 				<slot name="loading"><span class="loading"></span></slot>
 			</template>
 			<template v-if="updateValue">
-				<span class="update" @click="handleClick">
-					<input type="file" accept="image/*" ref="inputFileRef" @change="handleChange" />
-					<slot name="update">{{ updateValue }}</slot>
-				</span>
+				<div class="update" v-show="updateShow" :style="styles.update" @click="handleClickUpdate">
+					<input type="file" accept="image/*" ref="inputFileRef" @change="handleFileChange" />
+					<slot name="update">
+            <span class="text" :style="styles.text">{{ updateValue }}</span>
+          </slot>
+				</div>
 			</template>
 		</template>
 		<template v-else>
@@ -65,7 +69,7 @@ export default defineComponent({
 			}
 		},
 		update: {
-			type: [Boolean, String],
+			type: [Boolean, String,Object],
 			default: false
 		},
 		upload: {
@@ -82,6 +86,7 @@ export default defineComponent({
 		const hasLoading = ref(true);
 		const hasLoadError = ref(false);
 		const update = toRef(props, 'update').value;
+    const updateShow = ref(true);
 		const iconOption = ref({ name: 'md-person', size: 16, color: 'white' });
 		const inputFileRef = ref(null);
 
@@ -113,6 +118,9 @@ export default defineComponent({
 			if (props.src) {
 				classs.default.push('e-avatar-image');
 			}
+      if (props.circle==true || props.circle>50) {
+        classs.default.push('e-avatar-circle');
+      }
 			if (props.src && hasLoading.value) {
 				classs.default.push('e-avatar-image-loading');
 			}
@@ -130,13 +138,9 @@ export default defineComponent({
 		});
 
 		const styles = computed(() => {
-			let styles = { default: {}, image: {} };
+			let styles = { default: {}, image: {},update:{},text:{} };
 			if (typeof props.circle == 'boolean') {
-				if (props.circle) {
-					styles.default['border-radius'] = '50%';
-				} else {
-					styles.default['border-radius'] = 0;
-				}
+        styles.default['border-radius'] = (props.circle?'50%':0);
 			} else if (typeof props.circle == 'number') {
 				styles.default['border-radius'] = props.circle + 'px';
 			} else if (typeof props.circle == 'string') {
@@ -190,6 +194,21 @@ export default defineComponent({
 			if (props.fit) {
 				styles.image['object-fit'] = props.fit;
 			}
+      
+      if(typeof update == 'object'){
+        styles.update = update.style || {}
+        if(update.style && update.style.height){
+          styles.text = {
+            position: 'absolute',
+            transform: 'translateY(-50%)'
+          }
+          if (props.circle==true || props.circle>50) {
+            styles.text['top']='calc(50% - 14px)'
+          }else{
+            styles.text['top']='calc(50% - 5px)'
+          }
+        }
+      }
 
 			return styles;
 		});
@@ -213,6 +232,12 @@ export default defineComponent({
 			if (typeof update == 'boolean') {
 				return update ? '修改' : false;
 			}
+      if (typeof update == 'object'){
+        if(update.trigger && update.trigger == 'hover'){
+          updateShow.value = false;
+        }
+        return update.text || '修改'
+      }
 			return update;
 		});
 
@@ -226,11 +251,11 @@ export default defineComponent({
 			ctx.emit('error', evt);
 		};
 
-		const handleClick = () => {
+		const handleClickUpdate = () => {
 			inputFileRef.value.click();
 		};
 
-		const handleChange = e => {
+		const handleFileChange = e => {
 			const files = Array.prototype.slice.call(e.target.files);
 			const file = files[0];
 			const maxSize = upload.value.size * 1024;
@@ -251,6 +276,18 @@ export default defineComponent({
 				handleUpload(file);
 			}
 		};
+    
+    const handleMouseEnter = ()=>{
+      if(update.trigger && update.trigger == 'hover' && !updateShow.value){
+        updateShow.value = true;
+      }
+    }
+    
+    const handleMouseLeave = ()=>{
+      if(update.trigger && update.trigger == 'hover' && updateShow.value){
+        updateShow.value = false;
+      }
+    }
 
 		const handleUpload = (file: File) => {
 			if (typeof XMLHttpRequest === 'undefined') {
@@ -324,9 +361,12 @@ export default defineComponent({
 			imgLoading,
 			imgLoadErr,
 			updateValue,
+      updateShow,
 			inputFileRef,
-			handleClick,
-			handleChange
+			handleClickUpdate,
+			handleFileChange,
+      handleMouseEnter,
+      handleMouseLeave
 		};
 	}
 });

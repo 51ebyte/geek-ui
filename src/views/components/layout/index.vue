@@ -6,19 +6,19 @@
 		<Row :gutter="20">
 			<Col :span="12">
 				<Panel type="code" title="使用插槽构造">
-					<Layout style="height: 460px;">
-						<template #sider>
-							<div style="width: 64px;height: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
+					<Layout :height="460" :westWidth="120" :eastWidth="20">
+						<template #aside>
+							<div style="width: 100%;height: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								侧边栏
 							</div>
 						</template>
 						<template #north>
-							<div style="height: 100px;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							<div style="height: 100%;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								北
 							</div>
 						</template>
 						<template #west>
-							<div style="height: 100%;width: 200px;background: #0f8de9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							<div style="height: 100%;width: 100%;background: #0f8de9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								西
 							</div>
 						</template>
@@ -26,12 +26,12 @@
 							中
 						</div>
 						<template #east>
-							<div style="height: 100%;width: 200px;background: #0f8de9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							<div style="height: 100%;width: 100%;background: #0f8de9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								东
 							</div>
 						</template>
 						<template #south>
-							<div style="height: 100px;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							<div style="height: 100%;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								南
 							</div>
 						</template>
@@ -46,7 +46,7 @@
 			</Col>
 			<Col :span="12">
 				<Panel type="code" title="使用组件构造">
-					<Layout style="height: 460px;">
+					<Layout :height="460">
 						<LayoutAside style="background-color: #FFB800;">侧边栏1</LayoutAside>
 						<Layout>
 							<LayoutNorth style="background-color: #0f8de9;">北1</LayoutNorth>
@@ -82,6 +82,10 @@
 				<Code skin="dark" :height="584" :code="code1" copy toggle></Code>
 			</Col>
 			<Divider margin="20px 0"></Divider>
+      <Col :span="24">
+      	<Blockquote title="Layout Props"></Blockquote>
+      	<table-props :data="table.props.layout" :example="false" :select="false"></table-props>
+      </Col>
 			<Col :span="24">
 				<Blockquote title="Layout Slots"></Blockquote>
 				<table-slot :data="table.slot.layout"></table-slot>
@@ -124,7 +128,7 @@
 				list:[
 					{name:'a',path:'aa'}
 				],
-				code1:`<Layout style="height: 420px;">
+				code1:`<Layout :height="460">
 						  <LayoutAside style="background-color: #FFB800;">侧边栏1</LayoutAside>
 						  <Layout>
 							    <LayoutNorth style="background-color: #0f8de9;">北1</LayoutNorth>
@@ -150,14 +154,14 @@
 					    <LayoutSouth style="background-color: #0f8de9;">南1</LayoutSouth>
 					  </Layout>
 					</Layout>`,
-				code2:`<Layout style="height: 460px;">
+				code2:`<Layout :height="460" :westWidth="120" :eastWidth="20">
 						  <template #sider>
-							    <div style="width: 64px;height: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							    <div style="width: 100%;height: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								      侧边栏
 							    </div>
 						  </template>
 						  <template #north>
-							    <div style="height: 100px;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							    <div style="height: 100%;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								      北
 							    </div>
 						  </template>
@@ -175,7 +179,7 @@
 							    </div>
 						  </template>
 							  <template #south>
-							    <div style="height: 100px;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
+							    <div style="height: 100%;width: 100%;background: #7cbce9;color: white;display: flex;justify-content: space-around;align-items: center;">
 								      南
 							    </div>
 							  </template>
@@ -192,6 +196,19 @@
 						]
 					},
 					props:{
+            layout:[
+              {params:'width',version:'0.0.1',desc:'布局宽度，单位<code>px</code>',type:'<code>Number</code>',required:'否',default:'<code>100vw</code>'},
+              {params:'height',version:'0.0.1',desc:'布局宽度，单位<code>px</code>',type:'<code>Number</code>',required:'否',default:'<code>100vh</code>'},
+              {params:'asideWidth',version:'0.0.1',desc:'侧边栏宽度，单位<code>px</code>，插槽模式有效',type:'<code>Number</code>',required:'否',default:'<code>64</code>'},
+              {params:'northHeight',version:'0.0.1',desc:'北部高度，单位<code>px</code>，插槽模式有效',type:'<code>Number</code>',required:'否',default:'<code>64</code>'},
+            	{params:'westWidth',version:'0.0.1',desc:'西部宽度，单位<code>px</code>，插槽模式有效',type:'<code>Number</code>',required:'否',default:'<code>220</code>'},
+            	{params:'eastWidth',version:'0.0.1',desc:'东部宽度，单位<code>px</code>，插槽模式有效',type:'<code>Number</code>',required:'否',default:'<code>0</code>'},
+              {params:'southHeight',version:'0.0.1',desc:'南部高度，单位<code>px</code>，插槽模式有效',type:'<code>Number</code>',required:'否',default:'<code>40</code>'},
+              {params:'collapse',version:'0.0.1',desc:'是否开启折叠，插槽模式有效',type:'<code>Boolean</code>',required:'否',default:'<code>false</code>'},
+              {params:'collapseWidth',version:'0.0.1',desc:'折叠后的宽度，插槽模式有效',type:'<code>Number</code>',required:'否',default:'<code>36</code>'},
+              {params:'collapseClose',version:'0.0.1',desc:'默认是否是折叠关闭状态，插槽模式有效',type:'<code>Boolean</code>',required:'否',default:'<code>false</code>'},
+              
+            ],
 						aside:[
 							{params:'width',version:'0.0.1',desc:'侧边栏宽度，单位<code>px</code>',type:'<code>Number</code>',required:'否',default:'<code>64</code>'},
 						],

@@ -3,8 +3,8 @@
 }
 .e-tag{
 	display: inline-block;
-	height: 22px;
-	line-height: 22px;
+	height: 32px;
+	line-height: 32px;
 	margin: 2px 4px 2px 0;
 	padding: 0 8px;
 	border-radius: 3px;
@@ -12,5 +12,62 @@
 	vertical-align: middle;
 	opacity: 1;
 	overflow: hidden;
-	background-color: var(--main-bg-color);
+}
+
+.e-tag-default{
+  border: var(--border);
+}
+
+.e-tag-primary{
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.e-tag-success{
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.e-tag-warning{
+  background-color: var(--color-warning);
+  color: var(--color-white);
+}
+.e-tag-error{
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+.e-tag-info{
+  background-color: var(--color-info);
+  color: var(--color-white);
+}
+.e-tag-closable{
+  position: relative;
+  padding-right: 26px;
+}
+.e-tag-closable .close{
+  cursor: pointer;
+}
+.e-tag-closable .close::before,
+.e-tag-closable .close::after{
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 1px;
+  background-color: var(--color-white);
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+}
+
+.e-tag-closable .close::before{
+  transform: translateY(-50%) rotate(45deg);
+}
+.e-tag-closable .close::after{
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.e-tag-default.e-tag-closable .close::before,
+.e-tag-default.e-tag-closable .close::after{
+  background-color: #666666;
 }

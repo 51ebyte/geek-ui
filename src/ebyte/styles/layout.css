@@ -15,8 +15,8 @@
 
 /*侧边栏*/
 .e-layout-aside {
-	min-width: 64px;
 	border-right: 1px solid rgb(0 0 0 / 8%);
+  overflow: hidden;
 }
 
 /*北边*/
@@ -26,7 +26,7 @@
 	box-shadow: 0 1px 1px rgb(0 0 0 / 8%);
 	display: flex;
 	align-items: center;
-	padding: 0 15px;
+  overflow: hidden;
 }
 
 /*中部*/
@@ -56,6 +56,7 @@
 	border-right: 1px solid rgb(0 0 0 / 8%);
 	position: relative;
 	transition: all 0.4s linear;
+  overflow: hidden;
 }
 
 .e-layout-west-collapse {

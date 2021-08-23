@@ -13,7 +13,7 @@ export default defineComponent({
 				return [
 					{ title: '参数', width: 120, key: 'params', align: 'center', render: 'html' },
 					{ title: '版本', width: 80, align: 'center', key: 'version' },
-					{ title: '说明', align: 'center', key: 'desc', render: 'html' },
+					{ title: '说明',minWidth:260, align: 'center', key: 'desc', render: 'html' },
 					{ title: '类型', width: 210, default: '-', key: 'type', render: 'html' },
 					{ title: '是否必需', width: 78, default: '-', key: 'required', align: 'center' },
 					{ title: '默认值', width: 120, default: '-', key: 'default', render: 'html', align: 'center' }

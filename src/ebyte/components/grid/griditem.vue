@@ -85,7 +85,9 @@ export default defineComponent({
 				if (typeof border == 'object' && border.postion == 'outside') {
 					styles['box-shadow'] = 'none';
 				}
-			}
+			}else{
+        styles['box-shadow'] = 'none';
+      }
 			if(!hover){
 				styles['box-shadow'] = 'none';
 			}

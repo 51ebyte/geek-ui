@@ -6,7 +6,7 @@
 		<Row :gutter="20">
 			<Col :span="12">
 				<Panel type="code" title="基础用法">
-					<div class="e-flex e-col-center e-row-between">
+					<div class="e-flex e-col-center">
 						<Panel :header="false" margin="0 5px 0 0">
 							<Avatar size="xl"></Avatar>
 						</Panel>
@@ -22,6 +22,8 @@
 						<Panel :header="false" margin="0 5px 0 0">
 							<Avatar size="sm"></Avatar>
 						</Panel>
+          </div>
+          <div class="e-flex e-col-center">
 						<Panel :header="false" margin="0 5px 0 0">
 							<Avatar size="sm" circle></Avatar>
 						</Panel>
@@ -37,15 +39,22 @@
 						<Panel :header="false" margin="0 5px 0 0">
 							<Avatar size="xl" circle></Avatar>
 						</Panel>
+						<Panel :header="false" margin="0 5px 0 0">
+							<Avatar size="xl" :circle="18"></Avatar>
+						</Panel>
 					</div>
 					<Divider left text="用法说明" margin="26px 0 0 ">
-						<p>通过 <code>circle&lt;Boolean&gt;</code> 设置圆形头像</p>
-						<p>通过 <code>size&lt;String|Number&gt;</code> 设置头像的大小，支持<code>size&lt;String&gt;(xl|lg|xs|md|sm)</code>和<code>size&lt;Number&gt;</code></p>
+						<p>通过 <code>circle&lt;Boolean|Number&gt;</code> 设置圆形头像和圆形弧度</p>
+						<p>通过 <code>size&lt;String|Number&gt;</code> 设置头像的大小，
+            支持<code>size&lt;Number&gt;</code>和
+            <code>size&lt;String&gt;(xl=64|lg=48|xs=32|md=24|sm=16)</code>，
+            默认大小<code>32px</code>
+            </p>
 					</Divider>
 				</Panel>
 			</Col>
 			<Col :span="12">
-				<Code skin="dark" :code="code1" copy toggle :height="221"></Code>
+				<Code skin="dark" :code="code1" copy toggle :height="336"></Code>
 			</Col>
 			<Col :span="12">
 				<Panel type="code" title="头像类型">
@@ -70,7 +79,7 @@
 						</Panel>
 					</div>
 					<Divider left text="用法说明" margin="26px 0 0 ">
-						<p>支持三种类型：图标、图片和字符，其中 Icon 和字符型可以自定义图标颜色及背景色</p>
+						<p>支持三种类型：图标、图片和字符，其中 <code>Icon</code> 和字符型可以自定义图标颜色及背景色</p>
 						<p>通过 <code>background&lt;String&gt;</code> 属性设置头像背景颜色</p>
 					</Divider>
 				</Panel>
@@ -122,19 +131,19 @@
 				<Panel type="code" title="图片填充方式">
 					<div class="e-flex e-row-between">
 						<Panel :header="false" margin="0 5px 0 0">
-							<Avatar :size="48" :src="avatar" fit="fill"></Avatar>
+							<Avatar size="xl" :src="avatar" fit="fill"></Avatar>
 						</Panel>
 						<Panel :header="false" margin="0 5px 0 0">
-							<Avatar :size="48" :src="avatar" fit="contain"></Avatar>
+							<Avatar size="xl" :src="avatar" fit="contain"></Avatar>
 						</Panel>
 						<Panel :header="false" margin="0 5px 0 0">
-							<Avatar :size="48"  :src="avatar" fit="cover"></Avatar>
+							<Avatar size="xl"  :src="avatar" fit="cover"></Avatar>
 						</Panel>
 						<Panel :header="false" margin="0 5px 0 0">
-							<Avatar :size="48" :src="avatar" fit="none"></Avatar>
+							<Avatar size="xl" :src="avatar" fit="none"></Avatar>
 						</Panel>
 						<Panel :header="false" margin="0 5px 0 0">
-							<Avatar :size="48"  :src="avatar" fit="scale-down"></Avatar>
+							<Avatar size="xl"  :src="avatar" fit="scale-down"></Avatar>
 						</Panel>
 					</div>
 					<Divider left text="用法说明" margin="26px 0 0 ">
@@ -153,19 +162,40 @@
 							<Avatar :size="96" update upload="//jsonplaceholder.typicode.com/posts/" :src="avatar"></Avatar>
 						</Panel>
 						<Panel :header='false' margin="0 5px 0 0">
-							<Avatar :size="96" circle update upload="//jsonplaceholder.typicode.com/posts/" :src="avatar"></Avatar>
+							<Avatar :size="96" circle update="修改头像" upload="//jsonplaceholder.typicode.com/posts/" :src="avatar"></Avatar>
 						</Panel>
+						<Panel :header='false' margin="0 5px 0 0">
+							<Avatar :size="96" :update="{
+                style:{height:'100%'},
+                text:'修改头像',
+                trigger:'hover'
+              }" upload="//jsonplaceholder.typicode.com/posts/" :src="avatar"></Avatar>
+						</Panel>
+            <Panel :header='false' margin="0 5px 0 0">
+            	<Avatar :size="96" circle :update="{
+                style:{
+                  height:'80%'
+                },
+                text:'修改头像',
+                trigger:'hover'
+              }" upload="//jsonplaceholder.typicode.com/posts/" :src="avatar"></Avatar>
+            </Panel>
 					</div>
 					<Divider left text="用法说明" margin="26px 0 0 ">
 						<p>通过 <code>update&lt;Boolean&gt;</code> 属性设置为可上传模式</p>
 						<p>通过 <code>update&lt;String&gt;</code> 属性设置为可上传提示文字</p>
+						<p>通过 <code>update&lt;Object&gt;</code>{
+              <code>style&lt;Object&gt;</code>,
+              <code>text&lt;String&gt;</code>,
+              <code>trigger&lt;String&gt;</code>
+            } 属性设置为可自定义上传样式、文字、触发模式等</p>
 						<p>通过 <code>upload&lt;String&gt;</code> 属性设置为上传路径</p>
 						<p>通过 <code>upload&lt;Object&gt;</code> 属性设置为上传参数与配置</p>
 					</Divider>
 				</Panel>
 			</Col>
 			<Col :span="12">
-				<Code skin="dark" :code="code5" copy toggle :height="280"></Code>
+				<Code skin="dark" :code="code5" copy toggle :height="356"></Code>
 			</Col>
 			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
@@ -206,11 +236,13 @@ export default {
 				<Avatar></Avatar>
 				<Avatar size="md"></Avatar>
 				<Avatar size="sm"></Avatar>
+        
 				<Avatar size="sm" circle></Avatar>
 				<Avatar size="md" circle></Avatar>
 				<Avatar circle></Avatar>
 				<Avatar size="lg" circle></Avatar>
-				<Avatar size="xl" circle></Avatar>`,
+				<Avatar size="xl" circle></Avatar>
+				<Avatar size="xl" :circle="18"></Avatar>`,
 			code2:`<Avatar :size="48" icon="ios-person" background="red"></Avatar>
 				<Avatar :size="48" icon="ios-person">USER</Avatar>
 				<Avatar :size="48" :src="avatar"></Avatar>
@@ -231,23 +263,34 @@ export default {
 				<Avatar :size="48" circle src="https://empty" background="#ff0000">
 				  <template #error>error</template>
 				</Avatar>`,
-			code4:`<Avatar :size="48" :src="avatar" fit="fill"></Avatar>
-				<Avatar :size="48" :src="avatar" fit="contain"></Avatar>
-				<Avatar :size="48"  :src="avatar" fit="cover"></Avatar>
-				<Avatar :size="48" :src="avatar" fit="none"></Avatar>
-				<Avatar :size="48"  :src="avatar" fit="scale-down"></Avatar>`,
+			code4:`<Avatar size="xl" :src="avatar" fit="fill"></Avatar>
+				<Avatar size="xl" :src="avatar" fit="contain"></Avatar>
+				<Avatar size="xl"  :src="avatar" fit="cover"></Avatar>
+				<Avatar size="xl" :src="avatar" fit="none"></Avatar>
+				<Avatar size="xl"  :src="avatar" fit="scale-down"></Avatar>`,
 			code5:`<template>
 			  <Avatar :size="96" update :upload="url" :src="avatar"></Avatar>
 			  <Avatar :size="96" update :upload="upload" :src="avatar"></Avatar>
+  <Avatar :size="96" :update="{
+    style:{height:'100%'},
+    text:'修改头像',
+    trigger:'hover'
+  }" upload="url" circle :src="avatar"></Avatar>
+  <Avatar :size="96" :update="{
+    style:{height:'80%'},
+    text:'修改头像',
+    trigger:'hover'
+  }" upload="url" circle :src="avatar"></Avatar>
 			<template>
 			&lt;script&gt;
 			  export default{
 			    data(){
 			      return{
+        avatar:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
 			        url:'//jsonplaceholder.typicode.com/posts/',
 			        upload: {
 			          //上传地址,
-			          url: 'http://127.0.0.1:9002/file/upload/image',
+			          url: '//jsonplaceholder.typicode.com/posts/',
 			          //上传的文件字段名
 			          name: 'avatar',
 			          //文件大小限制，单位 kb
@@ -290,7 +333,7 @@ export default {
 						{params:'background',version:'0.0.1',desc:'头像背景颜色',type:'<code>String</code>',required:'否'},
 						{params:'src',version:'0.0.1',desc:'图片头像的资源地址',type:'<code>String</code>',required:'否'},
 						{params:'fit',version:'0.0.1',desc:'设置图片填充模式，仅展示类型为图片时有效',type:'<code>String</code>',required:'否'},
-						{params:'update',version:'0.0.1',desc:'是否可以修改头像，仅展示类型为图片时有效',type:'<code>Boolean</code> | <code>String</code>',required:'否',default:'<code>修改</code>'},
+						{params:'update',version:'0.0.1',desc:'是否可以修改头像及配置，仅展示类型为图片时有效',type:'<code>Boolean</code> | <code>String</code> | <code>Object</code>',required:'否',default:'<code>修改</code>'},
 						{params:'upload',version:'0.0.1',desc:'头像上传参数及配置，仅展示类型为图片时有效',type:'<code>Object</code> | <code>String</code>',required:'否'},
 					],
 					upload:{
@@ -329,10 +372,6 @@ export default {
 				}
 			}
 		};
-	},
-	mounted() {
-	},
-	methods:{
 	}
 };
 </script>

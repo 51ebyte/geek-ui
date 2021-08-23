@@ -74,4 +74,8 @@
 	 * 面板 panel
 	 */
 	--panel-border-color: #eee;
+  /**
+   * 标签 tag
+   */
+  --tag-background-color:red;
 }

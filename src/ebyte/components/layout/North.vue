@@ -9,7 +9,7 @@ export default defineComponent({
 	props: {
 		height: {
 			type: Number,
-			default: 60
+			default: 64
 		}
 	},
 	setup(props, ctx) {

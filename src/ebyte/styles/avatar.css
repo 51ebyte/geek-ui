@@ -21,7 +21,6 @@
 .e-avatar-image img {
 	border-style: none;
 	height: 100%;
-	vertical-align: center;
 }
 
 .e-avatar-image-loading img,
@@ -105,8 +104,28 @@
 	display: inline-block;
 	font-size: 14px;
 	cursor: pointer;
+  min-height: 28px;
+  transition: height 0.5s ease-in-out;
+  overflow: hidden;
 }
 
 .e-avatar-image .update input[type="file"] {
 	display: none;
+}
+
+.e-avatar-image .update .text {
+  margin: 6px;
+  overflow: hidden;
+  width: calc(100% - 12px);
+  white-space: normal;
+  line-height: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.e-avatar-circle .update .text{
+  margin: 14px;
+  width: calc(100% - 28px);
+  -webkit-line-clamp: 2;
 }
