@@ -1,7 +1,4 @@
-.e-tags{
-	display: flex;
-}
-.e-tag{
+.e-tag {
 	display: inline-block;
 	height: 32px;
 	line-height: 32px;
@@ -14,60 +11,135 @@
 	overflow: hidden;
 }
 
-.e-tag-default{
-  border: var(--border);
+.e-tag-default {
+	border: var(--border);
 }
 
-.e-tag-primary{
-  background-color: var(--color-primary);
-  color: var(--color-white);
+.e-tag-primary {
+	background-color: var(--color-primary);
+	color: var(--color-white);
 }
 
-.e-tag-success{
-  background-color: var(--color-success);
-  color: var(--color-white);
+.e-tag-success {
+	background-color: var(--color-success);
+	color: var(--color-white);
 }
 
-.e-tag-warning{
-  background-color: var(--color-warning);
-  color: var(--color-white);
-}
-.e-tag-error{
-  background-color: var(--color-error);
-  color: var(--color-white);
+.e-tag-warning {
+	background-color: var(--color-warning);
+	color: var(--color-white);
 }
 
-.e-tag-info{
-  background-color: var(--color-info);
-  color: var(--color-white);
+.e-tag-error {
+	background-color: var(--color-error);
+	color: var(--color-white);
 }
-.e-tag-closable{
-  position: relative;
-  padding-right: 26px;
+
+.e-tag-info {
+	background-color: var(--color-info);
+	color: var(--color-white);
 }
-.e-tag-closable .close{
-  cursor: pointer;
+
+.e-tag-disabled {
+	cursor: not-allowed;
+	background-color: var(--background-color-disabled);
+	color: var(--text-color-disabled);
+	border: var(--border-width) var(--border-style) var(--border-color-disabled);
 }
+
+.e-tag-primary.e-tag-plain {
+	background: 0 0;
+	border: var(--border-width) var(--border-style) var(--color-primary);
+	color: var(--color-primary);
+}
+
+.e-tag-success.e-tag-plain {
+	background: 0 0;
+	border: var(--border-width) var(--border-style) var(--color-success);
+	color: var(--color-success);
+}
+
+.e-tag-warning.e-tag-plain {
+	background: 0 0;
+	border: var(--border-width) var(--border-style) var(--color-warning);
+	color: var(--color-warning);
+}
+
+.e-tag-error.e-tag-plain {
+	background: 0 0;
+	border: var(--border-width) var(--border-style) var(--color-error);
+	color: var(--color-error);
+}
+
+.e-tag-info.e-tag-plain {
+	background: 0 0;
+	border: var(--border-width) var(--border-style) var(--color-info);
+	color: var(--color-info);
+}
+
+.e-tag-closable {
+	position: relative;
+	padding-right: 26px;
+}
+
+.e-tag-closable .close {
+	cursor: pointer;
+}
+.e-tag-closable.e-tag-disabled .close{
+	cursor: not-allowed;
+}
+
 .e-tag-closable .close::before,
-.e-tag-closable .close::after{
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 1px;
-  background-color: var(--color-white);
-  top: 50%;
-  transform: translateY(-50%);
-  right: 8px;
+.e-tag-closable .close::after {
+	content: '';
+	position: absolute;
+	width: 14px;
+	height: 1px;
+	background-color: var(--color-white);
+	top: 50%;
+	transform: translateY(-50%);
+	right: 8px;
 }
 
-.e-tag-closable .close::before{
-  transform: translateY(-50%) rotate(45deg);
+.e-tag-closable .close::before {
+	transform: translateY(-50%) rotate(45deg);
 }
-.e-tag-closable .close::after{
-  transform: translateY(-50%) rotate(-45deg);
+
+.e-tag-closable .close::after {
+	transform: translateY(-50%) rotate(-45deg);
+}
+
+.e-tag-disabled.e-tag-closable .close::before,
+.e-tag-disabled.e-tag-closable .close::after {
+	background-color: var(--text-color-disabled);
 }
 
 .e-tag-default.e-tag-closable .close::before,
-.e-tag-default.e-tag-closable .close::after{
-  background-color: #666666;
+.e-tag-default.e-tag-closable .close::after {
+	background-color: var(--tag-background-closable, #666666);
+}
+
+.e-tag-primary.e-tag-plain.e-tag-closable .close::before,
+.e-tag-primary.e-tag-plain.e-tag-closable .close::after {
+	background-color: var(--color-primary);
+}
+
+.e-tag-success.e-tag-plain.e-tag-closable .close::before,
+.e-tag-success.e-tag-plain.e-tag-closable .close::after {
+	background: var(--color-success);
+}
+
+.e-tag-warning.e-tag-plain.e-tag-closable .close::before,
+.e-tag-warning.e-tag-plain.e-tag-closable .close::after {
+	background: var(--color-warning);
+}
+
+.e-tag-error.e-tag-plain.e-tag-closable .close::before,
+.e-tag-error.e-tag-plain.e-tag-closable .close::after {
+	background: var(--color-error);
+}
+
+.e-tag-info.e-tag-plain.e-tag-closable .close::before,
+.e-tag-info.e-tag-plain.e-tag-closable .close::after {
+	background: var(--color-info);
 }

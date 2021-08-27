@@ -24,5 +24,5 @@ const random = (length = 2, prefix = '', suffix = '') => {
 export default {
 	isColor,
 	random,
-	isPercentage
+	isPercentage,
 }

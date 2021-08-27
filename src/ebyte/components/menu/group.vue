@@ -1,11 +1,6 @@
 <template>
 	<div class="e-menu-group">
 		<div class="text">{{ name }}</div>
-		<div class="list">
-			<template v-for="(item, index) in list" v-bind:key="index">
-				<menu-item :item="item" :index="index" :current="current" @click="handleClickItem"></menu-item>
-			</template>
-		</div>
 	</div>
 </template>
 
@@ -21,12 +16,6 @@ export default defineComponent({
 			type: String,
 			default: ''
 		},
-		list: {
-			type: Array,
-			default(){
-				return [];
-			}
-		}
 	},
 	setup() {
 		const current = ref(-1);

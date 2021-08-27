@@ -1,8 +1,17 @@
 <template>
 	<div :class="classs.default" :style="styles.default" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+		
 		<Icon class="icon-clear" :size="16" name="ios-close-circle" v-if="showClear" @mousedown.prevent @click="handleClear"></Icon>
 
-		<template v-if="type == 'textarea'">
+		<template v-if="type == 'number'">
+			<InputNumber v-model="inputNumberValue"
+			 :max="max" :min="min" :setp="setp" :controls="controls" 
+			 :strictly="strictly" :precision="precision" :align="align"
+			 :disabled="disabled" :width='width'
+			 @input="handleInput"></InputNumber>
+		</template>
+
+		<template v-else-if="type == 'textarea'">
 			<textarea class="e-input e-input-textarea" wrap="soft" rows="2" spellcheck="false"></textarea>
 		</template>
 
@@ -59,14 +68,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRef, ref, computed, watch, nextTick, onMounted, onUpdated } from 'vue';
+import { defineComponent,PropType, toRef, ref, computed, watch, nextTick, onMounted, onUpdated } from 'vue';
 import { config } from './../../lib/index.js';
 import { UPDATE_MODEL_VALUE_EVENT } from './../../lib/constants.js';
 
-type InputType = PropType<'text' | 'password' | 'textarea' | 'number'>;
-
+import InputNumber from './input-number.vue'
 export default defineComponent({
 	name: 'Input',
+	components:{
+		InputNumber
+	},
 	props: {
 		modelValue: {
 			type: [String, Number],
@@ -74,7 +85,7 @@ export default defineComponent({
 		},
 		//输入框类型
 		type: {
-			type: String as InputType,
+			type: String as PropType<'text' | 'password' | 'textarea' | 'number'>,
 			default: 'text',
 			validator: (val: string) => {
 				if (val != '') {
@@ -132,6 +143,30 @@ export default defineComponent({
 		//边框
 		upperCase:{
 			type: [Boolean,Number,String]
+		},
+		//type=number有效
+		max:{
+			type:Number
+		},
+		min:{
+			type:Number
+		},
+		setp:{
+			type:Number,
+			default: 1
+		},
+		controls:{
+			type: String,
+			default: 'outside'
+		},
+		strictly:{
+			type:Number
+		},
+		precision:{
+			type:Number
+		},
+		align:{
+			type:String,
 		}
 	},
 	emits: [UPDATE_MODEL_VALUE_EVENT, 'input', 'change', 'focus', 'blur', 'clear', 'mouseleave', 'mouseenter', 'keydown','update:prompt'],
@@ -144,6 +179,7 @@ export default defineComponent({
 		const hovering = ref(false);
 		
 		const inputValue = computed(() => (props.modelValue === null || props.modelValue === undefined ? '' : String(props.modelValue)));
+		const inputNumberValue = ref<Number>(Number(props.modelValue) || 1)
 		const inputType = ref(props.type);
 		
 		const disabled = toRef(props, 'disabled').value;
@@ -265,6 +301,9 @@ export default defineComponent({
 			if (value === inputValue.value) return;
 			ctx.emit(UPDATE_MODEL_VALUE_EVENT, value);
 			ctx.emit('input', value);
+			if(inputType.value == 'number'){
+				inputNumberValue.value = (parseInt(value*Math.pow(10,props.precision))/Math.pow(10,props.precision)).toFixed(props.precision);
+			}
 			if(showPrompt.value){
 				var list = promptList.filter(function(item){
 					return item[prompt.value.key].search(value) >= 0 ? item : ''
@@ -353,6 +392,7 @@ export default defineComponent({
 			classs,
 			styles,
 			inputType,
+			inputNumberValue,
 			showClear,
 			handleClear,
 			showPrefix,

@@ -3,14 +3,14 @@
 		<template v-if="list">
 			<template v-for="(item, index) in list" v-bind:key="index">
 				<template v-if="item.group">
-					<menu-group :name="item.group" :list="item.list"></menu-group>
+					<menu-group :name="item.group" :list="item.list" :key="index"></menu-group>
 				</template>
 				<template v-else>
 					<template v-if="item.children">
-						<menu-child :keys="item.keys" :name="item.name" :list="item.children" @click="handleClickItem"></menu-child>
+						<menu-child :key="index" :keys="item.keys" :name="item.name" :list="item.children" @click="handleClickItem"></menu-child>
 					</template>
 					<template v-else>
-						<menu-item :item="item" @click="handleClickItem" @collapse="handleCollapse"></menu-item>
+						<menu-item :key="index" :item="item" @click="handleClickItem" @collapse="handleCollapse"></menu-item>
 					</template>
 				</template>
 			</template>

@@ -70,5 +70,27 @@ ebyte.removeListener = (element, event, handler, useCapture = false) => {
 	}
 };
 
+ebyte.isImage = (file)=>{
+	return /\.(jpg|jpeg|png|bmp|gif)$/.test(file.name.toLowerCase());
+}
+
+ebyte.isExcel = (file)=>{
+	return /\.(xls|xlsx|csv)$/.test(file.name.toLowerCase());
+}
+
+ebyte.isWord = (file)=>{
+	return /\.(doc|docx)$/.test(file.name.toLowerCase());
+}
+
+ebyte.isPPT = (file)=>{
+	return /\.(ppt|pptx)$/.test(file.name.toLowerCase());
+}
+
+ebyte.isTxt = (file)=>{
+	return /\.(txt)$/.test(file.name.toLowerCase());
+}
+
+
+
 
 export default ebyte

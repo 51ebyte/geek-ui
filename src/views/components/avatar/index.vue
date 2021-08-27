@@ -271,22 +271,22 @@ export default {
 			code5:`<template>
 			  <Avatar :size="96" update :upload="url" :src="avatar"></Avatar>
 			  <Avatar :size="96" update :upload="upload" :src="avatar"></Avatar>
-  <Avatar :size="96" :update="{
-    style:{height:'100%'},
-    text:'修改头像',
-    trigger:'hover'
-  }" upload="url" circle :src="avatar"></Avatar>
-  <Avatar :size="96" :update="{
-    style:{height:'80%'},
-    text:'修改头像',
-    trigger:'hover'
-  }" upload="url" circle :src="avatar"></Avatar>
+			  <Avatar :size="96" :update="{
+			    style:{height:'100%'},
+			    text:'修改头像',
+			    trigger:'hover'
+			  }" upload="url" circle :src="avatar"></Avatar>
+			  <Avatar :size="96" :update="{
+			    style:{height:'80%'},
+			    text:'修改头像',
+			    trigger:'hover'
+			  }" upload="upload" circle :src="avatar"></Avatar>
 			<template>
 			&lt;script&gt;
 			  export default{
 			    data(){
 			      return{
-        avatar:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+			        avatar:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
 			        url:'//jsonplaceholder.typicode.com/posts/',
 			        upload: {
 			          //上传地址,
@@ -297,6 +297,8 @@ export default {
 			          size: 100,
 			          //设置上传的请求头部
 			          headers: {},
+			          //设置上传的额外参数
+			          data: {},
 			          //支持发送 cookie 凭证信息
 			          withCredentials: false,
 			          //上传文件之前的钩子，参数为上传的文件，若返回 Promise.reject 则停止上传

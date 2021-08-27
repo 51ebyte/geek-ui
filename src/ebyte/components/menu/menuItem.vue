@@ -86,6 +86,7 @@
 						});
 						window.open(href, '_blank');
 					} else {
+						console.log(to)
 						proxy.$router.push({
 							name: to
 						});

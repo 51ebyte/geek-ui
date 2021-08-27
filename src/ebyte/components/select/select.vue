@@ -31,6 +31,7 @@
 					@blur="handleBlur"
 					@keyup.up="handleKeyUp"
 					@keyup.down="handleKeyDown"
+					@keyup.enter="handleBlur"
 				/>
 				<span class="icon"></span>
 			</template>
@@ -103,7 +104,7 @@ export default defineComponent({
 	},
 	emits: [UPDATE_MODEL_VALUE_EVENT, 'change', 'update:list'],
 	setup(props, ctx) {
-		let classs = ref({ default: ['e-select'], input: [] });
+		let classs = ref({ default: ['e-select',''], input: [] });
 
 		let list = ref(props.list);
 		let deepList = JSON.parse(JSON.stringify(props.list));
@@ -165,6 +166,7 @@ export default defineComponent({
 					classs.value.default.splice(key, 1);
 				}
 				isUnfold.value = false;
+				inputRef.value.blur()
 			}
 		};
 		//鼠标移入下拉选择框
@@ -186,10 +188,8 @@ export default defineComponent({
 					list.value = deepList;
 				} else {
 					list.value = deepList.filter(function(item) {
-						if (item[props.labelKey]) {
-							if (item[props.labelKey].toLowerCase().search(inputLabel.value.toLowerCase()) > 0) {
-								return item;
-							}
+						if (item[props.labelKey] && item[props.labelKey].toLowerCase().search(value.trim().toLowerCase()) >= 0) {
+							return item;
 						}
 					});
 				}
@@ -238,33 +238,32 @@ export default defineComponent({
 			evt.preventDefault();
 			inputSelectedIndex.value--;
 			if (inputSelectedIndex.value < 0) {
-				inputSelectedIndex.value = deepList.length - 1;
+				inputSelectedIndex.value = list.value.length - 1;
 			}
-			const item = deepList[inputSelectedIndex.value];
+			const item = list.value[inputSelectedIndex.value];
 			if (item.group) {
 				inputSelectedIndex.value--;
 				dropdownRef.value.scrollTop -= 33
 			}
-			inputLabel.value = deepList[inputSelectedIndex.value]['name'];
-			if(inputSelectedIndex.value>0 && inputSelectedIndex.value<deepList.length - 1){
+			inputLabel.value = list.value[inputSelectedIndex.value]['name'];
+			if(inputSelectedIndex.value > 0 && inputSelectedIndex.value < list.value.length - 1){
 				dropdownRef.value.scrollTop -= 33
-			}else if(inputSelectedIndex.value==deepList.length - 1){
+			}else if(inputSelectedIndex.value == list.value.length - 1){
 				dropdownRef.value.scrollTop = dropdownUlRef.value.clientHeight
 			}
 		};
 		const handleKeyDown = evt => {
-			console.log(dropdownUlRef.value)
 			evt.preventDefault();
 			inputSelectedIndex.value++;
-			if (inputSelectedIndex.value > deepList.length - 1) {
+			if (inputSelectedIndex.value > list.value.length - 1) {
 				inputSelectedIndex.value = 0;
 			}
-			const item = deepList[inputSelectedIndex.value];
+			const item = list.value[inputSelectedIndex.value];
 			if (item.group) {
 				inputSelectedIndex.value++;
 				dropdownRef.value.scrollTop += 33
 			}
-			inputLabel.value = deepList[inputSelectedIndex.value]['name'];
+			inputLabel.value = list.value[inputSelectedIndex.value]['name'];
 			if(inputSelectedIndex.value>0){
 				dropdownRef.value.scrollTop += 33
 			}else if(inputSelectedIndex.value==0){

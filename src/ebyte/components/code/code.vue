@@ -112,12 +112,11 @@ export default defineComponent({
 		var copy = toRef(props, 'copy').value;
 		const handleCopy = (evt: MouseEvent) => {
 			if (copy) {
-				var html = ol.value.innerText;
 				const textarea = document.createElement('textarea');
 				textarea.readOnly = 'readonly';
 				textarea.style.position = 'absolute';
 				textarea.style.left = '-9999px';
-				textarea.value = html;
+				textarea.value = olRef.value.innerText;
 				document.body.appendChild(textarea);
 				textarea.select();
 				const result = document.execCommand('Copy');

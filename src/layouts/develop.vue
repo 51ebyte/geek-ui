@@ -1,11 +1,11 @@
 <template>
 	<Layout ref="layout" :southHeight="38" collapse>
 		<template #aside>
-			<slider :logo="src" :menu="menu.sider" @menu="handleClickmenu"></slider>
+			<slider :logo="avatar" :menu="menu.sider" @menu="handleClickmenu"></slider>
 		</template>
 		<template #north>
 			<div class="e-flex-1 e-flex e-col-center e-row-between">
-				<div class="e-flex e-col-center" style="width: 260px;">
+				<div class="e-flex e-col-center" style="width: 260px;padding: 0 15px;">
 					<Select :list="menu.sider[2]['children']" filter label-key="name" @change="handleSelectChange"></Select>
 				</div>
 				<div class="navlist" style="height: 100%;">
@@ -20,9 +20,6 @@
 			<div style="margin: 20px 20px 0px 20px;">
 				<Breadcrumb :list="breadcrumb"></Breadcrumb>
 			</div>
-			<div class="tab-nav">
-				
-			</div>
 			<router-view></router-view>
 		</template>
 		<template #south>
@@ -35,13 +32,14 @@
 
 <script>
 	import slider from './components/slider.vue'
+	import avatar from './../assets/avatar.png'
 	export default{
 		components:{
 			slider
 		},
 		data(){
 			return{
-				src:'https://portrait.gitee.com/uploads/avatars/namespace/2350/7050961_responsibility-of-sichuan-muhe_1623835668.png',
+				avatar:avatar,
 				menu:{
 					sider:[
 						{name:'文档',keys:'doc',children:[
@@ -75,7 +73,7 @@
 								{group:'导航'},
 								{name:'固钉 Affix',keys:'components_affix',to:'components_affix'},
 								{name:'面包屑 Breadcrumb',keys:'components_breadcrumb',to:'components_breadcrumb'},
-								{name:'菜单 Menu',keys:'components_menu',to:'components_menu'},
+								{name:'〒菜单 Menu',keys:'components_menu',to:'components_menu'},
 								{name:'下拉菜单 Dropdown',keys:'components_dropdown',to:'components_dropdown'},
 								
 								{group:'表单'},
@@ -84,53 +82,53 @@
 								{name:'单选框 Radio',keys:'components_radio',to:'components_radio'},
 								{name:'多选框 Check',keys:'components_check',to:'components_check'},
 								{name:'选择框 Select',keys:'components_select',to:'components_select'},
+								{name:'〓时间选择 Date',keys:'components_date',to:'components_date'},
 								{name:'开关 Switch',keys:'components_switch',to:'components_switch'},
 								{name:'滑块 Slider',keys:'components_slider',to:'components_slider'},
 								{name:'上传 Upload',keys:'components_upload',to:'components_upload'},
-								{name:'时间选择 Date',keys:'components_date',to:'components_date'},
-								{name:'评分 Rate',keys:'components_rate',to:'components_rate'},
-								{name:'颜色选择 Color',keys:'components_color',to:'components_color'},
-								{name:'穿梭框 Transfer',keys:'components_transfer',to:'components_transfer'},
-								{name:'表单 Form',keys:'components_form',to:'components_form'},
+								{name:'〓评分 Rate',keys:'components_rate',to:'components_rate'},
+								{name:'〓颜色选择 Color',keys:'components_color',to:'components_color'},
+								{name:'〓穿梭框 Transfer',keys:'components_transfer',to:'components_transfer'},
+								{name:'〓表单 Form',keys:'components_form',to:'components_form'},
 								
 								{group:'视图'},
 								{name:'头像 Avatar',keys:'components_avatar',to:'components_avatar'},
-								{name:'徽标数 Badge',keys:'components_badge',to:'components_badge'},
-								{name:'进度条 Progress',keys:'components_progress',to:'components_progress'},
-								{name:'日历 Calendar',keys:'components_calendar',to:'components_calendar'},
+								{name:'〓徽标数 Badge',keys:'components_badge',to:'components_badge'},
+								{name:'〓进度条 Progress',keys:'components_progress',to:'components_progress'},
+								{name:'〓日历 Calendar',keys:'components_calendar',to:'components_calendar'},
 								{name:'卡片 Card',keys:'components_card',to:'components_card'},
 								{name:'面板/折叠面板 Panel',keys:'components_panel',to:'components_panel'},
 								{name:'分割线 Divider',keys:'components_divider',to:'components_divider'},
-								{name:'翻牌器 Flop',keys:'components_flop',to:'components_flop'},
-								{name:'标签页面 Tabs',keys:'components_tabs',to:'components_tabs'},
+								{name:'〓翻牌器 Flop',keys:'components_flop',to:'components_flop'},
+								{name:'〓标签页面 Tabs',keys:'components_tabs',to:'components_tabs'},
 								{name:'标签 Tag',keys:'components_tag',to:'components_tag'},
-								{name:'时间线 Timeline',keys:'components_timeline',to:'components_timeline'},
-								{name:'骨架屏 Skeleton',keys:'components_skeleton',to:'components_skeleton'},
-								{name:'图标选择 IconSelect',keys:'components_icon_select',to:'components_icon_select'},
+								{name:'〓时间线 Timeline',keys:'components_timeline',to:'components_timeline'},
+								{name:'〓骨架屏 Skeleton',keys:'components_skeleton',to:'components_skeleton'},
+								{name:'〓图标选择 IconSelect',keys:'components_icon_select',to:'components_icon_select'},
 								
 								{group:'数据'},
-								{name:'表格 Table',keys:'components_table',to:'components_table'},
-								{name:'分页 Paging',keys:'components_paging',to:'components_paging'},
+								{name:'〓表格 Table',keys:'components_table',to:'components_table'},
+								{name:'〓分页 Paging',keys:'components_paging',to:'components_paging'},
 								
 								{group:'弹出层'},
-								{name:'模态框 Modal/Dialog',keys:'components_modal',to:'components_modal'},
-								{name:'抽屉 Drawer',keys:'components_drawer',to:'components_drawer'},
+								{name:'〓模态框 Modal/Dialog',keys:'components_modal',to:'components_modal'},
+								{name:'〓抽屉 Drawer',keys:'components_drawer',to:'components_drawer'},
 								
 								{group:'提示反馈'},
-								{name:'页面提示 Alert',keys:'components_alert',to:'components_alert'},
-								{name:'全局提示 Message',keys:'components_message',to:'components_message'},
-								{name:'通知提醒 Notice',keys:'components_notice',to:'components_notice'},
-								{name:'文字提示 Tooltip',keys:'components_tooltip',to:'components_tooltip'},
-								{name:'气泡提示 Popover',keys:'components_popover',to:'components_popover'},
-								{name:'气泡确认 Popconfirm',keys:'components_popconfirm',to:'components_popconfirm'},
-								{name:'加载提示 Spin',keys:'components_spin',to:'components_spin'},
+								{name:'〓页面提示 Alert',keys:'components_alert',to:'components_alert'},
+								{name:'〓全局提示 Message',keys:'components_message',to:'components_message'},
+								{name:'〓通知提醒 Notice',keys:'components_notice',to:'components_notice'},
+								{name:'〓文字提示 Tooltip',keys:'components_tooltip',to:'components_tooltip'},
+								{name:'〓气泡提示 Popover',keys:'components_popover',to:'components_popover'},
+								{name:'〓气泡确认 Popconfirm',keys:'components_popconfirm',to:'components_popconfirm'},
+								{name:'〓加载提示 Spin',keys:'components_spin',to:'components_spin'},
 								
 								{group:'其他'},
-								{name:'回到顶部 BackTop',keys:'components_backtop',to:'components_backtop'},
-								{name:'流加载 Flow',keys:'components_flow',to:'components_flow'},
-								{name:'倒计时 countdown',keys:'components_countdown',to:'components_countdown'},
-								{name:'行政区划选择 Region',keys:'components_region',to:'components_region'},
-								{name:'城市选择 City',keys:'components_city',to:'components_city'},
+								{name:'〓回到顶部 BackTop',keys:'components_backtop',to:'components_backtop'},
+								{name:'〓流加载 Flow',keys:'components_flow',to:'components_flow'},
+								{name:'〓倒计时 countdown',keys:'components_countdown',to:'components_countdown'},
+								{name:'〓行政区划选择 Region',keys:'components_region',to:'components_region'},
+								{name:'〓城市选择 City',keys:'components_city',to:'components_city'},
 							],
 						},
 						{name:'JS',keys:'js',children:[
@@ -177,7 +175,6 @@
 		},
 		watch:{
 			'$route'(n){
-				console.log(n)
 				this.breadcrumb = this.handleBreadcrumb(n.name);
 			}
 		},

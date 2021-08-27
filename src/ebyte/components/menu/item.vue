@@ -2,7 +2,7 @@
 	<div class="e-menu-item" :class="{
 				'e-menu-item-prefix': item.icon,
 				'e-menu-item-active': isActive(item)
-			}" @click="handleClickItem">
+			}" @click="handleClickItem(item)">
 			<Icon class="prefix-icon" :name="item.icon"></Icon>
 			<span class="text">{{item.name}}</span>
 	</div>
@@ -19,7 +19,7 @@ export default defineComponent({
 	},
 	emits: ['click', 'collapse'],
 	setup: (props, ctx) => {
-		const item = toRef(props, 'item').value;
+		
 		const { proxy } = getCurrentInstance();
 		const menuActive = inject('menuActive',{value:''})
 		
@@ -27,7 +27,7 @@ export default defineComponent({
 		const isActive = (item)=>{
 			let is = false
 			if(menuActive.value && item.name){
-				is = item.keys == menuActive.value 
+				is = item.keys && item.keys == menuActive.value 
 			}else{
 				is = (proxy.$route.name == item.keys || proxy.$route.name == item.to);
 			}
@@ -51,9 +51,11 @@ export default defineComponent({
 		};
 		
 
-		const handleClickItem = () => {
+		const handleClickItem = (item) => {
 			let Menu = findComponents(proxy.$parent);
-			Menu.active = item.keys;
+			if(item.keys){
+				Menu.active = item.keys;
+			}
 			
 			if (item.children) {
 				hasOpen.value = !hasOpen.value;

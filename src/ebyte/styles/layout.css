@@ -26,7 +26,6 @@
 	box-shadow: 0 1px 1px rgb(0 0 0 / 8%);
 	display: flex;
 	align-items: center;
-  overflow: hidden;
 }
 
 /*中部*/
@@ -99,8 +98,8 @@
 
 .e-layout-west-collapse span {
 	content: '';
-	width: 8px;
-	height: 8px;
+	width: 10px;
+	height: 10px;
 	border-width: 2px 2px 0 0;
 	border-style: solid;
 	border-color: var(--border-color);

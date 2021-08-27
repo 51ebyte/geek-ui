@@ -54,9 +54,9 @@ const install = function(app, opts = {}) {
 		app.directive(directive.name, directive);
 	})
 
-	//配置暴露给页面
-	app.config.globalProperties.$ebyte = option;
+	//方法暴漏给用户
 	app.config.globalProperties.$byte = byte;
+	//配置暴露给页面
 	app.provide('opts', option)
 
 }
