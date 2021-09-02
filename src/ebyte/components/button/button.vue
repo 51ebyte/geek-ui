@@ -34,7 +34,7 @@ export default {
 		size: {
 			type: String as ButtonSize,
 			validator: (val: string) => {
-				return ['xl', 'lg', 'md', 'sm'].includes(val);
+				return ['xl', 'lg', 'md', 'sm','mini'].includes(val);
 			}
 		},
 		plain: {

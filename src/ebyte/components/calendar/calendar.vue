@@ -1,44 +1,66 @@
 <template>
-	<div class="e-picker-date">
-		<div class="e-picker-date-aside" v-if="effectYear!=nowYear || effectMonth!=nowMonth">
-			<div class="e-picker-date-shortcut" @click.stop.parent="handleToDay">回到今天</div>
-		</div>
-		<div class="e-picker-date-panel">
-			<div class="e-picker-date-panel-header">
-				<div class="prev">
-					<i class="e-icon-font icon-ios-arrow-back year" @click.stop.parent="handlePrevYear"></i>
-					<i class="e-icon-font icon-ios-arrow-back" @click.stop.parent="handlePrevMonth"></i>
+	<div :class="['e-calendar']">
+		<div class="e-calendar-panel">
+			<div class="e-calendar-panel-header">
+				<div class="left">
+					{{effectYear}}年{{effectMonth}}月
 				</div>
-				<div class="text">{{ effectYear }}年{{ effectMonth }}月</div>
-				<div class="next">
-					<i class="e-icon-font icon-ios-arrow-forward" @click.stop.parent="handleNextMonth"></i>
-					<i class="e-icon-font icon-ios-arrow-forward year" @click.stop.parent="handleNextYear"></i>
+				<div class="right">
+					<div class="today" @click.stop.parent="handleToDay">今天</div>
+					<div class="prev-year" @click.stop.parent="handlePrevYear">
+						<i class="e-icon-font icon-ios-arrow-back"></i>
+					</div>
+					<div class="prev-month" @click.stop.parent="handlePrevMonth">
+						<i class="e-icon-font icon-ios-arrow-back"></i>
+					</div>
+					<div class="next-month" @click.stop.parent="handleNextMonth">
+						<i class="e-icon-font icon-ios-arrow-forward"></i>
+					</div>
+					<div class="next-year" @click.stop.parent="handleNextYear">
+						<i class="e-icon-font icon-ios-arrow-forward"></i>
+					</div>
 				</div>
 			</div>
-			<div class="e-picker-date-panel-body">
-				<span class="now-month">{{ effectMonth }}</span>
-				<table class="e-picker-date-table" ref="tableRef">
+			<div class="e-calendar-panel-body">
+				<table class="e-calendar-table" ref="tableRef" cellspacing="0" cellpadding="0">
 					<thead>
-						<tr class="e-picker-date-row">
-							<td class="e-picker-date-col" v-for="(week, index) in weeks" :key="index">
-								<span class="e-picker-date-cell">{{ week }}</span>
-							</td>
+						<tr>
+							<th v-for="(week, index) in weeks" :key="index">
+								<span>{{ week }}</span>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="e-picker-date-row" v-for="days in calendar" :key="days.week">
-							<td class="e-picker-date-col" v-for="(day, index) in days" :key="index">
-								<div :class="['e-picker-date-cell',{
+						<tr class="e-calendar-row" v-for="days in calendar" :key="days.week">
+							<td class="e-calendar-col" v-for="(day, index) in days" :key="index">
+								<div :class="['e-calendar-cell',{
 										'prev-month': day.month < nowMonth,
 										'next-month': day.month > nowMonth,
 										'curr-month': day.isMonth,
 										'curr-today': day.isToday,
-										'disabled':day.disabled,
+										'disabled': day.disabled,
 										'active':handleActive(day)
-									}]" @click.stop.parent="handleClick(day)"
-								>
-									<span class="e-picker-date-cell-number">{{ day.day }}</span>
-									<span class="e-picker-date-cell-extra">{{ day.extra }}</span>
+									}]" @click.stop.parent="handleDayClick(day)">
+									<div class="e-calendar-cell-warp">
+										<span class="e-calendar-cell-number">{{ day.day }}</span>
+										<span class="e-calendar-cell-extra">
+											<template v-if="typeof day.extra =='object'">
+												{{day.extra.join('；')}}
+											</template>
+											<template v-if="typeof day.extra =='string'">
+												{{ day.extra }}
+											</template>
+										</span>
+									</div>
+									<div class="e-calendar-cell-events">
+										<slot name="event" :day="day">
+											<template v-for="(event,index) in day.events">
+												<event :type="event.type" :bgColor="event.bgColor" :color="event.color" @click.stop.parent="handleDayEvent(day,event)">
+													{{event.text || event}}
+												</event>
+											</template>
+										</slot>
+									</div>
 								</div>
 							</td>
 						</tr>
@@ -50,17 +72,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref,onMounted } from 'vue';
-import util from '../../lib/util.js';
+import { defineComponent,ref, toRef, computed } from 'vue';
+import event from './event.vue'
+import util from '../../lib/util.js'
 export default defineComponent({
-	name: 'Date',
-	props:{
-		modelValue: {
-			type: [Date,Number],
-			default(){
-				return new Date()
-			}
-		},
+	name: 'Calendar',
+	components:{
+		event
+	},
+	props: {
 		extra:{
 			type:Array,
 			default(){
@@ -73,36 +93,24 @@ export default defineComponent({
 				return [];
 			}
 		},
-		range: {
-			type:Boolean,
-			default:true
+		events:{
+			type:Function
 		},
 	},
-	emits:['change'],
+	emits:['dayClick','event'],
 	setup(props, ctx) {
-		
-		const tableRef = ref()
-		
 		const nowDate = new Date();
 		const nowYear = ref(nowDate.getFullYear());
 		const nowMonth = ref(nowDate.getMonth() + 1);
 		const nowDay = ref(nowDate.getDate());
-
+		
 		const effectYear = ref(nowDate.getFullYear());
 		const effectMonth = ref(nowDate.getMonth() + 1);
 		const effectDay = ref(nowDate.getDate());
 		
-		let activeDate = 0;
-		if(props.modelValue instanceof Date){
-			activeDate = props.modelValue;
-		}else if (typeof props.modelValue=='number'){
-			activeDate = new Date(props.modelValue);
-		}else{
-			activeDate = nowDate;
-		}
-		const activeYear = ref(activeDate.getFullYear());
-		const activeMonth = ref(activeDate.getMonth() + 1);
-		const activeDay = ref(activeDate.getDate());
+		const activeYear = ref(nowDate.getFullYear());
+		const activeMonth = ref(nowDate.getMonth() + 1);
+		const activeDay = ref(nowDate.getDate());
 		
 		const extra = computed(()=>{
 			let extra = {};
@@ -118,7 +126,7 @@ export default defineComponent({
 		
 		const disabled = computed(()=>{
 			let disabled = {};
-			if(typeof props.disabled=='object'){
+			if(typeof props.disabled == 'object'){
 				props.disabled.forEach((item)=>{
 					let date = new Date(item);
 					date = [date.getFullYear(),date.getMonth()+1,date.getDate()].join('-');
@@ -131,12 +139,20 @@ export default defineComponent({
 		})
 		
 		const handleDisabled = (date) => {
-			if(typeof props.disabled=='object'){
-				return disabled.value[date.getTime()];
+			if(typeof props.disabled == 'object'){
+				return disabled.value[date.getTime()] || false;
 			}
-			if(typeof props.disabled=='function'){
+			if(typeof props.disabled == 'function'){
 				return props.disabled(date)
 			}
+			return false;
+		}
+		
+		const handleEvents = (date) => {
+			if(typeof props.events == 'function'){
+				return props.events(date)
+			}
+			return []
 		}
 		
 		//月初
@@ -150,7 +166,7 @@ export default defineComponent({
 			date.setDate(0);
 			return date.getDate();
 		});
-
+		
 		const calendar = computed(() => {
 			let calendar = [];
 			let days = [];
@@ -168,7 +184,8 @@ export default defineComponent({
 					isToday: false,
 					format: util.timeFormat(date.getTime(),'yyyy-mm-dd',false).format,
 					disabled: handleDisabled(date),
-					extra: extra.value[date.getTime()] || ''
+					extra: extra.value[date.getTime()] || '',
+					events: handleEvents(date)
 				});
 				if (days.length == 7) {
 					calendar.push(days);
@@ -191,7 +208,8 @@ export default defineComponent({
 					isToday: isYear && isMonth && isToday,
 					format:format,
 					disabled: handleDisabled(date),
-					extra: extra.value[date.getTime()] || ''
+					extra: extra.value[date.getTime()] || '',
+					events: handleEvents(date)
 				});
 				if (days.length == 7) {
 					calendar.push(days);
@@ -219,7 +237,8 @@ export default defineComponent({
 						isToday: false,
 						format: format,
 						disabled: handleDisabled(date),
-						extra: extra.value[date.getTime()] || ''
+						extra: extra.value[date.getTime()] || '',
+						events: handleEvents(date)
 					});
 				}
 				calendar.push(days);
@@ -227,7 +246,11 @@ export default defineComponent({
 			}
 			return calendar;
 		});
-
+		
+		const handleActive = (day)=>{
+			return activeYear.value == day.year && activeMonth.value == day.month && activeDay.value == day.day;
+		}
+		
 		//上一年
 		const handlePrevYear = () => {
 			effectYear.value -= 1;
@@ -265,26 +288,24 @@ export default defineComponent({
 			effectDay.value = nowDay.value;
 		};
 		
-		const handleActive = (day)=>{
-			return activeYear.value == day.year && activeMonth.value == day.month && activeDay.value == day.day;
-		}
-		
-		const handleClick = (day)=>{
+		const handleDayClick = (day)=>{
 			if(day.disabled) return false;
 			activeYear.value = day.year
 			activeMonth.value = day.month
 			activeDay.value = day.day
-			ctx.emit('change',day)
+			ctx.emit('dayClick',day)
+			if(!day.isMonth && day.month<nowMonth.value && (effectYear.value!=day.year || effectMonth.value!=day.month)){
+				handlePrevMonth();
+			}else if(!day.isMonth && day.month>nowMonth.value && (effectYear.value!=day.year || effectMonth.value!=day.month)){
+				handleNextMonth();
+			}
 		}
 		
-		const handleClear = ()=>{
-			activeYear.value = nowYear.value
-			activeMonth.value = nowMonth.value
-			activeDay.value = nowDay.value
+		const handleDayEvent = (day,event) => {
+			ctx.emit('event',day,event)
 		}
-
+		
 		return {
-			tableRef,
 			weeks: ['一', '二', '三', '四', '五', '六', '日'],
 			nowYear,
 			nowMonth,
@@ -293,18 +314,20 @@ export default defineComponent({
 			effectMonth,
 			effectDay,
 			calendar,
+			handleActive,
+			handleDisabled,
 			handlePrevYear,
 			handlePrevMonth,
 			handleNextMonth,
 			handleNextYear,
 			handleToDay,
-			handleClick,
-			handleActive,
-			handleClear
+			handleDayClick,
+			handleDayEvent
 		};
 	}
 });
 </script>
 
 <style>
+@import url('../../styles/calendar.css');
 </style>

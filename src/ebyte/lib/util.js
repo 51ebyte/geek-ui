@@ -1,6 +1,9 @@
 import * as vue from 'vue'
 import ebyte from './byte.js'
 
+ebyte.hasClass=(el,cls)=>{
+	return el.className.match(new RegExp( "(\\s|^)"+cls+"(\\s|$)"));
+}
 
 ebyte.addClass = (el, cls) => {
 	if (!el) return;
@@ -89,8 +92,5 @@ ebyte.isPPT = (file)=>{
 ebyte.isTxt = (file)=>{
 	return /\.(txt)$/.test(file.name.toLowerCase());
 }
-
-
-
 
 export default ebyte

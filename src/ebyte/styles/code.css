@@ -60,6 +60,7 @@
 	list-style-type: decimal-leading-zero;
 	background-color: #fff;
 	width: calc(100% - 45px);
+	white-space: pre-wrap;
 }
 
 .e-code-ol li:first-child {

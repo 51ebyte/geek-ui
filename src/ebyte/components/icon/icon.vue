@@ -1,6 +1,6 @@
 <template>
 	<icon-svg :title="title" :name="name" :size="size" :fill="fill" v-if="svg"></icon-svg>
-	<icon-font :title="title" :option="option" :name="name" :size="size" :color="color" v-else></icon-font>
+	<icon-font :title="title" :option="option" :name="name" :size="size" :color="color" :loading="loading" v-else></icon-font>
 </template>
 
 <script lang="ts">
@@ -30,6 +30,10 @@ export default defineComponent({
 		color: {
 			type: String,
 			default: ''
+		},
+		loading:{
+			type: Boolean,
+			default: false
 		},
 		svg: {
 			type: Boolean,

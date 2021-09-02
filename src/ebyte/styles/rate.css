@@ -1,0 +1,72 @@
+.e-rate {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.e-rate-item {
+	cursor: pointer;
+	position: relative;
+}
+
+.e-rate-item .e-rate-item-star-first,
+.e-rate-item .e-rate-item-star-second,
+.e-rate-item .e-rate-item-star-third,
+.e-rate-item .e-rate-item-star-fourth{
+	display: block;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.e-rate-item .e-rate-item-star-first,
+.e-rate-item .e-rate-item-star-third {
+	z-index: 1;
+}
+
+.e-rate-item .e-rate-item-star-second,
+.e-rate-item .e-rate-item-star-fourth {
+	z-index: 2;
+}
+
+.e-rate-item.e-rate-item-character .e-rate-item-star-first,
+.e-rate-item.e-rate-item-character .e-rate-item-star-second,
+.e-rate-item.e-rate-item-character .e-rate-item-star-third,
+.e-rate-item.e-rate-item-character .e-rate-item-star-fourth,
+.e-rate-item.e-rate-item-slot .e-rate-item-star-first,
+.e-rate-item.e-rate-item-slot .e-rate-item-star-second,
+.e-rate-item.e-rate-item-slot .e-rate-item-star-third,
+.e-rate-item.e-rate-item-slot .e-rate-item-star-fourth{
+	width: auto;
+	height: auto;
+}
+
+.e-rate-item.e-rate-item-half .e-rate-item-star-first,
+.e-rate-item.e-rate-item-half .e-rate-item-star-fourth {
+	overflow: hidden;
+}
+
+.e-rate-item.e-rate-item-slot .e-rate-item-star-second,
+.e-rate-item.e-rate-item-slot .e-rate-item-star-fourth {
+	visibility: hidden;
+}
+
+.e-rate-item.e-rate-item-slot.e-rate-item-active .e-rate-item-star-first,
+.e-rate-item.e-rate-item-slot.e-rate-item-half .e-rate-item-star-first,
+.e-rate-item.e-rate-item-slot.e-rate-item-active .e-rate-item-star-third,
+.e-rate-item.e-rate-item-slot.e-rate-item-half .e-rate-item-star-third {
+	visibility: hidden;
+}
+
+.e-rate-item.e-rate-item-slot.e-rate-item-half .e-rate-item-star-second,
+.e-rate-item.e-rate-item-slot.e-rate-item-active .e-rate-item-star-second,
+.e-rate-item.e-rate-item-slot.e-rate-item-half .e-rate-item-star-fourth,
+.e-rate-item.e-rate-item-slot.e-rate-item-active .e-rate-item-star-fourth {
+	visibility: visible;
+}
+
+.e-rate-text {
+	margin-left: 10px;
+}

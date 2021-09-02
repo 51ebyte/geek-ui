@@ -41,9 +41,13 @@
 	display: none;
 }
 
+.e-upload-file-list{
+	margin: 10px 0;
+}
+
 .e-upload-file-list .e-upload-file-item {
-	height: 26px;
-	line-height: 26px;
+	height: 28px;
+	line-height: 28px;
 	padding: 0 10px;
 	display: flex;
 	justify-content: space-between;

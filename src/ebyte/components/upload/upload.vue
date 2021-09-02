@@ -93,7 +93,10 @@ export default defineComponent({
 			type: Boolean
 		},
 		files: {
-			type: Array
+			type: Array,
+			default(){
+				return [];
+			}
 		},
 		list: {
 			type: [Boolean, String]
@@ -136,12 +139,13 @@ export default defineComponent({
 		const options = reactive(props.options);
 		const files = ref(props.files);
 		const fileState = ref([])
+		
 		const option = computed(() => {
 			return {
 				url: url,
 				type: options.type || props.type || 'select',
 				name: options.name || props.name || 'file',
-				size: options.size || props.size || 200,
+				size: options.size || props.size || 0,
 				data: options.data || props.data || {},
 				accept: options.accept || props.accept || '',
 				format: options.format || props.format || [],
@@ -168,29 +172,33 @@ export default defineComponent({
 		const handleFileChange = e => {
 			const fileList = Array.prototype.slice.call(e.target.files);
 			if (!fileList) return;
-			files.value = files.value.concat(fileList);
 			const maxSize = option.value.size * 1024;
 			let fileSizeError = [];
 			let fileFormatError = [];
 			fileList.forEach((file)=>{
-				if (file.size > maxSize) {
-					fileSizeError.push(file);
-				}
 				let fileExt = file.name.substr(file.name.lastIndexOf('.') + 1);
 				if (option.value.format.length>0 && !option.value.format.includes(fileExt)) {
 					fileFormatError.push(file);
+				}else if (file.size > maxSize && maxSize>0) {
+					fileSizeError.push(file);
+				} else {
+					file.state = 'todo'
+					files.value.push(file)
 				}
-				file.state = 'todo'
 			})
-			handleState();
 			if (fileSizeError.length > 0) {
-				props.error(fileSizeError, 'size', `文件大小不能超过${maxSize / 1024}kb`);
+				if(typeof props.error=='function'){
+					props.error(fileSizeError, 'size', `文件大小不能超过${maxSize / 1024}kb`);
+				}
 				return;
 			}
 			if (fileFormatError.length > 0) {
-				props.error(fileFormatError, 'format', `文件格式不正确`);
+				if(typeof props.error=='function'){
+					props.error(fileFormatError, 'format', `文件格式不正确`);
+				}
 				return;
 			}
+			handleState();
 
 			if (option.value.autoUpload) {
 				if (typeof props.before == 'function') {

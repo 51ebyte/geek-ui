@@ -1,7 +1,9 @@
 <template>
 	<div class="e-icon">
 		<span class="e-flex e-col-center" style="cursor: pointer;" @click="handleClick">
-			<i :class="['e-icon-font', 'icon-' + name]" :style="styles"></i>
+			<i :class="['e-icon-font', 'icon-' + name,{
+				'e-icon-font-loading':loading
+			}]" :style="styles"></i>
 			<template v-if="title">
 				<label :style="{ lineHeight: size + 'px', height: size + 'px', marginLeft: '4px' }">{{ title }}</label>
 			</template>
@@ -17,6 +19,9 @@ export default defineComponent({
 		option: {
 			type: Object
 		},
+		title: {
+			type: String
+		},
 		name: {
 			type: String
 		},
@@ -28,8 +33,9 @@ export default defineComponent({
 			type: String,
 			default:''
 		},
-		title: {
-			type: String
+		loading:{
+			type: Boolean,
+			default: false
 		},
 	},
 
@@ -78,5 +84,13 @@ export default defineComponent({
 .e-icon {
 	transition: all 0.5s;
 	display: inline-block;
+}
+.e-icon-font-loading{
+	 animation: ani-icon-loading 1s linear infinite;
+}
+@keyframes ani-icon-loading {
+	from { transform: rotate(0deg);}
+	50%  { transform: rotate(180deg);}
+	to   { transform: rotate(360deg);}
 }
 </style>
