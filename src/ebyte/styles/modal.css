@@ -64,6 +64,14 @@
 	align-items: center;
 }
 
+.e-modal-header-extra .icon{
+	margin-left: 6px;
+}
+
+.e-modal-header-extra .close:hover{
+	color: red;
+}
+
 .e-modal-close{
 	position: absolute;
 	right: 0px;
@@ -83,7 +91,6 @@
 
 .e-modal-close:hover{
 	background-color: var(--color-primary);
-	color: red;
 }
 
 .e-modal-body {

@@ -111,7 +111,8 @@
 								{name:'〓分页 Paging',keys:'components_paging',to:'components_paging'},
 								
 								{group:'弹出层'},
-								{name:'〓模态框 Modal/Dialog',keys:'components_modal',to:'components_modal'},
+								{name:'模态/对话框 Modal/Dialog',keys:'components_modal',to:'components_modal'},
+								{name:'弹出层 Layer',keys:'components_layer',to:'components_layer'},
 								{name:'〓抽屉 Drawer',keys:'components_drawer',to:'components_drawer'},
 								
 								{group:'提示反馈'},

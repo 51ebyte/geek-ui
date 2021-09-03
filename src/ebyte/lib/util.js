@@ -1,5 +1,7 @@
 import * as vue from 'vue'
-import ebyte from './byte.js'
+// import ebyte from './byte.js'
+
+const ebyte = {}
 
 ebyte.hasClass=(el,cls)=>{
 	return el.className.match(new RegExp( "(\\s|^)"+cls+"(\\s|$)"));

@@ -99,35 +99,30 @@
 
 .e-button-size--xl {
 	height: 44px;
-	line-height: 44px;
 	padding: 0 24px;
 	font-size: 18px;
 }
 
 .e-button-size--lg {
 	height: 40px;
-	line-height: 40px;
 	padding: 0 21px;
 	font-size: 16px;
 }
 
 .e-button-size--md {
 	height: 36px;
-	line-height: 36px;
 	padding: 0 15px;
 	font-size: 12px;
 }
 
 .e-button-size--sm {
 	height: 32px;
-	line-height: 32px;
 	padding: 0 12px;
 	font-size: 10px;
 }
 
 .e-button-size--mini {
 	height: 24px;
-	line-height: 24px;
 	padding: 0 7px;
 	font-size: 10px;
 }

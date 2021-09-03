@@ -1,6 +1,6 @@
 <template>
 	<button :class="classs" :style="styles" :disabled="disabled" @click="handleClick">
-		<div class="e-flex">
+		<div class="e-flex e-col-center">
 			<Icon :option="icon" v-if="icon"></Icon>
 			<slot></slot>
 		</div>
@@ -8,8 +8,9 @@
 </template>
 
 <script lang="ts">
-import { h, toRef, computed, inject } from 'vue';
-import { util } from '../../lib/index.js';
+import { defineComponent,h, toRef, computed, inject } from 'vue';
+import Icon from '../icon/font.vue'
+import byte from '../../lib/byte.js';
 
 type ButtonType = PropType<'primary' | 'success' | 'warning' | 'error' | 'info'>;
 type ButtonSize = PropType<'xl' | 'lg' | 'md' | 'sm'>;
@@ -19,8 +20,9 @@ interface ButtonProps {
 	size: ButtonSize;
 }
 
-export default {
+export default defineComponent({
 	name: 'Button',
+	components:{Icon},
 	props: {
 		type: {
 			type: String as ButtonType,
@@ -60,9 +62,7 @@ export default {
 			type: [Object, String]
 		}
 	},
-	
 	emits:['click'],
-	
 	setup(props: ButtonProps, ctx) {
 		const type = toRef(props, 'type').value;
 		const plain = toRef(props, 'plain').value;
@@ -91,7 +91,7 @@ export default {
 				styles['border-radius'] = '100px';
 			} else if (typeof radius == 'number') {
 				styles['border-radius'] = radius + 'px';
-			} else if (typeof radius == 'string' && util.isPercentage(radius)) {
+			} else if (typeof radius == 'string' && byte.isPercentage(radius)) {
 				styles['border-radius'] = radius;
 			}
 			return styles;
@@ -126,7 +126,7 @@ export default {
 			handleClick
 		};
 	}
-};
+});
 </script>
 
 <style>

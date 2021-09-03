@@ -1,4 +1,5 @@
 import * as vue from 'vue'
+import layer from './layer.js'
 /**
  * 判断是否是16进制颜色
  */
@@ -192,5 +193,6 @@ export default {
 	timeFrom,
 	timeFormat,
 	deepClone,
-	deepCopy
+	deepCopy,
+	layer
 }

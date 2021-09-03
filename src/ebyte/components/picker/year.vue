@@ -28,7 +28,6 @@
 
 <script>
 import { defineComponent, computed, ref, onMounted } from 'vue';
-import util from '../../lib/util.js';
 export default defineComponent({
 	props: {
 		modelValue: {

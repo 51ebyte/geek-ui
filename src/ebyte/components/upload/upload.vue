@@ -55,7 +55,6 @@
 <script lang="ts">
 import { defineComponent, ref, toRef, computed, reactive,h } from 'vue';
 import RenderVNode from './render'
-import util from '../../lib/util.js'
 export default defineComponent({
 	name: 'Upload',
 	components:{

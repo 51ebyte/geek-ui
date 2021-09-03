@@ -29,7 +29,6 @@
 
 <script>
 import { defineComponent, computed, ref, onMounted } from 'vue';
-import util from '../../lib/util.js';
 import yearPicker from './year.vue';
 export default defineComponent({
 	components: {

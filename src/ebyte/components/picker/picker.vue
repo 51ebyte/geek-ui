@@ -34,7 +34,7 @@ import yearPicker from './year.vue';
 import monthPicker from './month.vue';
 import datePicker from './date.vue';
 import timePicker from './time.vue';
-import util from '../../lib/util.js';
+import byte from '../../lib/byte.js';
 import { UPDATE_MODEL_VALUE_EVENT } from '../../lib/constants.js';
 export default defineComponent({
 	name: 'Picker',
@@ -103,26 +103,26 @@ export default defineComponent({
 				if(typeof modelValue=='string'){
 					timestamp = new Date().setFullYear(modelValue);
 				}
-				let date = util.timeFormat(timestamp, 'yyyy', false);
+				let date = byte.timeFormat(timestamp, 'yyyy', false);
 				yearValue.value = date.year;
 				value = date.format;
 			}else if (props.type == 'month') {
 				if(typeof modelValue=='string'){
 					timestamp = new Date(modelValue).getTime();
 				}
-				let date = util.timeFormat(timestamp, 'yyyy-mm', false);
+				let date = byte.timeFormat(timestamp, 'yyyy-mm', false);
 				monthValue.value = date.date;
 				value = date.format;
 			}else if (props.type == 'date') {
-				let date = util.timeFormat(timestamp, 'yyyy-mm-dd', false);
+				let date = byte.timeFormat(timestamp, 'yyyy-mm-dd', false);
 				dateValue.value = date.date;
 				value = date.format;
 			} else if (props.type == 'time') {
-				let date = util.timeFormat(timestamp, 'hh:MM:ss', false);
+				let date = byte.timeFormat(timestamp, 'hh:MM:ss', false);
 				timeValue.value = date.date;
 				value = date.format;
 			} else if (props.type == 'datetime') {
-				let date = util.timeFormat(timestamp, 'yyyy-mm-dd hh:MM:ss', false);
+				let date = byte.timeFormat(timestamp, 'yyyy-mm-dd hh:MM:ss', false);
 				value = date.format;
 				dateValue.value = date.date;
 				timeValue.value = date.date;

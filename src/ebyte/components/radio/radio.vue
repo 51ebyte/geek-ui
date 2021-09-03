@@ -19,7 +19,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { UPDATE_MODEL_VALUE_EVENT } from './../../lib/constants.js';
-import util from './../../lib/util.js';
 export default defineComponent({
 	name: 'Radio',
 	props: {
@@ -57,7 +56,7 @@ export default defineComponent({
 		return {
 			classs,
 			inputValue,
-			inputName: util.random(10, 'radio_'),
+			inputName: byte.random(10, 'radio_'),
 			handleClickItem
 		};
 	}

@@ -4,11 +4,11 @@
 			<div class="e-modal-mask" v-if="mask" @click="handleClickMask"></div>
 			<div :class="['e-modal-container',{
 				'e-modal-container-maximize':isMaximize,
-				'e-modal-container-minimize':isMinimize,
+				'e-modal-container-minimize':isMinimize
 			}]" :style="{
-				width:`${width}px`,
-				maxHeight:`${maxHeight}px`,
-				minHeight:`${minHeight}px`
+				width:`${typeof width =='number'?width+'px':width}`,
+				maxHeight:`${typeof maxHeight =='number'?maxHeight+'px':maxHeight}`,
+				minHeight:`${typeof minHeight =='number'?minHeight+'px':minHeight}`,
 			}">
 				<div :class="['e-modal-header',{
 					'e-modal-header-custom':hasHeader
@@ -16,10 +16,15 @@
 					<div class="e-modal-header-title">
 						<slot name="header">{{ title }}</slot>
 					</div>
-					<div class="e-modal-header-extra" v-if="closable">
-						<Icon name="ios-remove" :size="32" @click.stop.parent="handleMinimize"></Icon>
-						<Icon name="ios-crop" :size="24" @click.stop.parent="handleMaximize"></Icon>
-						<Icon name="ios-close" :size="32" @click.stop.parent="handleClose"></Icon>
+					<div class="e-modal-header-extra">
+						<template v-if="maxmin">
+							<Icon class="icon minimize" name="md-remove" :size="24" @click.stop.parent="handleMinimize"></Icon>
+							<Icon class="icon maximize" name="md-contract" v-if='isMaximize' :size="20" @click.stop.parent="handleMaximize"></Icon>
+							<Icon class="icon maximize" name="md-expand" v-if='!isMaximize' :size="20" @click.stop.parent="handleMaximize"></Icon>
+						</template>
+						<template v-if="closable">
+							<Icon class="icon close" name="md-close" :size="24" @click.stop.parent="handleClose"></Icon>
+						</template>
 					</div>
 				</div>
 				<template v-else>
@@ -76,14 +81,14 @@ export default defineComponent({
 			default: true
 		},
 		width: {
-			type: Number,
+			type: [Number,String],
 			default: 680
 		},
 		maxHeight: {
-			type: Number		,
+			type: [Number,String],
 		},
 		minHeight: {
-			type: Number,
+			type: [Number,String],
 			default: 480
 		},
 		zIndex: {
@@ -112,12 +117,16 @@ export default defineComponent({
 		maxmin:{
 			type: Boolean,
 			default: true
+		},
+		fullscreen:{
+			type: Boolean,
+			default: false
 		}
 	},
 	emits: [UPDATE_MODEL_VALUE_EVENT, 'onConfirm', 'onCancal','onClose'],
 	setup(props, ctx) {
 		const show = ref(props.modelValue);
-		const isMaximize = ref(false)
+		const isMaximize = ref(props.fullscreen || false)
 		const isMinimize = ref(false)
 		const confirmLoadingIcon = ref(false)
 
@@ -125,6 +134,7 @@ export default defineComponent({
 			n => {
 				show.value = n;
 				if(!n){
+					isMaximize.value = props.fullscreen || false;
 					confirmLoadingIcon.value = false;
 				}
 			}

@@ -74,7 +74,7 @@
 <script lang="ts">
 import { defineComponent,ref, toRef, computed } from 'vue';
 import event from './event.vue'
-import util from '../../lib/util.js'
+import byte from '../../lib/byte.js'
 export default defineComponent({
 	name: 'Calendar',
 	components:{
@@ -182,7 +182,7 @@ export default defineComponent({
 					isYear: false,
 					isMonth: false,
 					isToday: false,
-					format: util.timeFormat(date.getTime(),'yyyy-mm-dd',false).format,
+					format: byte.timeFormat(date.getTime(),'yyyy-mm-dd',false).format,
 					disabled: handleDisabled(date),
 					extra: extra.value[date.getTime()] || '',
 					events: handleEvents(date)

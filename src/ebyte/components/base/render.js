@@ -1,13 +1,13 @@
 import {
-	defineComponent,
-	h
+	h,isVNode,
+	defineComponent
 } from 'vue'
 export default defineComponent({
 	name: 'Render',
 	render(params) {
 		if (typeof this.render == 'function') {
 			return this.render(params.params);
-		} else if (this.render instanceof h('span').constructor) {
+		} else if (isVNode(this.render)) {
 			return this.render;
 		} else if (typeof this.render == 'string') {
 			return this.render;

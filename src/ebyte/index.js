@@ -58,7 +58,6 @@ const install = function(app, opts = {}) {
 	app.config.globalProperties.$byte = byte;
 	//配置暴露给页面
 	app.provide('opts', option)
-
 }
 
 export default {

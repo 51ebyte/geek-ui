@@ -12,7 +12,6 @@
 <script lang="ts">
 import { defineComponent, computed, ref, toRefs, toRef, onMounted } from 'vue';
 import { UPDATE_MODEL_VALUE_EVENT } from './../../lib/constants.js';
-import util from './../../lib/util.js';
 export default defineComponent({
 	name: 'Switch',
 	props: {

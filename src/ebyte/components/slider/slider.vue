@@ -23,7 +23,6 @@
 <script lang="ts">
 import { defineComponent, computed, ref, toRefs, toRef, onMounted } from 'vue';
 import { UPDATE_MODEL_VALUE_EVENT } from './../../lib/constants.js';
-import util from './../../lib/util.js';
 import slider from './slider.js';
 
 export default defineComponent({
