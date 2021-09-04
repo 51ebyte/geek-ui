@@ -2,25 +2,15 @@ import {
 	nextTick
 } from 'vue'
 
-const option = {
-	el: null,
-	dragging: false,
-	isClick: false,
-	startX: 0,
-	startY: 0,
-	elementX: 0,
-	elementY: 0,
-	elementWidth: 0,
-	elementHeight: 0,
-	bodyWidth: 0,
-	bodyHeight: 0
-};
+let opts = {}
+let option = {};
 
 const on = function(element, event, handler, useCapture = false) {
 	if (element && event && handler) {
 		element.addEventListener(event, handler, useCapture);
 	}
 };
+
 const off = function(element, event, handler, useCapture = false) {
 	if (element && event && handler) {
 		element.removeEventListener(event, handler, useCapture);
@@ -43,8 +33,9 @@ const getClientXY = (event) => {
 	};
 };
 
-const onMouseDown = (event) => {
+const onMouseDown = (id, event) => {
 	event.preventDefault();
+	option = opts[id];
 	onDragStart(event)
 	on(window, 'mousemove', onDragging);
 	on(window, 'touchmove', onDragging);
@@ -72,13 +63,15 @@ const onDragging = (event) => {
 			clientY
 		} = getClientXY(event);
 		let elementLeft = option.elementX + (clientX - option.startX);
-		elementLeft = elementLeft < 0 ? 0 : elementLeft;
-		elementLeft = (option.elementWidth + elementLeft) > option.bodyWidth ? (option.bodyWidth - option
-			.elementWidth) : elementLeft;
 		let elementTop = option.elementY + (clientY - option.startY);
-		elementTop = elementTop < 0 ? 0 : elementTop;
-		elementTop = (option.elementHeight + elementTop) > option.bodyHeight ? (option.bodyHeight - option
-			.elementHeight) : elementTop;
+		if(option.scope == 'parent'){
+			elementLeft = elementLeft < 0 ? 0 : elementLeft;
+			elementLeft = (option.elementWidth + elementLeft) > option.bodyWidth ? (option.bodyWidth - option
+				.elementWidth) : elementLeft;
+			elementTop = elementTop < 0 ? 0 : elementTop;
+			elementTop = (option.elementHeight + elementTop) > option.bodyHeight ? (option.bodyHeight - option
+				.elementHeight) : elementTop;
+		}
 		option.el.style.left = `${elementLeft}px`
 		option.el.style.top = `${elementTop}px`
 
@@ -110,48 +103,79 @@ const parent = (el, selector) => {
 	return retval;
 }
 
-const initialize = (binding) => {
+const random = (length = 2, prefix = '', suffix = '') => {
+	let min = parseInt(1 + Array(length).join(0));
+	let max = parseInt(1 + Array(length + 1).join(0) - 1);
+	let number = Math.ceil(Math.random() * (max - min + 1) + min);
+	return prefix + number + suffix;
+}
+
+const initialize = (element, modifiers, value) => {
+	const option = {
+		el: null,
+		dragging: false,
+		isClick: false,
+		startX: 0,
+		startY: 0,
+	};
+
 	nextTick(() => {
 		setTimeout(() => {
-			if (binding != null && binding.affix == true) {
-				option.el.parentNode.style.position = 'relative';
-				option.el.style.position = 'absolute';
-				option.el.style.zIndex = 1;
-				option.bodyWidth = option.el.parentNode.clientWidth;
-				option.bodyHeight = option.el.parentNode.clientHeight;
+			element.style.width = `${element.offsetWidth}px`;
+			element.style.height = `${element.offsetHeight}px`;
+			if (modifiers.affix) {
+				element.parentNode.style.position = 'relative';
+				element.style.position = 'absolute';
+				element.style.zIndex = 1;
+				option.scope = 'parent';
+				option.bodyWidth = element.parentNode.clientWidth;
+				option.bodyHeight = element.parentNode.clientHeight;
+			} else if (modifiers.fixed) {
+				element.style.position = 'fixed';
+				element.style.zIndex = 1000;
+				option.scope = 'fixed';
+				option.bodyWidth = document.body.clientWidth;
+				option.bodyHeight = document.body.clientHeight;
 			} else {
-				option.el.style.position = 'fixed';
-				option.el.style.zIndex = 1000;
+				element.parentNode.style.position = 'relative';
+				element.style.position = 'absolute';
+				element.style.zIndex = 1;
+				option.scope = '';
 				option.bodyWidth = document.body.clientWidth;
 				option.bodyHeight = document.body.clientHeight;
 			}
-			option.elementWidth = option.el.offsetWidth;
-			option.elementHeight = option.el.offsetHeight;
-			option.elementX = option.el.offsetLeft;
-			option.elementY = option.el.offsetTop;
+			option.elementWidth = element.offsetWidth;
+			option.elementHeight = element.offsetHeight;
+			option.elementX = element.offsetLeft;
+			option.elementY = element.offsetTop;
+			option.el = element;
+
+			opts[element.id] = option;
+
 		}, 50)
 	})
 }
 
 export default {
 	name: 'drag',
-	beforeMount(el, binding, vnode) {
+	mounted(el, {
+		modifiers,
+		value
+	}, vnode) {
+		let element = el;
 		el.style.cursor = 'move'
-	},
-	mounted(el, binding, vnode) {
-		if (binding.value != undefined && binding.value.target != '') {
-			let effEl = parent(el.parentNode, binding.value.target)
-			option.el = effEl || el;
-		} else {
-			option.el = el;
+		if (value != undefined && value.target != '') {
+			let effEl = parent(el.parentNode, value.target)
+			element = effEl || el;
 		}
-		initialize(binding.value)
-
+		
+		element.id = random(10, 'e-drag-')
+		initialize(element, modifiers, value)
 		el.onmousedown = function(event) {
-			onMouseDown(event)
+			onMouseDown(element.id, event)
 		}
 		window.onresize = () => {
-			initialize(binding.value)
+			initialize(element, modifiers, value)
 		}
-	}
+	},
 }

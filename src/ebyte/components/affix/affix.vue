@@ -7,7 +7,7 @@
 		}" :style="styles.default">
 			<slot></slot>
 		</div>
-		<div class="aria" :style="styles.aria" v-if="affix"></div>
+		<div class="aria" :style="styles.aria" v-if="affix && right<0"></div>
 	</div>
 </template>
 

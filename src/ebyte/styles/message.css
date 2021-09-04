@@ -1,0 +1,53 @@
+.e-message {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	max-width: 50%;
+	transition: top .3s ease-in-out;
+	z-index: 1000;
+}
+
+.e-message-container {
+	pointer-events: all;
+	padding: 12px 18px;
+	border-radius: 4px;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+	background: #fff;
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+}
+
+.e-message-container .e-message-conetent {
+	padding: 0 10px;
+}
+
+.e-message-container .e-message-icon,
+.e-message-container .e-message-close{
+	margin-top: 2px;
+}
+
+
+.e-message.e-message-info .e-message-container{
+	border: 1px solid #abdcff;
+	background-color: #f0faff;
+	color: var(--color-primary);
+}
+
+.e-message.e-message-success .e-message-container{
+	border: 1px solid #8ce6b0;
+	background-color: #edfff3;
+	color: var(--color-success);
+}
+
+.e-message.e-message-error .e-message-container{
+	border: 1px solid #ffb08f;
+	background-color: #ffefe6;
+	color: var(--color-error);
+}
+
+.e-message.e-message-warning .e-message-container{
+	border: 1px solid #ffd77a;
+	background-color: #fff9e6;
+	color: var(--color-warning);
+}

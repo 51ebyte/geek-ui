@@ -10,7 +10,7 @@
 .e-blockquote-context {
 	font-size: 14px;
 	color: var(--blockquote-text-color, #5e6d82);
-	line-height: 1.5em;
+	line-height: 22px;
 	display: flex;
 	flex-direction: row;
 }

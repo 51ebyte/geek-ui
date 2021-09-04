@@ -50,7 +50,7 @@
 					{attr:'content',type:'<code>msg</code> | <code>prompt</code> | <code>confirm</code>| <code>msg</code>',attr_type:'<code>String</code> | <code>VNode</code>',desc:'显示内容'},
 					{attr:'render',type:'<code>render</code>',attr_type:'<code>String</code> | <code>VNode</code>',desc:'自定义显示内容'},
 					{attr:'offset',type:'all',attr_type:'<code>Array</code>',desc:'弹出层位置，接收<code>x</code>和<code>y</code>，可以是<code>Number</code>和<code>String</code>类型，如果参数为<code>center</code>则表示居中',default:'<code>Array&lt;\'center\',\'center\'&gt;</code>'},
-					{attr:'time',type:'<code>msg</code>',attr_type:'<code>Number</code>',desc:'自动关闭的延时，单位毫秒，不关闭可以写 0',default:'<code>3000</code>'},
+					{attr:'duration',type:'<code>msg</code>',attr_type:'<code>Number</code>',desc:'自动关闭的延时，单位毫秒，不关闭可以写 0',default:'<code>3000</code>'},
 					{attr:'btn',type:'all',attr_type:'<code>Array</code>',desc:'底部按钮'},
 					{attr:'callback',type:'all',attr_type:'<code>Function</code>',desc:'底部按钮点击回调'},
 					{attr:'value',type:'<code>prompt</code>',attr_type:'<code>String</code>',desc:'输入框的默认值'},
@@ -128,7 +128,7 @@
 				this.$byte.layer('msg',{
 					content:`你在北京时间 打开了一个提示框`,
 					btn:['知道了'],
-					time:3000,
+					duration:3000,
 					callback(index,evt,btn){
 						console.log(index,evt,btn)
 					}

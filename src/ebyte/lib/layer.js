@@ -38,7 +38,7 @@ export default (type, opts = {}) => {
 	} else if (type == 'msg' || type == 'message') {
 		render(h(message, {
 			btn: opts.btn,
-			time: opts.time,
+			duration: opts.duration,
 			content: opts.content,
 			btnClick(index, evt, btn) {
 				if (typeof opts.callback == 'function') {
@@ -54,8 +54,6 @@ export default (type, opts = {}) => {
 	}
 	const vm = h(layer, opts);
 	vm.props.onBtnClick = (index, evt, btn) => {
-		// vm.props.onDestroy();
-		console.log(vm)
 		if (typeof opts.callback != 'function') {
 			return false;
 		}

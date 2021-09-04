@@ -4,8 +4,10 @@ import byte from './lib/byte.js'
 
 import layoutDefault from './layouts/default.vue'
 
-let components = import.meta.globEager('./components/*/index.js')
-let directives = import.meta.globEager('./directive/*.js')
+let components =
+	import.meta.globEager('./components/*/index.js')
+let directives =
+	import.meta.globEager('./directive/*.js')
 
 import './styles/skin/default.css'
 import './styles/common/common.css'
@@ -58,6 +60,14 @@ const install = function(app, opts = {}) {
 	app.config.globalProperties.$byte = byte;
 	//配置暴露给页面
 	app.provide('opts', option)
+}
+
+import Layer from './lib/layer.js'
+import Message from './lib/message.js'
+import Notice from './lib/notice.js'
+
+export {
+	Layer,Message,Notice
 }
 
 export default {

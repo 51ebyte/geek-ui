@@ -2,6 +2,7 @@
 	border: var(--border-width) var(--border-style) var(--panel-border-color);
 	position: relative;
 	transition: all .2s ease-in-out;
+	background-color: var(--color-white);
 }
 
 .e-panel+.e-panel {

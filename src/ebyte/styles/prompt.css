@@ -1,0 +1,63 @@
+.e-prompt {
+	padding: 8px 48px 8px 16px;
+	border-radius: 4px;
+	color: #515a6e;
+	font-size: 14px;
+	line-height: 16px;
+	margin-bottom: 10px;
+	display: flex;
+	position: relative;
+}
+
+.e-prompt.e-prompt-info {
+	border: 1px solid #abdcff;
+	background-color: #f0faff;
+}
+
+.e-prompt.e-prompt-success {
+	border: 1px solid #8ce6b0;
+	background-color: #edfff3;
+}
+
+.e-prompt.e-prompt-error {
+	border: 1px solid #ffb08f;
+	background-color: #ffefe6;
+}
+
+.e-prompt.e-prompt-warning {
+	border: 1px solid #ffd77a;
+	background-color: #fff9e6;
+}
+
+.e-prompt .e-prompt-icon {
+	margin-right: 16px;
+}
+
+.e-prompt .e-prompt-message {
+	line-height: 24px;
+}
+
+.e-prompt .e-prompt-desc {
+	font-size: 14px;
+	color: #515a6e;
+	line-height: 21px;
+	text-align: justify;
+	margin-top: 4px;
+}
+
+.e-prompt-close {
+	position: absolute;
+	font-size: 12px;
+	right: 8px;
+	top: 6px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.e-prompt-with-desc {
+	padding: 16px;
+}
+
+.e-prompt-with-desc .e-prompt-close {
+	top: 8px;
+}

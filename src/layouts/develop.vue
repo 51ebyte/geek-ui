@@ -113,12 +113,12 @@
 								{group:'弹出层'},
 								{name:'模态/对话框 Modal/Dialog',keys:'components_modal',to:'components_modal'},
 								{name:'弹出层 Layer',keys:'components_layer',to:'components_layer'},
-								{name:'〓抽屉 Drawer',keys:'components_drawer',to:'components_drawer'},
+								{name:'抽屉 Drawer',keys:'components_drawer',to:'components_drawer'},
 								
 								{group:'提示反馈'},
-								{name:'〓页面提示 Alert',keys:'components_alert',to:'components_alert'},
-								{name:'〓全局提示 Message',keys:'components_message',to:'components_message'},
-								{name:'〓通知提醒 Notice',keys:'components_notice',to:'components_notice'},
+								{name:'页面提示 Prompt',keys:'components_prompt',to:'components_prompt'},
+								{name:'全局提示 Message',keys:'components_message',to:'components_message'},
+								{name:'通知提醒 Notice',keys:'components_notice',to:'components_notice'},
 								{name:'〓文字提示 Tooltip',keys:'components_tooltip',to:'components_tooltip'},
 								{name:'〓气泡提示 Popover',keys:'components_popover',to:'components_popover'},
 								{name:'〓气泡确认 Popconfirm',keys:'components_popconfirm',to:'components_popconfirm'},
@@ -130,6 +130,11 @@
 								{name:'〓倒计时 countdown',keys:'components_countdown',to:'components_countdown'},
 								{name:'〓行政区划选择 Region',keys:'components_region',to:'components_region'},
 								{name:'〓城市选择 City',keys:'components_city',to:'components_city'},
+							],
+						},
+						{name:'指令',keys:'directive',children:[
+								{name:'拖动元素',keys:'directive_darg',to:'directive_darg'},
+								{name:'时间处理',keys:'directive_time',to:'directive_time'},
 							],
 						},
 						{name:'JS',keys:'js',children:[

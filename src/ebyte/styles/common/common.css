@@ -213,6 +213,12 @@ a {
 	text-align: right;
 }
 
+.e-loading-loop{
+	animation:ani-load-loop 1s linear infinite
+}
+
+@keyframes ani-load-loop{0%{transform:rotate(0)}50%{transform:rotate(180deg)}to{transform:rotate(1turn)}}
+
 /* 
 // 定义flex等分
 .flex(@index) when(@index<=12){

@@ -32,7 +32,7 @@ export default defineComponent({
 				return [];
 			}
 		},
-		time: {
+		duration: {
 			type: Number,
 			default: 3000
 		},
@@ -109,10 +109,10 @@ export default defineComponent({
 			}
 		};
 		
-		if (props.time > 0) {
+		if (props.duration > 0) {
 			setTimeout(() => {
-				props.onDestroy()
-			}, props.time)
+				ctx.emit('destory')
+			}, props.duration)
 		}
 
 		onMounted(() => {

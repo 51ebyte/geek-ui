@@ -1,5 +1,7 @@
 import * as vue from 'vue'
-import layer from './layer.js'
+import $Layer from './layer.js'
+import $Message from './message.js'
+import $Notice from './notice.js'
 /**
  * 判断是否是16进制颜色
  */
@@ -194,5 +196,7 @@ export default {
 	timeFormat,
 	deepClone,
 	deepCopy,
-	layer
+	$Layer,
+	$Message,
+	$Notice
 }
