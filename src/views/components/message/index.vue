@@ -61,18 +61,18 @@
 				<Row :gutter="10">
 					<Col :span="12">
 						<Panel title='通过直接调用以下方法来使用组件'>
-							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Message.info(config&lt;Object&gt;)</code></p>
-							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Message.success(config&lt;Object&gt;)</code></p>
-							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Message.error(config&lt;Object&gt;)</code></p>
-							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Message.warning(config&lt;Object&gt;)</code></p>
-							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Message.loading(config&lt;Object&gt;)</code></p>
+							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Message.info(config&lt;Object&gt;)</code></p>
+							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Message.success(config&lt;Object&gt;)</code></p>
+							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Message.error(config&lt;Object&gt;)</code></p>
+							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Message.warning(config&lt;Object&gt;)</code></p>
+							<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Message.loading(config&lt;Object&gt;)</code></p>
 						</Panel>
 					</Col>
 					<Col :span="12">
 						<Panel title='注意'>
 							<Prompt type="error" style="margin: 0px;">
 								<Badge :offset='false'></Badge>&nbsp;&nbsp;<code>loading 状态下需手动关闭提示</code>
-								<p><code>const instance = this.$byte.$Message.loading('这是一个加载中的提示，不会主动消失')</code></p>
+								<p><code>const instance = this.$geek.$Message.loading('这是一个加载中的提示，不会主动消失')</code></p>
 								<p><code>setTimeout(instance.close,2500)</code></p>
 							</Prompt>
 						</Panel>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-	import {Message} from '../../../ebyte'
+	import {Message} from '../../../geek-ui'
 	export default{
 		layout:'develop',
 		data() {
@@ -110,7 +110,7 @@
 					  export default{
 					    methods:{
 					      info(){
-					        this.$byte.$Message.info('这是一个普通提示，1.5秒后消失')
+					        this.$geek.$Message.info('这是一个普通提示，1.5秒后消失')
 					      }
 					    }
 					  }
@@ -124,13 +124,13 @@
 					  export default{
 					    methods:{
 					      success(){
-					        this.$byte.$Message.success('这是一个成功提示，1.5秒后消失')
+					        this.$geek.$Message.success('这是一个成功提示，1.5秒后消失')
 					      },
 					      error(){
-					        this.$byte.$Message.error('这是一个错误提示，1.5秒后消失')
+					        this.$geek.$Message.error('这是一个错误提示，1.5秒后消失')
 					      },
 					      warning(){
-					        this.$byte.$Message.warning('这是一个警告提示，1.5秒后消失')
+					        this.$geek.$Message.warning('这是一个警告提示，1.5秒后消失')
 					      },
 					    }
 					  }
@@ -142,7 +142,7 @@
 					  export default{
 					    methods:{
 					      loading(){
-					        const instance = this.$byte.$Message.loading('这是一个加载中的提示，不会主动消失')
+					        const instance = this.$geek.$Message.loading('这是一个加载中的提示，不会主动消失')
 					        setTimeout(instance.close,2500)
 					      },
 					    }
@@ -157,19 +157,19 @@
 					  export default{
 					    methods:{
 					      success(){
-					        this.$byte.$Message.success({
+					        this.$geek.$Message.success({
 					          content:content,
 					          background:true
 					        })
 					      },
 					      error(){
-					        this.$byte.$Message.error({
+					        this.$geek.$Message.error({
 					          content:content,
 					          background:true
 					        })
 					      },
 					      warning(){
-					        this.$byte.$Message.warning({
+					        this.$geek.$Message.warning({
 					          content:content,
 					          background:true
 					        })

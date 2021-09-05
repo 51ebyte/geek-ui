@@ -36,7 +36,7 @@
 			<Col :span="24">
 				<Blockquote title="Layer API"></Blockquote>
 				<Panel  title='通过直接调用以下方法来使用组件'>
-					<p><code>this.$byte.layer(type&lt;String&gt;,config&lt;Object&gt;)</code></p>
+					<p><code>this.$geek.layer(type&lt;String&gt;,config&lt;Object&gt;)</code></p>
 				</Panel>
 				<p style="margin: 20px 0;">以上方法隐式的创建及维护 Vue 组件。参数 config 可以是字符串或对象，当为字符串时，直接显示内容，当为对象时，具体说明如下：</p>
 				<Table :cols="[
@@ -71,13 +71,13 @@
 			return{
 				example:true,
 				promptInputValue:'',
-				code1:`this.$byte.nowTime().then((nowTime)=>{
-					  this.$byte.layer('alert',{
+				code1:`this.$geek.nowTime().then((nowTime)=>{
+					  this.$geek.layer('alert',{
 					    title:'提示',
 					    content:\`你在北京时间 \${nowTime.format}\ 打开了一个提示框\`,
 					  })
 					})`,
-				code2:`this.$byte.layer('confirm',{
+				code2:`this.$geek.layer('confirm',{
 					  title:'信息',
 					  content:()=>{
 					    return h('div',[
@@ -93,10 +93,10 @@
 					  callback(index,evt,btn){
 					    console.log(index,evt,btn)
 					    let message=[\`保持好奇之心，提升改变之力\`,\`码农也是搬砖的\`,\`沉默是金\`]
-					    that.$byte.layer('msg',message[index])
+					    that.$geek.layer('msg',message[index])
 					  }
 					})`,
-				code3:`this.$byte.layer('prompt',{
+				code3:`this.$geek.layer('prompt',{
 					  title:'请输入',
 					  btn:['写完了','不写了'],
 					  value:value,
@@ -106,11 +106,11 @@
 					  },
 					  callback(value,index,evt,btn){
 					    let message=[\`你输入的内容是：\${value\ || '啥也没写'}\`,\`你没写下任何内容\`]
-					    that.$byte.layer('msg',message[index])
+					    that.$geek.layer('msg',message[index])
 					    console.log(value,index,evt,btn)
 					  }
 					})`,
-				code4:`this.$byte.layer('render',{
+				code4:`this.$geek.layer('render',{
 					  title:'信息',
 					  btn:['确认','取消'],
 					  render(h){
@@ -125,7 +125,7 @@
 		},
 		methods:{
 			msg(){
-				this.$byte.layer('msg',{
+				this.$geek.layer('msg',{
 					content:`你在北京时间 打开了一个提示框`,
 					btn:['知道了'],
 					duration:3000,
@@ -135,8 +135,8 @@
 				})
 			},
 			alert(){
-				this.$byte.nowTime().then((nowTime)=>{
-					this.$byte.layer('alert',{
+				this.$geek.nowTime().then((nowTime)=>{
+					this.$geek.layer('alert',{
 						title:'提示',
 						content:`你在北京时间 ${nowTime.format} 打开了一个提示框`,
 					})
@@ -144,7 +144,7 @@
 			},
 			confirm(){
 				let that = this;
-				this.$byte.layer('confirm',{
+				this.$geek.layer('confirm',{
 					title:'信息',
 					content:()=>{
 						return h('div',[
@@ -160,14 +160,14 @@
 					callback(index,evt,btn){
 						console.log(index,evt,btn)
 						let message=[`保持好奇之心，提升改变之力`,`码农也是搬砖的`,`沉默是金`]
-						that.$byte.layer('msg',message[index])
+						that.$geek.layer('msg',message[index])
 					}
 				})
 			},
 			prompt(){
 				let that = this;
 				let value = this.promptInputValue;
-				this.$byte.layer('prompt',{
+				this.$geek.layer('prompt',{
 					title:'请输入',
 					btn:['写完了','不写了'],
 					value:value,
@@ -177,13 +177,13 @@
 					},
 					callback(value,index,evt,btn){
 						let message=[`你输入的内容是：${value || '啥也没写'}`,`你没写下任何内容`]
-						that.$byte.layer('msg',message[index])
+						that.$geek.layer('msg',message[index])
 						console.log(value,index,evt,btn)
 					}
 				})
 			},
 			render(){
-				this.$byte.layer('render',{
+				this.$geek.layer('render',{
 					title:'信息',
 					btn:['确认','取消'],
 					render(h){

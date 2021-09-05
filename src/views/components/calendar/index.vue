@@ -17,19 +17,19 @@
 			<Col :span="12">
 				<Panel :header='false'>
 					<div style="width: 100%;height: 480px;">
-						<Calendar :disabled="disabled" @dayClick='dayClick' @event="event" :extra="extra">
+						<Calendar :disabled="disabled" @dayClick='dayClick' :extra="extra">
 							<template v-slot:event="{day}">
-								<CalendarEvent type="primary" v-if="day.isToday">今天</CalendarEvent>
-								<CalendarEvent v-if="day.day==1">默认</CalendarEvent>
-								<CalendarEvent type="primary" v-if="day.day==2">主要{{day.date}}</CalendarEvent>
-								<CalendarEvent type="success" v-if="day.day==3">成功</CalendarEvent>
-								<CalendarEvent type="error" v-if="day.day==4">错误</CalendarEvent>
-								<CalendarEvent type="warning" v-if="day.day==5">警告</CalendarEvent>
-								<CalendarEvent type="info" v-if="day.day==6">信息</CalendarEvent>
-								<CalendarEvent bgColor="#FF0000" color="white" v-if="day.day==7">自定义</CalendarEvent>
-								<CalendarEvent v-if="day.day==8">
+								<CalendarEvent type="primary" v-if="day.isToday" @click="event(day,{type:'primary',text:'今天'})">今天</CalendarEvent>
+								<CalendarEvent v-if="day.day==1" @click="event(day,{type:'default',text:'默认'})">默认</CalendarEvent>
+								<CalendarEvent type="primary" v-if="day.day==2" @click="event(day,{type:'primary',text:'主要'})">主要</CalendarEvent>
+								<CalendarEvent type="success" v-if="day.day==3" @click="event(day,{type:'success',text:'成功'})">成功</CalendarEvent>
+								<CalendarEvent type="error" v-if="day.day==4" @click="event(day,{type:'error',text:'错误'})">错误</CalendarEvent>
+								<CalendarEvent type="warning" v-if="day.day==5" @click="event(day,{type:'warning',text:'警告'})">警告</CalendarEvent>
+								<CalendarEvent type="info" v-if="day.day==6" @click="event(day,{type:'info',text:'信息'})">信息</CalendarEvent>
+								<CalendarEvent bgColor="#FF0000" color="white" v-if="day.day==7" @click="event(day,{type:'primary',text:'自定义'})">自定义</CalendarEvent>
+								<CalendarEvent v-if="day.day==8" @click="event(day,{type:'primary',text:'自定义带徽标'})">
 									<Badge :offset="false" status="success"></Badge>
-									<span style="margin-left: 4px;">自定义带徽标自定义带徽标</span>
+									<span style="margin-left: 4px;">自定义带徽标</span>
 								</CalendarEvent>
 							</template>
 						</Calendar>
@@ -48,10 +48,17 @@
 				<Blockquote title="CalendarEvent props"></Blockquote>
 				<table-props :data="table.props.calendarEvent" :select='false' :example="false"></table-props>
 			</Col>
-			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
 				<Blockquote title="Calendar slot"></Blockquote>
 				<table-slot :data="table.slot.data"></table-slot>
+			</Col>
+			<Col :span="24">
+				<Blockquote title="Calendar event"></Blockquote>
+				<table-event :data="table.event.data"></table-event>
+			</Col>
+			<Col :span="24">
+				<Blockquote title="CalendarEvent event"></Blockquote>
+				<table-event :data="table.event.event"></table-event>
 			</Col>
 		</Row>
 	</div>
@@ -136,17 +143,17 @@
 					  }
 					&lt;/script&gt;`,
 				code2:`<template>
-					  <Calendar :disabled="disabled" :extra="extra" @dayClick="dayClick" @event="event">
+					  <Calendar :disabled="disabled" :extra="extra" @dayClick="dayClick">
 					    <template v-slot:event="{day}">
-					      <CalendarEvent type="primary" v-if="day.isToday">今天</CalendarEvent>
-					      <CalendarEvent v-if="day.day==1">默认</CalendarEvent>
-					      <CalendarEvent type="primary" v-if="day.day==2">主要{{day.date}}</CalendarEvent>
-					      <CalendarEvent type="success" v-if="day.day==3">成功</CalendarEvent>
-					      <CalendarEvent type="error" v-if="day.day==4">错误</CalendarEvent>
-					      <CalendarEvent type="warning" v-if="day.day==5">警告</CalendarEvent>
-					      <CalendarEvent type="info" v-if="day.day==6">信息</CalendarEvent>
-					      <CalendarEvent bgColor="#FF0000" color="white" v-if="day.day==7">自定义</CalendarEvent>
-					      <CalendarEvent v-if="day.day==8">
+					      <CalendarEvent type="primary" v-if="day.isToday" @click="event">今天</CalendarEvent>
+					      <CalendarEvent v-if="day.day==1" @click="event">默认</CalendarEvent>
+					      <CalendarEvent type="primary" v-if="day.day==2" @click="event">主要{{day.date}}</CalendarEvent>
+					      <CalendarEvent type="success" v-if="day.day==3" @click="event">成功</CalendarEvent>
+					      <CalendarEvent type="error" v-if="day.day==4" @click="event">错误</CalendarEvent>
+					      <CalendarEvent type="warning" v-if="day.day==5" @click="event">警告</CalendarEvent>
+					      <CalendarEvent type="info" v-if="day.day==6" @click="event">信息</CalendarEvent>
+					      <CalendarEvent bgColor="#FF0000" color="white" v-if="day.day==7" @click="event">自定义</CalendarEvent>
+					      <CalendarEvent v-if="day.day==8" @click="event">
 					        <Badge :offset="false" status="success"></Badge>
 					        <span style="margin-left: 4px;">自定义带徽标自定义带徽标</span>
 					      </CalendarEvent>
@@ -186,7 +193,7 @@
 						calendar:[
 							{params:'disabled',version:'0.0.1',desc:'禁用的日期',type:'<code>Array</code> | <code>Function</code>',required:'否'},
 							{params:'extra',version:'0.0.1',desc:'额外的字符，表示节日或信息有用',type:'<code>String</code>',required:'否'},
-							{params:'events',version:'0.0.1',desc:'日期事件',type:'<code>Array</code> | <code>Function</code>',required:'否'},
+							{params:'events',version:'0.0.1',desc:'日期事件，列表渲染，可用插槽代替',type:'<code>Array</code> | <code>Function</code>',required:'否'},
 						],
 						calendarEvent:[
 							{params:'color',version:'0.0.1',desc:'事件组件文字颜色色',type:'<code>String</code>',required:'否'},
@@ -197,6 +204,15 @@
 					slot:{
 						data:[
 							{title:'event',desc:'自定义日期事件，见上方示例'},
+						]
+					},
+					event:{
+						data:[
+							{name:'@dayClick',desc:'点击日历日期时触发',return:'<code>日期</code>'},
+							{name:'@event',desc:'点击日历日期事件时触发，列表渲染时有效',return:'<code>事件</code>'}
+						],
+						event:[
+							{name:'@event',desc:'点击日历日期事件时触发，插槽渲染时有效',return:'<code>事件</code>'}
 						]
 					}
 				}

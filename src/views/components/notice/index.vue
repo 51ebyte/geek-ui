@@ -87,11 +87,11 @@
 			<Col :span="24">
 				<Blockquote title="Notice API"></Blockquote>
 				<Panel title='通过直接调用以下方法来使用组件'>
-					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Notice.open(config&lt;Object&gt;)</code></p>
-					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Notice.info(config&lt;Object&gt;)</code></p>
-					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Notice.success(config&lt;Object&gt;)</code></p>
-					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Notice.error(config&lt;Object&gt;)</code></p>
-					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$byte.$Notice.warning(config&lt;Object&gt;)</code></p>
+					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Notice.open(config&lt;Object&gt;)</code></p>
+					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Notice.info(config&lt;Object&gt;)</code></p>
+					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Notice.success(config&lt;Object&gt;)</code></p>
+					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Notice.error(config&lt;Object&gt;)</code></p>
+					<p><Badge :offset='false'></Badge>&nbsp;&nbsp;<code>this.$geek.$Notice.warning(config&lt;Object&gt;)</code></p>
 				</Panel>
 				<p style="margin: 20px 0;">以上方法隐式的创建及维护 Vue 组件。参数 config 可以是字符串或对象，当为字符串时，直接显示内容，当为对象时，具体说明如下：</p>
 				<Table :cols="[
@@ -113,7 +113,7 @@
 </template>
 
 <script>
-	import {Notice} from '../../../ebyte'
+	import {Notice} from '../../../geek-ui'
 	export default{
 		layout:'develop',
 		data() {
@@ -126,7 +126,7 @@
 					  export default{
 					    methods:{
 					      open(){
-					        this.$byte.$Message.open({
+					        this.$geek.$Message.open({
 					          title:'这是通知标题',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
@@ -144,25 +144,25 @@
 					  export default{
 					    methods:{
 					      info(){
-					        this.$byte.$Message.info({
+					        this.$geek.$Message.info({
 					          title:'这是通知标题',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
 					      },
 					      success(){
-					        this.$byte.$Message.success({
+					        this.$geek.$Message.success({
 					          title:'这是通知标题',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
 					      },
 					      error(){
-					        this.$byte.$Message.error({
+					        this.$geek.$Message.error({
 					          title:'这是通知标题',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
 					      },
 					      warning(){
-					        this.$byte.$Message.warning({
+					        this.$geek.$Message.warning({
 					          title:'这是通知标题',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
@@ -180,28 +180,28 @@
 					  export default{
 					    methods:{
 					      info(){
-					        this.$byte.$Message.info({
+					        this.$geek.$Message.info({
 					          title:'这是通知标题',
 					          placement:'topLeft',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
 					      },
 					      success(){
-					        this.$byte.$Message.success({
+					        this.$geek.$Message.success({
 					          title:'这是通知标题',
 					          placement:'topLeft',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
 					      },
 					      error(){
-					        this.$byte.$Message.error({
+					        this.$geek.$Message.error({
 					          title:'这是通知标题',
 					          placement:'topLeft',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
 					        })
 					      },
 					      warning(){
-					        this.$byte.$Message.warning({
+					        this.$geek.$Message.warning({
 					          title:'这是通知标题',
 					          placement:'topLeft',
 					          desc:'这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容，这是通知内容'
@@ -220,7 +220,7 @@
 					  export default{
 					    methods:{
 					      info(){
-					        this.$byte.$Message.info({
+					        this.$geek.$Message.info({
 					          duration:0,
 					          title:'这是通知标题',
 					          placement:'topLeft',
@@ -228,7 +228,7 @@
 					        })
 					      },
 					      success(){
-					        this.$byte.$Message.success({
+					        this.$geek.$Message.success({
 					          duration:0,
 					          title:'这是通知标题',
 					          placement:'topLeft',
@@ -236,7 +236,7 @@
 					        })
 					      },
 					      error(){
-					        this.$byte.$Message.error({
+					        this.$geek.$Message.error({
 					          duration:10000,
 					          title:'这是通知标题',
 					          placement:'topLeft',
@@ -244,7 +244,7 @@
 					        })
 					      },
 					      warning(){
-					        this.$byte.$Message.warning({
+					        this.$geek.$Message.warning({
 					          duration:8000,
 					          title:'这是通知标题',
 					          placement:'topLeft',

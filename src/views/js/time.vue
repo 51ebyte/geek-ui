@@ -91,8 +91,8 @@
 					  dynamic:true,
 					  format:'yyyy-mm-dd hh:MM:ss'
 					}"></div>`,
-				nowTimeJs:`this.$byte.nowTime((dynamic,timer)=>{})
-					this.$byte.nowTime('yyyy-mm-dd hh:MM:ss',(dynamic,timer)=>{
+				nowTimeJs:`this.$geek.nowTime((dynamic,timer)=>{})
+					this.$geek.nowTime('yyyy-mm-dd hh:MM:ss',(dynamic,timer)=>{
 					  this.timer = timer;
 					  console.log(dynamic)
 					}).then((res)=>{
@@ -109,7 +109,7 @@
 					<div v-timeFormat="1630158804"></div>`,
 				timeFormatJs:`let timestamp = 1630158804;
 					let format = 'yyyy-mm-dd hh:MM:ss';
-					this.$byte.timeFormat(timestamp,format).then((res)=>{
+					this.$geek.timeFormat(timestamp,format).then((res)=>{
 					  console.log(res)
 					})`,
 				timeFromCom:`<TimeFrom v-model="timestamp"></TimeFrom>
@@ -121,19 +121,19 @@
 					<div v-timeFrom="1630158804"></div>`,
 				timeFromJs:`let timestamp = 1630158804;
 					let format = 'yyyy-mm-dd hh:MM:ss';
-					this.$byte.timeFrom(timestamp,format).then((res)=>{
+					this.$geek.timeFrom(timestamp,format).then((res)=>{
 					  console.log(res)
 					})`,
 			}
 		},
 		mounted() {
-			// this.$byte.timeFrom(1630158804,'yyyy-mm-dd hh:MM:ss').then((res)=>{
+			// this.$geek.timeFrom(1630158804,'yyyy-mm-dd hh:MM:ss').then((res)=>{
 			// 	console.log(res)
 			// })
-			// this.$byte.timeFormat(1630158804,'yyyy-mm-dd hh:MM:ss').then((res)=>{
+			// this.$geek.timeFormat(1630158804,'yyyy-mm-dd hh:MM:ss').then((res)=>{
 			// 	console.log(res)
 			// })
-			this.$byte.nowTime('yyyy-mm-dd hh:MM:ss',(dynamic,timer)=>{
+			this.$geek.nowTime('yyyy-mm-dd hh:MM:ss',(dynamic,timer)=>{
 				this.timer = timer;
 				console.log(dynamic)
 			}).then((res)=>{

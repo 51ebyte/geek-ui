@@ -1,0 +1,230 @@
+.e-popover {
+	display: inline-block;
+	position: relative;
+	min-width: 150px;
+}
+
+.e-popover-poper {
+	position: absolute;
+	visibility: visible;
+	font-size: 14px;
+	line-height: 1.5;
+	z-index: 1060;
+	width: 100%;
+}
+
+.e-popover-arrow {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	--arrow-background: hsla(0, 0%, 85%, .5);
+}
+
+.e-popover-arrow:after {
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 7px;
+}
+
+.e-popover-body {
+	width: 100%;
+	background-color: #fff;
+	background-clip: padding-box;
+	border-radius: 4px;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+	white-space: nowrap;
+}
+
+
+.e-popover-title {
+	margin: 0;
+	padding: 8px 16px;
+	position: relative;
+	color: #17233d;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.e-popover-title:after {
+	content: "";
+	display: block;
+	height: 1px;
+	position: absolute;
+	left: 8px;
+	right: 8px;
+	bottom: 0;
+	background-color: #e8eaec;
+}
+
+.e-popover-content {
+	padding: 8px 12px;
+	color: var(--color-black);
+	text-align: left;
+	text-decoration: none;
+	border-radius: 4px;
+	white-space: nowrap;
+}
+
+.e-popover-left .e-popover-poper {
+	padding: 0 8px 0 5px;
+}
+
+.e-popover-left .e-popover-arrow {
+	right: 3px;
+	border-width: 5px 0 5px 5px;
+	border-left-color: var(--arrow-background);
+	top: 50%;
+	margin-top: -5px;
+}
+
+.e-popover-left-top .e-popover-poper {
+	padding: 0 8px 0 5px;
+}
+
+.e-popover-left-top .e-popover-arrow {
+	top: 8px;
+	right: 3px;
+	border-width: 5px 0 5px 5px;
+	border-left-color: var(--arrow-background);
+}
+
+.e-popover-left-bottom .e-popover-poper {
+	padding: 0 8px 0 5px;
+}
+
+.e-popover-left-bottom .e-popover-arrow {
+	bottom: 8px;
+	right: 3px;
+	border-width: 5px 0 5px 5px;
+	border-left-color: var(--arrow-background);
+}
+
+.e-popover-right .e-popover-poper {
+	padding: 0 5px 0 8px;
+}
+
+.e-popover-right .e-popover-arrow {
+	left: 3px;
+	border-width: 5px 5px 5px 0;
+	border-right-color: var(--arrow-background);
+	top: 50%;
+	margin-top: -5px;
+}
+
+
+.e-popover-bottom .e-popover-poper {
+	padding: 8px 0px 5px;
+}
+
+.e-popover-bottom .e-popover-arrow {
+	top: 3px;
+	border-width: 0 7px 7px;
+	border-bottom-color: var(--arrow-background);
+	left: 50%;
+	margin-left: -7px;
+}
+
+.e-popover-bottom .e-popover-arrow::after {
+	content: " ";
+	top: 1px;
+	margin-left: -7px;
+	border-top-width: 0;
+	border-bottom-width: 7px;
+	border-bottom-color: #fff;
+}
+
+
+.e-popover-top .e-popover-poper {
+	padding: 7px 0px 10px;
+}
+
+.e-popover-top .e-popover-arrow {
+	bottom: 3px;
+	border-width: 7px 7px 0;
+	border-top-color: var(--arrow-background);
+	left: 50%;
+	margin-left: -7px;
+}
+
+.e-popover-top .e-popover-arrow::after {
+	content: " ";
+	bottom: 1px;
+	margin-left: -7px;
+	border-bottom-width: 0;
+	border-top-width: 7px;
+	border-top-color: #fff;
+}
+
+.e-popover-top-left .e-popover-poper {
+	padding: 5px 0px 8px;
+}
+
+.e-popover-top-left .e-popover-arrow {
+	bottom: 3px;
+	border-width: 5px 5px 0;
+	border-top-color: var(--arrow-background);
+	left: 16px;
+}
+
+.e-popover-top-right .e-popover-poper {
+	padding: 5px 0px 8px;
+}
+
+.e-popover-top-right .e-popover-arrow {
+	bottom: 3px;
+	border-width: 5px 5px 0;
+	border-top-color: var(--arrow-background);
+	right: 16px;
+}
+
+.e-popover-right-top .e-popover-poper {
+	padding: 0px 5px 0px 8px;
+}
+
+.e-popover-right-top .e-popover-arrow {
+	left: 3px;
+	border-width: 5px 5px 5px 0;
+	border-right-color: var(--arrow-background);
+	top: 8px;
+}
+
+.e-popover-right-bottom .e-popover-poper {
+	padding: 0px 5px 0px 8px;
+}
+
+.e-popover-right-bottom .e-popover-arrow {
+	left: 3px;
+	border-width: 5px 5px 5px 0;
+	border-right-color: var(--arrow-background);
+	bottom: 8px;
+}
+
+
+.e-popover-bottom-left .e-popover-poper {
+	padding: 8px 0px 5px;
+}
+
+.e-popover-bottom-left .e-popover-arrow {
+	left: 16px;
+	top: 3px;
+	border-width: 0 5px 5px;
+	border-bottom-color: var(--arrow-background);
+}
+
+
+.e-popover-bottom-right .e-popover-poper {
+	padding: 8px 0px 5px;
+}
+
+.e-popover-bottom-right .e-popover-arrow {
+	right: 16px;
+	top: 3px;
+	border-width: 0 5px 5px;
+	border-bottom-color: var(--arrow-background);
+}

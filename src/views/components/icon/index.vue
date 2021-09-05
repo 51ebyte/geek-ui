@@ -1,6 +1,6 @@
 <template>
 	<div class="example">
-		<Blockquote title="Icon 图标">
+		<Blockquote title="IconFont / IconPark 图标">
 			你是最可爱的人吗？😯
 		</Blockquote>
 		<Row :gutter="20">
@@ -19,18 +19,32 @@
 				<Code skin="dark" copy :code='code1'></Code>
 			</Col>
 			<Col :span="12">
-				<Panel type='code' title="矢量图标">
+				<Panel type='code' title="IconPark">
 					<Blockquote>
-						矢量图标使用字节跳动开源项目 <a href="https://github.com/bytedance/iconpark" target="_blank"><code>IconPark</code></a> 版本
+						使用字节跳动开源项目 <a href="https://github.com/bytedance/iconpark" target="_blank"><code>IconPark</code></a>
 					</Blockquote>
 					<Divider text="用法说明" left margin="28px 0 0">
-						使用<code>&lt;Icon /&gt;</code>组件，指定图标对应的<code>name</code>属性
-						<p>通过<code>title</code>属性设置图标名称，通过<code>size</code>属性设置图标大小</p>
+						<p>使用<code>&lt;IconPark /&gt;</code>组件，指定图标对应的<code>name</code>属性</p>
+						<p>更多属性请查看官方 <a href="https://bytedance.feishu.cn/docs/doccnfQ9MVhtfye33SymobB5usb#bIprMt"><code>使用指南</code></a> </p>
 					</Divider>
 				</Panel>
 			</Col>
 			<Col :span="12">
 				<Code skin="dark" copy :code='code2'></Code>
+			</Col>
+			<Col :span="12">
+				<Panel type='code' title="IconFont">
+					<Blockquote>
+						使用阿里巴巴矢量图标库 <a href="https://www.iconfont.cn/" target="_blank"><code>IconFont</code></a> 
+					</Blockquote>
+					<Divider text="用法说明" left margin="28px 0 0">
+						使用<code>&lt;IconFont /&gt;</code>组件，指定图标对应的<code>name</code>属性
+						<p>通过<code>color</code>属性设置图标颜色，通过<code>size</code>属性设置图标大小</p>
+					</Divider>
+				</Panel>
+			</Col>
+			<Col :span="12">
+				<Code skin="dark" copy :code='code3'></Code>
 			</Col>
 			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
@@ -66,6 +80,9 @@
 				<Icon svg name="check-out" title="选择" size="16"></Icon>
 				<Icon svg name="check-out" title="选择" fill="#17bd08"></Icon>
 				`,
+				code3:`<IconFont name="icon-loading"></IconFont>
+					<IconFont name="icon-loading" color="#ff0000"></IconFont>
+					<IconFont name="icon-loading" color="#ff0000" :size="24"></IconFont>`,
 				table:{
 					props:{
 						data:[

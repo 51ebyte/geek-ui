@@ -92,7 +92,6 @@
 				<Blockquote title="Modal props"></Blockquote>
 				<table-props :data="table.props.data" :example="false"></table-props>
 			</Col>
-			<Divider margin="20px 0"></Divider>
 			<Col :span="24">
 				<Blockquote title="Modal slot"></Blockquote>
 				<table-slot :data="table.slot.data"></table-slot>

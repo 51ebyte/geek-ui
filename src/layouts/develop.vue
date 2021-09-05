@@ -119,7 +119,7 @@
 								{name:'页面提示 Prompt',keys:'components_prompt',to:'components_prompt'},
 								{name:'全局提示 Message',keys:'components_message',to:'components_message'},
 								{name:'通知提醒 Notice',keys:'components_notice',to:'components_notice'},
-								{name:'〓文字提示 Tooltip',keys:'components_tooltip',to:'components_tooltip'},
+								{name:'文字提示 Tooltip',keys:'components_tooltip',to:'components_tooltip'},
 								{name:'〓气泡提示 Popover',keys:'components_popover',to:'components_popover'},
 								{name:'〓气泡确认 Popconfirm',keys:'components_popconfirm',to:'components_popconfirm'},
 								{name:'〓加载提示 Spin',keys:'components_spin',to:'components_spin'},
@@ -135,6 +135,7 @@
 						{name:'指令',keys:'directive',children:[
 								{name:'拖动元素',keys:'directive_darg',to:'directive_darg'},
 								{name:'时间处理',keys:'directive_time',to:'directive_time'},
+								{name:'回到顶部',keys:'directive_back-top',to:'directive_back-top'},
 							],
 						},
 						{name:'JS',keys:'js',children:[

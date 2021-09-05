@@ -78,7 +78,7 @@
 					    mounted(){
 					      let that = this;
 					      setInterval(()=>{
-					        that.$byte.nowTime('hh:MM:ss').then(nextTime=>{
+					        that.$geek.nowTime('hh:MM:ss').then(nextTime=>{
 					          that.time = nextTime.format
 					        })
 					      },1000)
@@ -99,7 +99,7 @@
 					    mounted(){
 					      let that = this;
 					      setInterval(()=>{
-					        that.$byte.nowTime('hh:MM:ss').then(nextTime=>{
+					        that.$geek.nowTime('hh:MM:ss').then(nextTime=>{
 					          that.step = nextTime.format
 					        })
 					      },3000)
@@ -123,12 +123,12 @@
 		mounted() {
 			let that = this;
 			setInterval(()=>{
-				that.$byte.nowTime('hh:MM:ss').then(nextTime=>{
+				that.$geek.nowTime('hh:MM:ss').then(nextTime=>{
 					that.time = nextTime.format
 				})
 			},1000)
 			setInterval(()=>{
-				that.$byte.nowTime('hh:MM:ss').then(nextTime=>{
+				that.$geek.nowTime('hh:MM:ss').then(nextTime=>{
 					that.step = nextTime.format
 				})
 			},3000)

@@ -20,7 +20,8 @@ const routes = Object.keys(context).map(key => {
 		component: context[key],
 		redirect:'',
 		meta: {
-			layout: views[key].default.layout || ''
+			layout: views[key].default.layout || '',
+			backTop: views[key].default.backTop || false
 		}
 	};
 });
